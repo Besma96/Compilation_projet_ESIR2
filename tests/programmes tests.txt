@@ -1,0 +1,59 @@
+//PROGRAMME 1
+function f:
+ 	read R, S
+ 	%
+ 	if R ?= S then nop fi
+ 	%
+ 	write A,M
+
+//PROGRAMME 2
+	read x
+	%
+	y:=nil
+	while x do 
+		y:=(con(hd x)y)
+	od
+	% 
+	write x,y
+
+	
+ //PROGRAMME 3
+	function sum:
+		read A, B
+		%
+ 		C := nil
+ 		if A<B then C := (- A b)
+ 		else C:= (+ A B) fi
+ 		%
+ 		write C
+
+//PROGRAMME 4
+	function g:
+ 		read a, b, c
+  		%
+  		foreach x in a
+  		do x := (cons (hd b) (hd c))
+  		%
+  		write a
+ 
+  
+//PROGRAMME 5
+	read X
+	%
+	while X do 
+		X, Y := (tl X),(cons (hd X)Y)
+	od
+	%
+	write X,Y
+ 
+ 
+//PROGRAMME 6
+	read X
+	%
+	res:=nil
+	foreach X in L do
+		res:=(add X res)
+	od
+	%
+	write res 
+  
