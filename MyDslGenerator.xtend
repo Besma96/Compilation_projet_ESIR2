@@ -11,6 +11,12 @@ import org.xtext.example.mydsl.myDsl.Function
 import org.xtext.example.mydsl.myDsl.Program
 import org.xtext.example.mydsl.myDsl.Commands
 import org.xtext.example.mydsl.myDsl.Command
+import org.xtext.example.mydsl.myDsl.If
+import org.xtext.example.mydsl.myDsl.For
+import org.xtext.example.mydsl.myDsl.While
+import org.xtext.example.mydsl.myDsl.Nop
+import org.xtext.example.mydsl.myDsl.Affect
+import org.xtext.example.mydsl.myDsl.Expr
 
 /**
  * Generates code from your model files on save.
@@ -60,8 +66,7 @@ class MyDslGenerator extends AbstractGenerator {
 		
 
 	}
-	def compile(Commands cs,int global_indent,int if_indent,int for_indent,int while_indent,
-				int for_each_indent,int aff_indent
+	def compile(Commands cs,int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
 	)
 	{
 		var size=cs.commands.size;
@@ -70,21 +75,82 @@ class MyDslGenerator extends AbstractGenerator {
 		{
 			if(size==1)
 			{
-				res+=c.compile(global_indent,if_indent,for_indent,while_indent,for_each_indent,aff_indent)+"";	
+				res+=c.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)+"";	
 			}
 			else
 			{
-				res+=c.compile(global_indent,if_indent,for_indent,while_indent,for_each_indent,aff_indent)+"\n";
+				res+=c.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)+"\n";
 				size--;
 			}
 		}
 	return res; 
 	}
-	def compile(Command c,int global_indent,int if_indent,int for_indent,int while_indent,
+	def compile(Command c,int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
+	)
+	{
+		if(c.cmd instanceof If){
+			
+			var indentation="";
+			for(var i=0;i<(2+if_indent);i++){
+				indentation+="\t";
+			}
+			
+		if((c.cmd as If).commands2 !== null){
+			return indentation+"if"+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+				aff_indent
+			)+"then\n"+(c.cmd as If).commands1.compile(global_indent,
+						if_indent,for_indent,while_indent,aff_indent)+"\n"+indentation
+						+"else\n"+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,
+							aff_indent)+"\n"+indentation+"fi";
+						}
+		else{
+			return indentation+"if"+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)+"then\n"+(c.cmd as If).commands1.compile(global_indent,
+						if_indent,for_indent,while_indent,aff_indent)+"\n"+indentation+"fi"
+		}
+			
+		}
+		if(c.cmd instanceof For){
+			var indentation="";
+			for(var i=0;i<(2+for_indent);i++){
+				indentation+="\t";
+			}
+		return indentation+"for"+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
+									aff_indent)+"do\n"+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent,while_indent										
+									)+"\n"+indentation+"od"
+		
+		}
+		if(c.cmd instanceof While){
+			var indentation="";
+			for(var i=0;i<(2+while_indent);i++){
+				indentation+="\t";
+			}
+		return indentation+"for"+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
+									aff_indent)+"do\n"+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,while_indent,
+										aff_indent)+"\n"+indentation+"od"
+			
+		}
+		if(c.cmd instanceof Nop){
+			return "nop"
+		}
+		/*if( c.cmd instanceof Affect){
+		var indentation="";
+			for(var i=0;i<(2+aff_indent);i++){
+				indentation+="\t";
+			}
+		return indentation+(c.cmd as Affect).compile
+		
+		}*/
+	}
+	
+	def compile(Expr e,int global_indent,int if_indent,int for_indent,int while_indent,
+				int for_each_indent,int aff_indent
+	){
+		
+	}
+	def compile(Affect v,int global_indent,int if_indent,int for_indent,int while_indent,
 				int for_each_indent,int aff_indent
 	)
 	{
 		
 	}
-	
 }
