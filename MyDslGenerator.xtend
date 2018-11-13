@@ -9,6 +9,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import org.xtext.example.mydsl.myDsl.Function
 import org.xtext.example.mydsl.myDsl.Program
+import org.xtext.example.mydsl.myDsl.Commands
+import org.xtext.example.mydsl.myDsl.Command
 
 /**
  * Generates code from your model files on save.
@@ -45,13 +47,44 @@ class MyDslGenerator extends AbstractGenerator {
 	def compile(Function f,int global_indent,int if_indent,int for_indent,int while_indent,
 				int for_each_indent,int aff_indent
 	){
-		if(nbfunctions==0){
+		
 		'''
-		function «f.name»:
-		read «FOR e: f.definition.input.vars»
-		'''			
+			function«f.name»:
+			read «FOR e: f.definition.input.vars SEPARATOR ','»«e»«ENDFOR»
+			%
+			«f.definition.commands.compile(global_indent,if_indent,for_indent,while_indent,for_each_indent,aff_indent)»
+			%
+			write«FOR e: f.definition.output.vars SEPARATOR ','»«e»«ENDFOR»
+			
+		'''
+		
 
+	}
+	def compile(Commands cs,int global_indent,int if_indent,int for_indent,int while_indent,
+				int for_each_indent,int aff_indent
+	)
+	{
+		var size=cs.commands.size;
+		var res="";
+		for(Command c :cs.commands)
+		{
+			if(size==1)
+			{
+				res+=c.compile(global_indent,if_indent,for_indent,while_indent,for_each_indent,aff_indent)+"";	
+			}
+			else
+			{
+				res+=c.compile(global_indent,if_indent,for_indent,while_indent,for_each_indent,aff_indent)+"\n";
+				size--;
+			}
 		}
-
-	} 
+	return res; 
+	}
+	def compile(Command c,int global_indent,int if_indent,int for_indent,int while_indent,
+				int for_each_indent,int aff_indent
+	)
+	{
+		
+	}
+	
 }
