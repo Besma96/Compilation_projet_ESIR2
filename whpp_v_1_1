@@ -1,0 +1,9 @@
+ #!/bin/bash
+
+ if [ $# -ne 2 ]
+ then echo "vous devez donner 2 arguments correspondant au respectivement au nom des fichiers entrée et sortie"
+ echo $1 
+ echo " "
+ echo $2
+ else java -jar /home/barry/projetWHpp/Compilation_projet_ESIR2/while_v_1_1.jar $1 $2
+ fi

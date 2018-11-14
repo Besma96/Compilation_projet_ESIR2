@@ -23,9 +23,9 @@ import com.google.inject.Provider;
 
 public class Main {
 	
-	private static final int DEFAULT_INDENT = 2;
+	private static final int DEFAULT_INDENT = 0;
 //	private static final int DEFAULT_COMMAND_INDENT = 2;
-//	private static final int DEFAULT_WHILE_INDENT = 2;
+//	private static final int DEFAULT_WHILE_INDEmain.NT = 2;
 //	private static final int DEFAULT_FOR_INDENT = 2;
 	
 //	private static int IF_INDENT = DEFAULT_IF_INDENT;
@@ -37,14 +37,16 @@ public class Main {
 	private static String inputFileName = "test.wh";
 private static String outputFileName = DEFAULT_NAME;
 
-	public static void main(String[] args) {
-//		if (args.length == 0) {
-//			System.err.println("Aborting: no path to EMF resource provided!");
-//			return;
-//		}
+	public static void main(String[] args) throws Exception  {
+		if (args.length == 0) {
+			System.err.println("Aborting: no path to EMF resource provided!");
+			return;
+		}
 		Injector injector = new While_lStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
-		main.runGenerator(inputFileName, outputFileName);
+//		main.runGenerator(inputFileName, outputFileName);
+		System.out.println("arg 1 "+args[0]+" arg2 "+ args[1]);
+		main.runGenerator(args[0], args[1]);
 	}
 
 	@Inject
@@ -59,7 +61,7 @@ private static String outputFileName = DEFAULT_NAME;
 	@Inject 
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String inputfile, String outputfile) {
+	protected void runGenerator(String inputfile, String outputfile) throws Exception {
 		// Load the resource
 		ResourceSet set = resourceSetProvider.get();
 		Resource resource = set.getResource(URI.createFileURI(inputfile), true);
@@ -74,7 +76,7 @@ private static String outputFileName = DEFAULT_NAME;
 		}
 
 		// Configure and start the generator
-		fileAccess.setOutputPath("src-gen/");
+		fileAccess.setOutputPath("./");
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		
@@ -82,6 +84,12 @@ private static String outputFileName = DEFAULT_NAME;
 		While_lGenerator while_l = new While_lGenerator();
 		while_l.doGenerate(resource, fileAccess, context, outputfile, DEFAULT_INDENT, DEFAULT_INDENT, DEFAULT_INDENT, DEFAULT_INDENT, DEFAULT_INDENT );
 
+		/***************************  partie de la gestion du man *********************/
+								//TODO
+		
+		
+		
+		
 		System.out.println("Code generation finished.");
 	}
 }
