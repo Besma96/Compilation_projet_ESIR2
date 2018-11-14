@@ -20,6 +20,13 @@ import org.xtext.example.mydsl.myDsl.Expr
 import org.xtext.example.mydsl.myDsl.ExprSimple
 import org.xtext.example.mydsl.myDsl.ExprAnd
 import org.xtext.example.mydsl.myDsl.ExprOr
+import org.xtext.example.mydsl.myDsl.ExprCons
+import org.xtext.example.mydsl.myDsl.ExprList
+import org.xtext.example.mydsl.myDsl.ExprHd
+import org.xtext.example.mydsl.myDsl.ExprTl
+import org.xtext.example.mydsl.myDsl.ExprSym
+import org.xtext.example.mydsl.myDsl.ExprNot
+import org.xtext.example.mydsl.myDsl.ExprEq
 
 /**
  * Generates code from your model files on save.
@@ -131,7 +138,7 @@ class MyDslGenerator extends AbstractGenerator {
 			
 		}
 		if(c.cmd instanceof Nop){
-			return "nop"
+			return "nop";
 		}
 		if( c.cmd instanceof Affect){
 		var indentation="";
@@ -172,10 +179,61 @@ class MyDslGenerator extends AbstractGenerator {
 		if(e.expr instanceof ExprOr){
 		return (e.expr as ExprOr).arg1.compile+"or"+(e.expr as ExprOr).arg2.compile;
 		}
+		if(e.expr instanceof ExprSimple){
+			return (e.expr as ExprSimple).compile
+		}
+		if(e.expr instanceof ExprCons){
+			return "("+"cons"+(e.expr as ExprCons).arg1.compile+(e.expr as ExprCons).arg2.compile+")"
+		}
+		if(e.expr instanceof ExprList){
+			val size=(e.expr as ExprList).arg.size;
+			if(size==1){
+			return "("+"list"+(e.expr as ExprList).arg.get(0).compile+")";	
+			}
+			else
+			{
+			var res="("+"list";
+			for(var i=0;i<size-1;i++){
+				res+=(e.expr as ExprList).arg.get(i).compile+"; à completer"
+			}
+			res+=(e.expr as ExprList).arg.get(size-1).compile+")"
+			(e.expr as ExprList).arg.get(0).compile
+			}	
+		}
+		if(e.expr instanceof ExprHd){
+			"("+"hd"+(e.expr as ExprHd).arg.compile+")";
+		}
+		if(e.expr instanceof ExprTl){
+			"("+"Tl"+(e.expr as ExprTl).arg.compile+ ')';
+		}
+		if(e.expr instanceof ExprSym){
+			val size=(e.expr as ExprSym).arg2.size;
+			if(size==1){
+				return "("+(e.expr as ExprSym).arg1+(e.expr as ExprSym).arg2.get(0).compile+")";
+			}
+			else
+			{
+				var res="("+(e.expr as ExprSym).arg1;
+				for(var i=0;i<size-1;i++){
+					res+=(e.expr as ExprSym).arg2.get(i).compile+"à completé";
+				}
+				res+=(e.expr as ExprSym).arg2.get(size-1).compile+")";
+				return res;	
+			}
+			
+		}
+		if(e.expr instanceof ExprNot){
+			return "not"+(e.expr as ExprNot).arg1.compile;
+		}
 	}
 	def compile(ExprSimple e){
-	
+		if(e.nameFunction!==null){
+			return null
+		}
 	}
-	
+	def compile(ExprEq e){
+		return e.arg1.compile+"=?"+e.arg2.compile;
+	}
+
 		
 }
