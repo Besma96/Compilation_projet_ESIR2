@@ -101,7 +101,7 @@ class MyDslGenerator extends AbstractGenerator {
 		if(c.cmd instanceof If){
 			
 			var indentation="";
-			for(var i=0;i<(2+if_indent);i++){
+			for(var i=0;i<(global_indent+if_indent);i++){
 				indentation+="\t";
 			}
 			
@@ -120,7 +120,7 @@ class MyDslGenerator extends AbstractGenerator {
 		}
 		if(c.cmd instanceof For){
 			var indentation="";
-			for(var i=0;i<(2+for_indent);i++){
+			for(var i=0;i<(global_indent+for_indent);i++){
 				indentation+="\t";
 			}
 		return indentation+"for"+(c.cmd as For).expr.compile+"do\n"+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent,while_indent										
@@ -129,7 +129,7 @@ class MyDslGenerator extends AbstractGenerator {
 		}
 		if(c.cmd instanceof While){
 			var indentation="";
-			for(var i=0;i<(2+while_indent);i++){
+			for(var i=0;i<(global_indent+while_indent);i++){
 				indentation+="\t";
 			}
 		return indentation+"for"+(c.cmd as While).expr.compile
@@ -142,7 +142,7 @@ class MyDslGenerator extends AbstractGenerator {
 		}
 		if( c.cmd instanceof Affect){
 		var indentation="";
-			for(var i=0;i<(2+aff_indent);i++){
+			for(var i=0;i<(global_indent+aff_indent);i++){
 				indentation+="\t";
 			}
 		return indentation+(c.cmd as Affect).compile;
