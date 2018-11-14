@@ -5,5 +5,5 @@
  echo $1 
  echo " "
  echo $2
- else java -jar /home/barry/projetWHpp/Compilation_projet_ESIR2/while_v_1_1.jar $1 $2
+ else java -jar /home/barry/projetWHpp/Compilation_projet_ESIR2/while_l_vMan.jar $1 $2
  fi
