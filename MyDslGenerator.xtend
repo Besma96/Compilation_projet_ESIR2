@@ -27,6 +27,9 @@ import org.xtext.example.mydsl.myDsl.ExprTl
 import org.xtext.example.mydsl.myDsl.ExprSym
 import org.xtext.example.mydsl.myDsl.ExprNot
 import org.xtext.example.mydsl.myDsl.ExprEq
+import org.xtext.example.mydsl.myDsl.Definition
+import org.xtext.example.mydsl.myDsl.Input
+import org.xtext.example.mydsl.myDsl.Output
 
 /**
  * Generates code from your model files on save.
@@ -52,30 +55,72 @@ class MyDslGenerator extends AbstractGenerator {
 	
 	def compile(Program p,int global_indent,int if_indent,int for_indent,int while_indent,
 				int aff_indent
-	){
-		'''
+	){/* 		'''
 		«FOR f:p.functions»
 		«f.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)»	
 		«ENDFOR»
-		'''
-		
+		'''*/
+		for(f:p.functions){
+			return f.compile(global_indent,if_indent,for_indent,while_indent,aff_indent);
+		}
 	}
 	def compile(Function f,int global_indent,int if_indent,int for_indent,int while_indent,
 				int aff_indent
 	){
-		
+		/* 
 		'''
-			function«f.name»:
-			read «FOR e: f.definition.input.vars SEPARATOR ','»«e»«ENDFOR»
+			function «f.name»:
+			read  «FOR e: f.definition.input.vars SEPARATOR ','»«e»«ENDFOR»
 			%
 			«f.definition.commands.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)»
 			%
-			write«FOR e: f.definition.output.vars SEPARATOR ','»«e»«ENDFOR»
+			write «FOR e: f.definition.output.vars SEPARATOR ','»«e»«ENDFOR»
 			
-		'''
-		
+		'''*/
+		return "function "+f.name+":\n"+f.definition.compile(global_indent,if_indent,for_indent,while_indent,aff_indent);
 
 	}
+	
+	def compile(Definition d, int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
+	){
+		return "read "+d.input.compile( global_indent, if_indent, for_indent, while_indent, aff_indent
+	)+"%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,aff_indent)+"/n"
+	+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,aff_indent);
+	}
+	
+	def compile(Input i,int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
+	){
+		var inputs="";
+		val size=i.vars.size;
+		if(size==1){
+			inputs+=i.vars;
+		}
+		else{
+		for(var j=0;j<size-1;j++){
+			inputs+=i.vars.get(j)+",";
+		}	
+		inputs+=i.vars.get(size-1);
+		}
+		return inputs;
+	}
+	
+	def compile(Output o,int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
+	){
+		var outputs="";
+		val size=o.vars.size;
+		if(size==1){
+			outputs+=o.vars;
+		}
+		else{
+		for(var j=0;j<size-1;j++){
+			outputs+=o.vars.get(j)+",";
+		}	
+		outputs+=o.vars.get(size-1);
+		}
+		
+		return outputs;
+	}	
+	
 	def compile(Commands cs,int global_indent,int if_indent,int for_indent,int while_indent,int aff_indent
 	)
 	{
@@ -102,7 +147,7 @@ class MyDslGenerator extends AbstractGenerator {
 			
 			var indentation="";
 			for(var i=0;i<(global_indent+if_indent);i++){
-				indentation+="\t";
+				indentation+=" ";
 			}
 			
 		if((c.cmd as If).commands2 !== null){
@@ -121,7 +166,7 @@ class MyDslGenerator extends AbstractGenerator {
 		if(c.cmd instanceof For){
 			var indentation="";
 			for(var i=0;i<(global_indent+for_indent);i++){
-				indentation+="\t";
+				indentation+=" ";
 			}
 		return indentation+"for"+(c.cmd as For).expr.compile+"do\n"+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent,while_indent										
 									,aff_indent)+"\n"+indentation+"od";
@@ -130,9 +175,9 @@ class MyDslGenerator extends AbstractGenerator {
 		if(c.cmd instanceof While){
 			var indentation="";
 			for(var i=0;i<(global_indent+while_indent);i++){
-				indentation+="\t";
+				indentation+=" ";
 			}
-		return indentation+"for"+(c.cmd as While).expr.compile
+		return indentation+"while"+(c.cmd as While).expr.compile
 									+"do\n"+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,while_indent,
 										aff_indent)+"\n"+indentation+"od";
 			
@@ -143,7 +188,7 @@ class MyDslGenerator extends AbstractGenerator {
 		if( c.cmd instanceof Affect){
 		var indentation="";
 			for(var i=0;i<(global_indent+aff_indent);i++){
-				indentation+="\t";
+				indentation+=" ";
 			}
 		return indentation+(c.cmd as Affect).compile;
 		
@@ -194,7 +239,7 @@ class MyDslGenerator extends AbstractGenerator {
 			{
 			var res="("+"list";
 			for(var i=0;i<size-1;i++){
-				res+=(e.expr as ExprList).arg.get(i).compile+"; à completer"
+				res+=(e.expr as ExprList).arg.get(i).compile+""
 			}
 			res+=(e.expr as ExprList).arg.get(size-1).compile+")"
 			(e.expr as ExprList).arg.get(0).compile
@@ -215,7 +260,7 @@ class MyDslGenerator extends AbstractGenerator {
 			{
 				var res="("+(e.expr as ExprSym).arg1;
 				for(var i=0;i<size-1;i++){
-					res+=(e.expr as ExprSym).arg2.get(i).compile+"à completé";
+					res+=(e.expr as ExprSym).arg2.get(i).compile+"";
 				}
 				res+=(e.expr as ExprSym).arg2.get(size-1).compile+")";
 				return res;	
