@@ -1,0 +1,4 @@
+function test : read A
+% nop
+%
+write A
