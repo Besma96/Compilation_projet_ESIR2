@@ -1,0 +1,8 @@
+function test :
+read A, B
+%
+  if A?=B then
+    A:=B
+  fi
+%
+write A
