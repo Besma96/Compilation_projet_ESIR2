@@ -1,0 +1,91 @@
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y := null
+%
+write Z
+
+function p:
+read X
+%
+		Y ,D := null
+%
+write Z
+
+function p:
+read X,R
+%
+		Y := null
+%
+write Z,S
+

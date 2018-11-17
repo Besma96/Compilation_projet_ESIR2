@@ -1,0 +1,95 @@
+functionp:
+read X
+%
+Y := null;
+whilenulldo
+nop;
+nop
+od
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y := null
+%
+writeZ
+
+functionp:
+read X
+%
+Y ,D := null
+%
+writeZ
+
+functionp:
+read X,R
+%
+Y := null
+%
+writeZ,S
+
