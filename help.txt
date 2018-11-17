@@ -1,0 +1,70 @@
+Bienvenu sur l'aide du Pretty-Printer WHILE
+
+NAME
+        whpp - WHILE Pretty Printer
+
+SYNOPSIS
+        whpp [OPTIONS] InputFileName [OutputFileName]
+
+DESCRIPTION
+        whpp est un Pretty-Printer du language WHILE.
+        C'est-a-dire qu'il prend en entree un fichier WHILE, plus ou moins bien indente, et en ressort un fichier WHILE avec la mise en forme de l'agencement du programme WHILE.  
+        
+        Exemple :
+        ******************************************************************************
+        ******************************************************************************
+        *Fichier WHILE mal indente (Example.wh)                                      *
+        ******************************************************************************
+        *    function	p	:	read	X	%	Y		                             *
+        *                                :=	nil	;	                                 *
+        *            while	X	do	Y	            :=	(cons	                     *
+        *                                                           (hd	X            *	
+        *                        )Y)	;	X:=(tl		                             *
+        *                                            X)	od	%	write	Y            *
+        ******************************************************************************
+        Ligne de commande =>  whpp Example.wh
+
+        ******************************************************************************
+        ******************************************************************************
+        *Fichier WHILE en sortie du Pretty-Printer (sth.wh)                          *
+        ******************************************************************************
+        *function p:	                                                             *
+        *read X	                                                                     *
+        *%		                                                                     *
+		*   Y := nil ;	                                                             *
+		*   while X do	                                                             *
+		*		Y := (cons (hd X) Y);	                                             *
+		*		X := (tl X)	                                                         *           
+		*   od	                                                                     *                   
+        *%	                                                                         *       
+        *write Y                                                                     *   
+        ******************************************************************************
+       
+
+OPTIONS
+        -all X : 
+                Permet d'etablir une indention globale de X, par default X=2
+        -if X : 
+                Valeur specifique pour les blocs if, par default X = 2
+        -while X :
+                Valeur specifique pour les blocs while, par default X = 2
+        -for X : 
+                Valeur par default pour les blocs for, par default X = 2
+        -o : 
+                nom du fichier de sortie, par default : sth.whpp  
+
+
+BUGS
+        Nous n'avons pas identifie de Bugs lors de la creation du Pretty-Printer et lors de la phase de test. 
+        Cependant nous restons a l'ecoute de toutes remarques afin d'ameliorer le code et d'en faire beneficier les autres utilisateurs.
+
+VOIR AUSSI
+        Pour toute question concernant le code ou l'utilisation du Pretty-Printer WHILE, prenez contact avec M.BARRY a l'adresse mail suivante : daouda.barry@univ-rennes1.fr 
+
+AUTHEURS
+        Ecrit par Besma Kaouane 
+                  Daouda Barry
+                  Oumar Ballo
+                  Roland Kouassi
+                  Mohammed Hrouch
+                  Salome Jarnouen
