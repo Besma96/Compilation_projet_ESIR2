@@ -1,0 +1,9 @@
+function test:
+read X
+%
+			ifnullthen
+			A := null
+			fi
+%
+write Z
+

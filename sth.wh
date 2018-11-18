@@ -1,0 +1,8 @@
+function test:
+read [X]
+%
+    if     null then
+  A := null
+    fi
+%
+write [Z]
