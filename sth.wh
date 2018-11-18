@@ -1,8 +1,8 @@
 function test:
-read [X]
+read A,B
 %
-    if     null then
+    fornulldo
   A := null
-    fi
+    od
 %
-write [Z]
+write A,B

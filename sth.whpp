@@ -1,0 +1,8 @@
+function test:
+read A, B
+%
+      for A do
+         A := B
+      od
+%
+write A, B
