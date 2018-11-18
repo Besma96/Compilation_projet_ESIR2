@@ -151,16 +151,19 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+if_indent);i++){
 				indentation+=" ";
 			}
-			
+			var cmd_indent=indentation+" ";
 		if((c.cmd as If).commands2 !== null){
-			return indentation+"if"+(c.cmd as If).expr.compile
-			+"then\n"+(c.cmd as If).commands1.compile(global_indent,
+			return indentation+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)
+			+" then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
 						if_indent,for_indent,while_indent,foreach_indent)+"\n"+indentation
-						+"else\n"+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
+						+"else\n"+cmd_indent+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
 						"\n"+indentation+"fi";
 						}
+			
 		else{
-			return indentation+"if"+(c.cmd as If).expr.compile+"then\n"+(c.cmd as If).commands1.compile(global_indent,
+			return indentation+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+"then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
 						if_indent,for_indent,while_indent,foreach_indent)+"\n"+indentation+"fi";
 		}
 			
@@ -170,7 +173,9 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+for_indent);i++){
 				indentation+=" ";
 			}
-		return indentation+"for"+(c.cmd as For).expr.compile+"do\n"+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
+			var cmd_indent=indentation+" ";
+		return indentation+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" do\n"+cmd_indent+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
 			,while_indent,foreach_indent										
 									)+"\n"+indentation+"od";
 		
@@ -180,9 +185,12 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+foreach_indent);i++){
 				indentation+=" ";
 			}
-			return indentation+"foreach"+(c.cmd as Foreach).expr.compile+"in"+
-					(c.cmd as Foreach).expr2.compile+"do\n"+
-					(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
+			var cmd_indent=indentation+" ";
+			return indentation+"foreach "+(c.cmd as Foreach).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" in "+
+					(c.cmd as Foreach).expr2.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" do\n"+
+					cmd_indent+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent
 					)+"\n"+indentation+"do";
 		}
@@ -191,8 +199,10 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+while_indent);i++){
 				indentation+=" ";
 			}
-		return indentation+"while"+(c.cmd as While).expr.compile
-									+"do\n"+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
+			var cmd_indent=indentation+" ";
+		return indentation+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)
+									+" do\n"+cmd_indent+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
 										while_indent,foreach_indent
 										)+"\n"+indentation+"od";
 			
@@ -205,16 +215,19 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent);i++){
 				indentation+=" ";
 			}
-		return indentation+(c.cmd as Affect).compile;
+		return indentation+(c.cmd as Affect).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 		
 		}
 	}
 	
-	def compile (Affect v)
+	def compile (Affect v,int global_indent,int if_indent,int for_indent,int while_indent,
+						int foreach_indent)
 	{
 	val size_vars=v.vars.size;
 		if(size_vars==1){
-			return v.vars.get(0)+" := "+v.exprs.get(0).compile;
+			return v.vars.get(0)+" := "+v.exprs.get(0).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 		}
 		else
 		{
@@ -226,73 +239,117 @@ class MyDslGenerator extends AbstractGenerator {
 			
 			val size_exprs=v.exprs.size;
 			for(var i=0;i<size_exprs-1;i++){
-				res+=v.exprs.get(i).compile+" ,";
+				res+=v.exprs.get(i).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" ,";
 			}
-			res+=v.exprs.get(size_exprs-1).compile;
+			res+=v.exprs.get(size_exprs-1).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 			return res;
 		}
 	}
-	def compile (Expr e){
+	def compile (Expr e,int global_indent,int if_indent,int for_indent,int while_indent,
+						int foreach_indent){
 		if(e.expr instanceof ExprAnd){
-		return (e.expr as ExprAnd).arg1.compile+"and"+(e.expr as ExprAnd).arg2.compile;
+		return (e.expr as ExprAnd).arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+"and"+(e.expr as ExprAnd).arg2.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 		}
 		if(e.expr instanceof ExprOr){
-		return (e.expr as ExprOr).arg1.compile+"or"+(e.expr as ExprOr).arg2.compile;
+		return (e.expr as ExprOr).arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+"or"+(e.expr as ExprOr).arg2.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 		}
 		if(e.expr instanceof ExprSimple){
-			return (e.expr as ExprSimple).compile
+			return (e.expr as ExprSimple).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)
 		}
 		if(e.expr instanceof ExprCons){
-			return "("+"cons"+(e.expr as ExprCons).arg1.compile+(e.expr as ExprCons).arg2.compile+")"
+			return "("+"cons"+(e.expr as ExprCons).arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+(e.expr as ExprCons).arg2.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")"
 		}
 		if(e.expr instanceof ExprList){
 			val size=(e.expr as ExprList).arg.size;
 			if(size==1){
-			return "("+"list"+(e.expr as ExprList).arg.get(0).compile+")";	
+			return "("+"list"+(e.expr as ExprList).arg.get(0).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")";	
 			}
 			else
 			{
 			var res="("+"list";
 			for(var i=0;i<size-1;i++){
-				res+=(e.expr as ExprList).arg.get(i).compile+""
+				res+=(e.expr as ExprList).arg.get(i).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+""
 			}
-			res+=(e.expr as ExprList).arg.get(size-1).compile+")"
-			(e.expr as ExprList).arg.get(0).compile
+			res+=(e.expr as ExprList).arg.get(size-1).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")"
+			(e.expr as ExprList).arg.get(0).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)
 			}	
 		}
 		if(e.expr instanceof ExprHd){
-			"("+"hd"+(e.expr as ExprHd).arg.compile+")";
+			"("+"hd"+(e.expr as ExprHd).arg.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")";
 		}
 		if(e.expr instanceof ExprTl){
-			"("+"Tl"+(e.expr as ExprTl).arg.compile+ ')';
+			"("+"Tl"+(e.expr as ExprTl).arg.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+ ')';
 		}
 		if(e.expr instanceof ExprSym){
 			val size=(e.expr as ExprSym).arg2.size;
 			if(size==1){
-				return "("+(e.expr as ExprSym).arg1+(e.expr as ExprSym).arg2.get(0).compile+")";
+				return "("+(e.expr as ExprSym).arg1+(e.expr as ExprSym).arg2.get(0).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")";
 			}
 			else
 			{
 				var res="("+(e.expr as ExprSym).arg1;
 				for(var i=0;i<size-1;i++){
-					res+=(e.expr as ExprSym).arg2.get(i).compile+"";
+					res+=(e.expr as ExprSym).arg2.get(i).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+"";
 				}
-				res+=(e.expr as ExprSym).arg2.get(size-1).compile+")";
+				res+=(e.expr as ExprSym).arg2.get(size-1).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+")";
 				return res;	
 			}
 			
 		}
 		if(e.expr instanceof ExprNot){
-			return "not"+(e.expr as ExprNot).arg1.compile;
+			return "not"+(e.expr as ExprNot).arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 		}
+		if(e.expr instanceof ExprEq){
+			return (e.expr as ExprEq).compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
+		}
+		/*if(e.expr.expr1!==null){
+			return '('+e.expr1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+')'
+		}*/
 	}
-	def compile(ExprSimple e){
+	def compile(ExprSimple e,int global_indent,int if_indent,int for_indent,int while_indent,
+						int foreach_indent){
 		if(e.nameFunction!==null){
-			return null
+			return '('+e.nameFunction+" "+e.vars.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+')';
 		}
-	}
-	def compile(ExprEq e){
-		return e.arg1.compile+"=?"+e.arg2.compile;
+		else if(e.sym!==null){
+				return e.sym;
+			}
+			else if(e.varSimple!==null){
+					return e.varSimple;
+				}
+				else{
+					return e.str;
+				}
+			}
+		
+	
+	def compile(ExprEq e,int  global_indent,int if_indent,int for_indent,int while_indent,
+						int foreach_indent){
+		return e.arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+"=?"+e.arg2.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent);
 	}
 
 		
