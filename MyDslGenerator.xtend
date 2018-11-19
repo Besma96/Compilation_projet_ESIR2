@@ -60,9 +60,26 @@ class MyDslGenerator extends AbstractGenerator {
 		«f.compile(global_indent,if_indent,for_indent,while_indent)»	
 		«ENDFOR»
 		'''*/
-		for(f:p.functions){
-			return f.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
+		var res="";
+		var indent="";
+		for(var i=0;i<global_indent;i++){
+			indent+=" ";
 		}
+		val size=p.functions.size;
+		if(size==1){
+		res=indent+p.functions.get(0).compile(global_indent,if_indent,for_indent,while_indent
+					,foreach_indent)
+		}
+		else{
+			for(var i=0;i<size-1;i++){
+				res+=indent+p.functions.get(i).compile(global_indent,if_indent,for_indent,while_indent
+					,foreach_indent
+				)+"\n"
+			}
+			res+=indent+p.functions.get(size-1).compile(global_indent,if_indent,for_indent,while_indent
+				,foreach_indent)
+		}
+	return res;
 	}
 	def compile(Function f,int global_indent,int if_indent,int for_indent,int while_indent
 		,int foreach_indent		
@@ -86,7 +103,7 @@ class MyDslGenerator extends AbstractGenerator {
 	def compile(Definition d, int global_indent,int if_indent,int for_indent,int while_indent
 	,int foreach_indent){
 		return "read "+d.input.compile( global_indent, if_indent, for_indent, while_indent,foreach_indent
-	)+"%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"/n"
+	)+"\n%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"\n%\n"
 	+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
 	}
 	
@@ -192,7 +209,7 @@ class MyDslGenerator extends AbstractGenerator {
 						foreach_indent)+" do\n"+
 					cmd_indent+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent
-					)+"\n"+indentation+"do";
+					)+"\n"+indentation+"od";
 		}
 		if(c.cmd instanceof While){
 			var indentation="";
