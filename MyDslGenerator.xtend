@@ -61,22 +61,18 @@ class MyDslGenerator extends AbstractGenerator {
 		«ENDFOR»
 		'''*/
 		var res="";
-		var indent="";
-		for(var i=0;i<global_indent;i++){
-			indent+=" ";
-		}
 		val size=p.functions.size;
 		if(size==1){
-		res=indent+p.functions.get(0).compile(global_indent,if_indent,for_indent,while_indent
+		res=p.functions.get(0).compile(global_indent,if_indent,for_indent,while_indent
 					,foreach_indent)
 		}
 		else{
 			for(var i=0;i<size-1;i++){
-				res+=indent+p.functions.get(i).compile(global_indent,if_indent,for_indent,while_indent
+				res+=p.functions.get(i).compile(global_indent,if_indent,for_indent,while_indent
 					,foreach_indent
 				)+"\n"
 			}
-			res+=indent+p.functions.get(size-1).compile(global_indent,if_indent,for_indent,while_indent
+			res+=p.functions.get(size-1).compile(global_indent,if_indent,for_indent,while_indent
 				,foreach_indent)
 		}
 	return res;
@@ -103,15 +99,10 @@ class MyDslGenerator extends AbstractGenerator {
 	
 	def compile(Definition d, int global_indent,int if_indent,int for_indent,int while_indent
 	,int foreach_indent){
-		var indent="";
-		for(var i=0;i<global_indent;i++){
-			indent+=" ";
-		}
-		
-		return indent+"read "+d.input.compile( global_indent, if_indent, for_indent, while_indent,foreach_indent
-	)+"\n"+indent+"%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"\n"+
-	indent+"%\n"
-	+indent+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
+		return "read "+d.input.compile( global_indent, if_indent, for_indent, while_indent,foreach_indent
+	)+"\n"+"%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"\n"+
+	"%\n"
+	+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
 	}
 	
 	def compile(Input i,int global_indent,int if_indent,int for_indent,int while_indent,int foreach_indent
@@ -175,20 +166,19 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+if_indent);i++){
 				indentation+=" ";
 			}
-			var cmd_indent=indentation+" ";
 		if((c.cmd as If).commands2 !== null){
-			return indentation+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			return global_indent+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
-			+" then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
-						if_indent,for_indent,while_indent,foreach_indent)+"\n"+indentation
-						+"else\n"+cmd_indent+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
-						"\n"+indentation+"fi";
+			+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
+						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global_indent
+						+"else\n"+indentation+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
+						"\n"+global_indent+"fi";
 						}
 			
 		else{
-			return indentation+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+" then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
-						if_indent,for_indent,while_indent,foreach_indent)+"\n"+indentation+"fi";
+			return global_indent+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
+						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global_indent+"fi";
 		}
 			
 		}
@@ -197,11 +187,11 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+for_indent);i++){
 				indentation+=" ";
 			}
-			var cmd_indent=indentation+" ";
-		return indentation+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+" do\n"+cmd_indent+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
+			
+		return global_indent+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" do\n"+indentation+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
 			,while_indent,foreach_indent										
-									)+"\n"+indentation+"od";
+									)+"\n"+global_indent+"od";
 		
 		}
 		if(c.cmd instanceof Foreach){
@@ -209,26 +199,25 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+foreach_indent);i++){
 				indentation+=" ";
 			}
-			var cmd_indent=indentation+" ";
-			return indentation+"foreach "+(c.cmd as Foreach).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			return global_indent+"foreach "+(c.cmd as Foreach).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" in "+
 					(c.cmd as Foreach).expr2.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" do\n"+
-					cmd_indent+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
+					indentation+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent
-					)+"\n"+indentation+"od";
+					)+"\n"+global_indent+"od";
 		}
 		if(c.cmd instanceof While){
 			var indentation="";
 			for(var i=0;i<(global_indent+while_indent);i++){
 				indentation+=" ";
 			}
-			var cmd_indent=indentation+" ";
-		return indentation+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			
+		return global_indent+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
-									+" do\n"+cmd_indent+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
+									+" do\n"+indentation+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
 										while_indent,foreach_indent
-										)+"\n"+indentation+"od";
+										)+"\n"+global_indent+"od";
 			
 		}
 		if(c.cmd instanceof Nop){
@@ -236,9 +225,9 @@ class MyDslGenerator extends AbstractGenerator {
 		}
 		if( c.cmd instanceof Affect){
 		var indentation="";
-			for(var i=0;i<(global_indent);i++){
+			/*for(var i=0;i<(global_indent);i++){
 				indentation+=" ";
-			}
+			}*/
 		return indentation+(c.cmd as Affect).compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent);
 		
