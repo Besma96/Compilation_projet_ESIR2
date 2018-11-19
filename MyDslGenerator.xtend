@@ -94,7 +94,11 @@ class MyDslGenerator extends AbstractGenerator {
 			write «FOR e: f.definition.output.vars SEPARATOR ','»«e»«ENDFOR»
 			
 		'''*/
-		return "function "+f.name+":\n"+f.definition.compile(global_indent,if_indent,for_indent,
+		var indent="";
+		for(var i=0;i<global_indent;i++){
+			indent+=" ";
+		}
+		return "function "+f.name+":\n"+indent+f.definition.compile(global_indent,if_indent,for_indent,
 			while_indent,foreach_indent
 		);
 
