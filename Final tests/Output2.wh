@@ -1,0 +1,24 @@
+function okWhile: 
+read Var1,Var2
+%
+  while ! Var1=?Var2 do 
+    Ret:=a1 
+  od
+%
+write Var1,Ret
+function okForEach: 
+read Var1
+%
+  foreach Var1 in (list) l1 do 
+    nop 
+  od
+%
+write Ret
+function okFor: 
+read I,Var
+%
+  for (Bool) && ! stop=?true do
+    nop 
+  od
+%
+write Ret
