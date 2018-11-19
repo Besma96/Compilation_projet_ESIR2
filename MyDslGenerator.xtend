@@ -94,11 +94,8 @@ class MyDslGenerator extends AbstractGenerator {
 			write «FOR e: f.definition.output.vars SEPARATOR ','»«e»«ENDFOR»
 			
 		'''*/
-		var indent="";
-		for(var i=0;i<global_indent;i++){
-			indent+=" ";
-		}
-		return "function "+f.name+":\n"+indent+f.definition.compile(global_indent,if_indent,for_indent,
+		
+		return "function "+f.name+":\n"+f.definition.compile(global_indent,if_indent,for_indent,
 			while_indent,foreach_indent
 		);
 
@@ -106,9 +103,15 @@ class MyDslGenerator extends AbstractGenerator {
 	
 	def compile(Definition d, int global_indent,int if_indent,int for_indent,int while_indent
 	,int foreach_indent){
-		return "read "+d.input.compile( global_indent, if_indent, for_indent, while_indent,foreach_indent
-	)+"\n%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"\n%\n"
-	+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
+		var indent="";
+		for(var i=0;i<global_indent;i++){
+			indent+=" ";
+		}
+		
+		return indent+"read "+d.input.compile( global_indent, if_indent, for_indent, while_indent,foreach_indent
+	)+"\n"+indent+"%\n"+d.commands.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+"\n"+
+	indent+"%\n"
+	+indent+"write "+d.output.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent);
 	}
 	
 	def compile(Input i,int global_indent,int if_indent,int for_indent,int while_indent,int foreach_indent
@@ -116,7 +119,7 @@ class MyDslGenerator extends AbstractGenerator {
 		var inputs="";
 		val size=i.vars.size;
 		if(size==1){
-			inputs+=i.vars;
+			inputs+=i.vars.get(0);
 		}
 		else{
 		for(var j=0;j<size-1;j++){
@@ -132,7 +135,7 @@ class MyDslGenerator extends AbstractGenerator {
 		var outputs="";
 		val size=o.vars.size;
 		if(size==1){
-			outputs+=o.vars;
+			outputs+=o.vars.get(0);
 		}
 		else{
 		for(var j=0;j<size-1;j++){
@@ -184,7 +187,7 @@ class MyDslGenerator extends AbstractGenerator {
 			
 		else{
 			return indentation+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+"then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
+						foreach_indent)+" then"+"\n"+cmd_indent+(c.cmd as If).commands1.compile(global_indent,
 						if_indent,for_indent,while_indent,foreach_indent)+"\n"+indentation+"fi";
 		}
 			
