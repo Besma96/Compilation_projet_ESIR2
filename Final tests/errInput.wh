@@ -1,0 +1,5 @@
+function errNoBody: read A%%write A
+function errVariable: read noUpperCase%nop% write Ret
+function errMultipleCommands: read A,B%A:=a B:=B% write R
+function errDoubleFor: read A,B%for (A) do for (B) od do nop od%write Ret
+function errIfThen: read A1%if (nil) fi%write Z
