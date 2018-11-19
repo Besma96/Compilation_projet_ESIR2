@@ -1,0 +1,3 @@
+function testForeach: 
+read ZZZ%foreach a in b do ZZZ:=ZZZ od
+%write ZZZ

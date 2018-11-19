@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then echo "Entrez au moins le nom du fichier source" 
+else  java -jar while_v_final.jar $* 
+fi

@@ -1,8 +1,21 @@
-function test:
-read A, B
+function p:
+read X
 %
-      for A do
-         A := B
-      od
+   Y := nil;
+   while X do
+        Y := (consnullY);
+   X := null
+   od
 %
-write A, B
+write Y
+
+function f:
+read R,S
+%
+   if S then
+     for D do
+  Z := P
+od
+   fi
+%
+write P
