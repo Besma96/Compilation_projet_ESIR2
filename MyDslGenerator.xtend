@@ -164,6 +164,7 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var j=0;j<global_indent;j++){
 				global+=" ";
 			}
+		
 		if(c.cmd instanceof If){
 			
 			var indentation="";
@@ -174,15 +175,15 @@ class MyDslGenerator extends AbstractGenerator {
 		if((c.cmd as If).commands2 !== null){
 			return global+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
-			+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
+			+" then"+"\n"+(c.cmd as If).commands1.compile(if_indent+global_indent,
 						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global
-						+"else\n"+indentation+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
+						+"else\n"+(c.cmd as If).commands2.compile(global_indent+if_indent,if_indent,for_indent,while_indent,foreach_indent)+
 						"\n"+global+"fi";
 						}
 			
 		else{
 			return global+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
+						foreach_indent)+" then"+"\n"+(c.cmd as If).commands1.compile(global_indent+if_indent,
 						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global+"fi";
 		}
 			
@@ -194,7 +195,7 @@ class MyDslGenerator extends AbstractGenerator {
 			}
 			
 		return global+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+" do\n"+indentation+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
+						foreach_indent)+" do\n"+(c.cmd as For).cmds.compile(global_indent+for_indent,if_indent,for_indent
 			,while_indent,foreach_indent										
 									)+"\n"+global+"od";
 		
@@ -208,7 +209,7 @@ class MyDslGenerator extends AbstractGenerator {
 						foreach_indent)+" in "+
 					(c.cmd as Foreach).expr2.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" do\n"+
-					indentation+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
+					(c.cmd as Foreach).cmd.compile(global_indent+foreach_indent,if_indent,for_indent,while_indent,
 						foreach_indent
 					)+"\n"+global+"od";
 		}
@@ -220,7 +221,8 @@ class MyDslGenerator extends AbstractGenerator {
 			
 		return global+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
-									+" do\n"+indentation+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
+									+" do\n"+(c.cmd as While).cmds.compile(global_indent+while_indent
+										,if_indent,for_indent,
 										while_indent,foreach_indent
 										)+"\n"+global+"od";
 			
@@ -278,19 +280,19 @@ class MyDslGenerator extends AbstractGenerator {
 						foreach_indent)
 		}
 		if(e.expr instanceof ExprCons){
-			return "("+"cons"+(e.expr as ExprCons).arg1.compile(global_indent,if_indent,for_indent,while_indent,
-						foreach_indent)+(e.expr as ExprCons).arg2.compile(global_indent,if_indent,for_indent,while_indent,
+			return "("+"cons "+(e.expr as ExprCons).arg1.compile(global_indent,if_indent,for_indent,while_indent,
+						foreach_indent)+" "+(e.expr as ExprCons).arg2.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+")"
 		}
 		if(e.expr instanceof ExprList){
 			val size=(e.expr as ExprList).arg.size;
 			if(size==1){
-			return "("+"list"+(e.expr as ExprList).arg.get(0).compile(global_indent,if_indent,for_indent,while_indent,
+			return "("+"list "+(e.expr as ExprList).arg.get(0).compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+")";	
 			}
 			else
 			{
-			var res="("+"list";
+			var res="("+"list ";
 			for(var i=0;i<size-1;i++){
 				res+=(e.expr as ExprList).arg.get(i).compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+""
@@ -302,11 +304,11 @@ class MyDslGenerator extends AbstractGenerator {
 			}	
 		}
 		if(e.expr instanceof ExprHd){
-			"("+"hd"+(e.expr as ExprHd).arg.compile(global_indent,if_indent,for_indent,while_indent,
+			"("+"hd "+(e.expr as ExprHd).arg.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+")";
 		}
 		if(e.expr instanceof ExprTl){
-			"("+"Tl"+(e.expr as ExprTl).arg.compile(global_indent,if_indent,for_indent,while_indent,
+			"("+"Tl "+(e.expr as ExprTl).arg.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+ ')';
 		}
 		if(e.expr instanceof ExprSym){
