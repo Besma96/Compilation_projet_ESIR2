@@ -70,7 +70,7 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<size-1;i++){
 				res+=p.functions.get(i).compile(global_indent,if_indent,for_indent,while_indent
 					,foreach_indent
-				)+"\n"
+				)+"\n\n"
 			}
 			res+=p.functions.get(size-1).compile(global_indent,if_indent,for_indent,while_indent
 				,foreach_indent)
@@ -160,25 +160,30 @@ class MyDslGenerator extends AbstractGenerator {
 	def compile(Command c,int global_indent,int if_indent,int for_indent,int while_indent,int foreach_indent 
 	)
 	{
+		var global="";
+			for(var j=0;j<global_indent;j++){
+				global+=" ";
+			}
 		if(c.cmd instanceof If){
 			
 			var indentation="";
 			for(var i=0;i<(global_indent+if_indent);i++){
 				indentation+=" ";
 			}
+			
 		if((c.cmd as If).commands2 !== null){
-			return global_indent+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			return global+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
 			+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
-						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global_indent
+						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global
 						+"else\n"+indentation+(c.cmd as If).commands2.compile(global_indent,if_indent,for_indent,while_indent,foreach_indent)+
-						"\n"+global_indent+"fi";
+						"\n"+global+"fi";
 						}
 			
 		else{
-			return global_indent+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			return global+"if "+(c.cmd as If).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" then"+"\n"+indentation+(c.cmd as If).commands1.compile(global_indent,
-						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global_indent+"fi";
+						if_indent,for_indent,while_indent,foreach_indent)+"\n"+global+"fi";
 		}
 			
 		}
@@ -188,10 +193,10 @@ class MyDslGenerator extends AbstractGenerator {
 				indentation+=" ";
 			}
 			
-		return global_indent+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
+		return global+"for "+(c.cmd as For).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" do\n"+indentation+(c.cmd as For).cmds.compile(global_indent,if_indent,for_indent
 			,while_indent,foreach_indent										
-									)+"\n"+global_indent+"od";
+									)+"\n"+global+"od";
 		
 		}
 		if(c.cmd instanceof Foreach){
@@ -199,13 +204,13 @@ class MyDslGenerator extends AbstractGenerator {
 			for(var i=0;i<(global_indent+foreach_indent);i++){
 				indentation+=" ";
 			}
-			return global_indent+"foreach "+(c.cmd as Foreach).expr.compile(global_indent,if_indent,for_indent,while_indent,
+			return global+"foreach "+(c.cmd as Foreach).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" in "+
 					(c.cmd as Foreach).expr2.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)+" do\n"+
 					indentation+(c.cmd as Foreach).cmd.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent
-					)+"\n"+global_indent+"od";
+					)+"\n"+global+"od";
 		}
 		if(c.cmd instanceof While){
 			var indentation="";
@@ -213,22 +218,18 @@ class MyDslGenerator extends AbstractGenerator {
 				indentation+=" ";
 			}
 			
-		return global_indent+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
+		return global+"while "+(c.cmd as While).expr.compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent)
 									+" do\n"+indentation+(c.cmd as While).cmds.compile(global_indent,if_indent,for_indent,
 										while_indent,foreach_indent
-										)+"\n"+global_indent+"od";
+										)+"\n"+global+"od";
 			
 		}
 		if(c.cmd instanceof Nop){
 			return "nop";
 		}
 		if( c.cmd instanceof Affect){
-		var indentation="";
-			/*for(var i=0;i<(global_indent);i++){
-				indentation+=" ";
-			}*/
-		return indentation+(c.cmd as Affect).compile(global_indent,if_indent,for_indent,while_indent,
+		return global+(c.cmd as Affect).compile(global_indent,if_indent,for_indent,while_indent,
 						foreach_indent);
 		
 		}
