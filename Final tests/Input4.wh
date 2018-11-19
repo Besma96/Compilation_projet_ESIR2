@@ -1,0 +1,7 @@
+function p:read X,Y % nop; nop;nop % write Y
+function h:read X % while X do X,Y := (tl X),(cons (hd X)Y)od % write X,Y
+function p:read X,Y % nop; nop;nop; nop % write Y	
+function g:read A, B % nop; nop % write C
+function t:read Vars1 %for v do nop od% write Vars2
+function m:read A,B% while B do X,Y := (tl X),(cons (hd X)Y) od %write Result
+function h:read X % while X do X,Y := (tl X),(cons (hd X)Y)od % write X,Y
