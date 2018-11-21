@@ -1,7 +1,0 @@
-
-
-function aB: read ABZ%for condition do nop od%write Ab
-
-function	tEST:	read	ABZ%if (nil) then nop fi%write	ZBA
-
-function xyz: read AB,JK%AB:=JK%write JK

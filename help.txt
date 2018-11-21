@@ -4,7 +4,7 @@ NAME
         whpp - WHILE Pretty Printer
 
 SYNOPSIS
-        whpp [OPTIONS] InputFileName [OutputFileName]
+        whpp InputFileName [OPTIONS] [OutputFileName]
 
 DESCRIPTION
         whpp est un Pretty-Printer du language WHILE.
@@ -43,15 +43,17 @@ DESCRIPTION
 
 OPTIONS
         -all X : 
-                Permet d'etablir une indention globale de X, par default X=2
+                Permet d'etablir une indention globale de X, par defaut X=2
         -if X : 
-                Valeur specifique pour les blocs if, par default X = 2
+                Valeur specifique pour les blocs if, par defaut X = 2
         -while X :
-                Valeur specifique pour les blocs while, par default X = 2
+                Valeur specifique pour les blocs while, par defaut X = 2
         -for X : 
-                Valeur par default pour les blocs for, par default X = 2
+                Valeur par default pour les blocs for, par defaut X = 2
+        -foreach X : 
+		Valeur spécifique pour les blocs for, par defaut X=2
         -o : 
-                nom du fichier de sortie, par default : sth.whpp  
+                nom du fichier de sortie, par defaut : sth.whpp  
 
 
 BUGS

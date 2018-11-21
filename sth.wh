@@ -1,8 +1,0 @@
-function test:
-read A,B
-%
-    fornulldo
-  A := null
-    od
-%
-write A,B

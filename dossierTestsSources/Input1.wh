@@ -1,0 +1,4 @@
+function okSimpliest: read A,B%nop%write R
+function okMultipleCommands: read A,B%A:=a; B:=B% write R
+function okIfThen: read A,B%if (nil) then nop fi%write ZYX
+function okIfThenElse: read A1%if (nil) then nop else nop fi%write Z

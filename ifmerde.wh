@@ -1,1 +1,0 @@
-function test : read X % if A=?B then A:=B fi % write Z

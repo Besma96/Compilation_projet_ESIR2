@@ -1,0 +1,39 @@
+function s: 
+read Var 
+% 
+  if I then 
+    for v do 
+      nop 
+    od 
+  else 
+    nop 
+  fi 
+% 
+write Var
+
+function t: 
+read Vars 
+%
+  for v do 
+    nop 
+   od
+% 
+write Vars
+
+function h:
+read X 
+% 
+  while X do 
+    X:= (cons (hd X)Y)
+  od
+% 
+write X,Y
+
+function m:
+read A,B
+% 
+  while B do 
+    X,Y := (tl X),(cons (hd X)Y) 
+  od 
+% 
+write Result

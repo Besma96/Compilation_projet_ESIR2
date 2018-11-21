@@ -1,0 +1,2 @@
+function okDoubleFor: read A,B%for (A) do for (B) do nop od od%write Ret
+function okComplete: read A%B:=nil while A do if ! B=?A then B:=(cons (hd A) B); R:=a else R:=b fi od%write R

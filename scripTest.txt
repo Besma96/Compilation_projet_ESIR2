@@ -1,0 +1,27 @@
+!#/bin/bash
+var cheminSources="./dossierTestsSources"
+var cheminResults="./dossierTestsSortie"
+var cheminResultats_ok="./dossierTestsPP"
+
+var source=""
+var result="result.whpp"
+var result_ok=""
+var I=1
+echo "\c" > resultats_test.txt
+for i in $cheminSources
+do
+     source=$i
+     result_test=$cheminResults$I$result
+     resultat_ok=$cheminResultats_ok
+
+     ./whpp $source -o $result_test
+     DIFF=$(diff -u $resultat_ok $result_test)
+     echo "$I : Sortie de la comparaison entre le fichier $source et le resultat attendu $ : \c" >>resultats_test.txt
+     if [ $DIFF != "" ]
+     then
+        echo "test reussi!\n" >> resultats_test.txt
+     else 
+        echo "test non reussi!"
+     fi
+done
+     

@@ -1,4 +1,4 @@
-import test.Test_profondeur;
+//import Test_profondeur;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -8,8 +8,9 @@ import java.io.IOException;
 
      public static List main(){
         List<Long> L= new ArrayList<Long>();
-        for (int i=1; i<1000; i+=20)
-        {  
+        for (int i=100; i<1000; i+=20)
+        { 
+	
            Test_profondeur test = new Test_profondeur(i);
            long begin = System.currentTimeMillis();
            try
@@ -32,7 +33,8 @@ import java.io.IOException;
      public static void main(String [] args){
          List L=main();
         for (int i=0; i<L.size(); i++){
-            //System.out.print(L.get(i));
+            System.out.print(L.get(i));
+		System.out.print("/n");
         }
      }
     

@@ -1,4 +1,0 @@
-function p : read X % Y:= nil;
-while X do Y:=(cons (hd X) Y); X:=(tl X) od % write Y
-function f : read R, S
-% if S then for D do Z:=P od fi % write P
