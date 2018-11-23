@@ -1,36 +1,39 @@
 package org.xtext.compilateur.generator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Code3Address {
-	private OP operator;
-	private String s1;
-	private String s2;
-	private String s3;
 	
-		public Code3Address(OP operator,String s1,String s2,String s3)
+	private List<Quadruplet>listcode;
+	private int nbElements;
+		public Code3Address()
 		{
-			this.operator=operator;
-			this.s1=s1;
-			this.s2=s2;
-			this.s3=s3;
+		listcode=new ArrayList<Quadruplet>();
+		nbElements=0;
 		}
-		
-	public OP getOperator() {
-		return this.operator;
-	}
 	
-	public String getFirstArg() {
-		return this.s1;
+	public void Add(Quadruplet q) {
+		listcode.add(q);
+		nbElements+=1;
 	}
-	public String getSecondArg() {
-		return this.s2;
+	public void Remove(Quadruplet q) {
+		listcode.remove(q);
+		nbElements--;
 	}
-	public String getThirdArg() {
-		return this.s3;
+	public Quadruplet getQuadruplet(int index) {
+		return listcode.get(index);
 	}
-	
+	public int getSize() {
+		return nbElements;
+	}
 	@Override
 	public String toString() {
-		return "";
-		
+		String result="";
+		for(int i=0;i<this.getSize();i++) {
+			result+=this.listcode.get(i).toString()+"\n";
+		}
+		return result;
 	}
+			
 }
