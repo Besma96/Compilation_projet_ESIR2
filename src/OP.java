@@ -1,5 +1,11 @@
-package compilation;
+package org.xtext.compilateur.generator;
 
 public enum OP {
-		NOP
+		NOP,
+		//control structures
+		If,Else,
+		//Loop
+		For,While,Foreach,
+		//Affectation
+		Affect
 }
