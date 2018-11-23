@@ -1,7 +1,7 @@
 package org.xtext.compilateur.generator;
 
 public enum OP {
-		NOP,
+		Nop,
 		//control structures
 		If,Else,
 		//Loop
