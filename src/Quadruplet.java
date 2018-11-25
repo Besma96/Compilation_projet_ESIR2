@@ -2,8 +2,8 @@ package sprint2;
 
 public class Quadruplet {
 
-	private static Op ope; //opérateur
-	private static String write; // adresse d'écriture
+	private static Op ope; //opÃ©rateur
+	private static String write; // adresse d'Ã©criture
 	
 	//adresses de lecture
 	private static String read1;
@@ -34,10 +34,6 @@ public class Quadruplet {
 	
 	public String toString() {
 		return new String("<" + ope + ", " + write + ", " + read1 + ", " + read2 +">");
-	}
-	
-	public void nop() {
-		
 	}
 	
 }
