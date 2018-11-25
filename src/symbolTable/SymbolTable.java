@@ -2,10 +2,11 @@ package symbolTable;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class SymbolTable {
 	//enumère les différents types de variables
-	public enum varType {input, output, local};
+//	public enum varType {input, output, local};
 	
 	private HashMap<String, Fonction> fonction;
 	private HashSet<String> symboles;
@@ -54,20 +55,51 @@ public class SymbolTable {
 	 */
 	public void addFonction(String nameFonction, int nb_variables_in, int nb_variables_out) {
 		
-		if(!this.fonction.containsKey(nameFonction)) {
-			Fonction f = new Fonction(nb_variables_in, nb_variables_out);
+		if(!containsFunction(nameFonction, nb_variables_in)) {
+			Fonction f = new Fonction(nameFonction, nb_variables_in, nb_variables_out);
 			this.fonction.put(nameFonction, f);
 		}
 		else {
-			System.out.println("La table contient déjà la focntion : "+ nameFonction);
+			System.out.println("La table contient déjà la fonction : "+ nameFonction);
 		}
 	}
+	
 	/**
-	 * La fonction fonction est-elle presente dans la table ou pas
+	 * La fonction est-elle presente dans la table ou pas
 	 * @param fonction
-	 * @return
+	 * @return vrai si la fonction est contenue dans la table, faux sinon
 	 */
-	public boolean containsFunction(Fonction fonction) {
-		return this.fonction.containsKey(fonction);
+	public boolean containsFunction(String namefonction, int var_inputs_size) {
+		// si le nom de la fonction et le nombre de variables d'entrées sont identiques, on considère que la fonction est déjà présente
+		
+		return (this.fonction.containsKey(namefonction) && fonction.get(namefonction).getSizeVarInputs() == var_inputs_size);
 	}
-}
+	
+	/**
+	 * Retourne une fonction contenue dans la table
+	 * @param nameFonction : nom de la fonction
+	 */
+	public Fonction getFonction(String nameFonction) {
+		return fonction.get(nameFonction);
+	}
+	
+	/**
+	 * Pour l'affichage des symboles et des fonctions
+	 */
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Table des Symboles\r\n");
+		str.append("Symboles\r\n");
+		for(String symbol: this.symboles) {
+			str.append(" "+ symbol +"\r\n");
+		}
+		
+		str.append("\r\n Fonctions\r\n");
+		Iterator<String> it = this.fonction.keySet().iterator();
+		while(it.hasNext()) {
+			String tmp = it.next();
+			str.append(" "+ tmp + ":\r\n"+ this.fonction.get(tmp).toString() + "\r\n");
+		}
+		return str.toString();
+	}
+}	
