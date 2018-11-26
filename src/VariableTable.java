@@ -10,7 +10,7 @@ public class VariableTable{
 
     //enumère les différents types de variables
     public enum varType {input, output, local};
-    public enum varTreeType{nil, cons, tail, head};
+    public enum varTreeType{nil};
     
     private HashMap varTab;
     private static VariableTable L_varTab;
@@ -27,9 +27,10 @@ public class VariableTable{
     // si la variable à déja été rencontré il y a deux possibilités 
     //soit elle se retrouve affecté d'une nouvelle valeure
     //soit sa valeur sert à implémenté d'autre variable
-    public void addVariable(String variable){
+    public void addVariable(String variable, HashSet<String> hs){
         if(!containsVariable(variable)){
             this.varTab.add(variable);
+	    hs.add(variable);
         }
     }
 
