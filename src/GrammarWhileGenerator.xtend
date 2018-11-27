@@ -14,6 +14,7 @@ import org.xtext.compilateur.grammarWhile.Output
 import org.xtext.compilateur.grammarWhile.Command
 import org.xtext.compilateur.grammarWhile.If
 import org.xtext.compilateur.grammarWhile.Nop
+import org.xtext.compilateur.grammarWhile.Wh
 
 /**
  * Generates code from your model files on save.
@@ -40,14 +41,16 @@ class GrammarWhileGenerator extends AbstractGenerator {
 
 }
 
+
 	def compile(Definition d){
 		symtab.addSymbole('read');
 		compile(d.input);
 		symtab.addSymbole('%');
 		compile(d.commands);
 		symtab.addSymbole('%');
-		symtab.addSymbole('%');
+		symtab.addSymbole('write');
 		compile(d.output);
+		return symtab.toString;
 	}
 	
 	def compile(Input i){
