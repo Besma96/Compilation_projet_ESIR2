@@ -1,0 +1,59 @@
+## classe binTree
+## représentation interne du type binTree (arbre binaire)
+
+## paramètres 
+### node : noeud de l'arbre (racine)
+### left : fils gauche 
+### right : fils droit
+
+## interprétation de l'arbre
+### paramètres à none --> nil
+### right & left à none --> symbole
+### right & left != none --> cons
+
+class binTree :
+    
+    #constructeur vide   
+    def __init__(self):
+        self.node = None
+        self.left = None
+        self.right = None
+    
+    #constructeur 
+    def __init__(String node, String fg, String fd):
+        self.node = node
+        self.left = fg
+        self.right = fd
+        
+    #getter de la racine
+    def node(self):
+        return self.node
+    
+    #getter du fils gauche (head)
+    def hd(self):
+        return self.left
+    
+    #getteur du fils droit (tail)
+    def tl(self):
+        return self.right
+    
+    #booléen : l'arbre à un fils gauche
+    def hasLeft(self):
+        return self.left != None
+
+    #booléen : l'arbre a un fils droit
+    def hasRight(self):
+        return self.right != None
+    
+    #vrai si self est vide, c'est-à-dire si self == nil
+    def isNil(self):
+        return (self.node == None)
+    
+    #gestion du cons
+    def cons(right, left):
+        
+    #cas du symbole
+    def isSymbol(self):
+        
+    
+    
