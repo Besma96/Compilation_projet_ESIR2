@@ -1,28 +1,26 @@
-package symbolTable;
+package org.xtext.compilateur.generator;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class SymbolTable {
-	//enumère les différents types de variables
-//	public enum varType {input, output, local};
 	
 	private HashMap<String, Fonction> fonction;
 	private HashSet<String> symboles;
 	private static SymbolTable instance; //singleton
-	
 	private SymbolTable() {
 		this.fonction = new HashMap<String, Fonction>();
 		this.symboles = new HashSet<String>();
 	}
 	
 	/**
-	 * Un symbole n'apparaît q'une seule fois dans le program
+	 * La table des symboles n'apparaît q'une seule fois dans le program
 	 */
 	public static SymbolTable getInstance() {
 		if(instance == null) {
-			return new SymbolTable();
+			instance = new SymbolTable(); 
+			return instance;
 		}
 		return instance;
 	}
@@ -47,6 +45,23 @@ public class SymbolTable {
 	
 	/******************************* Partie Fonctions ******************/
 	
+//	/**
+//	 * Permet d'ajouter une fonction dans la table des symboles
+//	 * @param nameFonction
+//	 * @param nb_variables_in : nombre de variables d'entrée
+//	 * @param nb_variables_out :nombre de variables de sortie
+//	 */
+//	public void addFonction(String nameFonction, int nb_variables_in, int nb_variables_out) {
+//		
+//		if(!containsFunction(nameFonction, nb_variables_in)) {
+//			Fonction f = new Fonction( nb_variables_in, nb_variables_out);
+//			this.fonction.put(nameFonction, f);
+//		}
+//		else {
+//			System.out.println("La table contient déjà la fonction : "+ nameFonction);
+//		}
+//	}
+	
 	/**
 	 * Permet d'ajouter une fonction dans la table des symboles
 	 * @param nameFonction
@@ -56,7 +71,7 @@ public class SymbolTable {
 	public void addFonction(String nameFonction, int nb_variables_in, int nb_variables_out) {
 		
 		if(!containsFunction(nameFonction, nb_variables_in)) {
-			Fonction f = new Fonction(nameFonction, nb_variables_in, nb_variables_out);
+			Fonction f = new Fonction();
 			this.fonction.put(nameFonction, f);
 		}
 		else {
@@ -93,13 +108,14 @@ public class SymbolTable {
 		for(String symbol: this.symboles) {
 			str.append(" "+ symbol +"\r\n");
 		}
-		
+		str.append("Le nombre de symboles lus : "+this.symboles.size()+ "\r\n");
 		str.append("\r\n Fonctions\r\n");
 		Iterator<String> it = this.fonction.keySet().iterator();
 		while(it.hasNext()) {
 			String tmp = it.next();
 			str.append(" "+ tmp + ":\r\n"+ this.fonction.get(tmp).toString() + "\r\n");
 		}
+		System.out.println("Le nombre de symboles lus : "+this.symboles.size());
 		return str.toString();
 	}
 }	
