@@ -1,5 +1,6 @@
 package org.xtext.compilateur.generator;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -7,7 +8,10 @@ public class Fonction {
 //	private String name; // nom de la fonction
 	private HashSet<String> var_inputs;
 	private HashSet<String> var_outputs;
-	private HashSet<String> var_local;
+//	private HashSet<String> var_local;
+	private HashMap<String, String> var_local;
+	private int numeroVar;
+
 //	private VariableTable var_tab = VariableTable.getInstance();
 	//Table des variables avec une hashMap pour generer de nouvelle variable
 	
@@ -20,7 +24,10 @@ public class Fonction {
 	public Fonction() {
 		this.var_inputs = new HashSet<String>();
 		this.var_outputs = new HashSet<String>();
-		this.var_local = new HashSet<String>();
+//		this.var_local = new HashSet<String>();
+		this.var_local = new HashMap<String, String>();
+		this.numeroVar = 0;
+
 //		this.name = nameFonction;
 	}
 	
@@ -44,7 +51,7 @@ public class Fonction {
 	 * 
 	 * @return
 	 */
-	public HashSet<String> getVars_local(){
+	public HashMap<String, String> getVars_local(){
 		return this.var_local;
 	}
 //	public String getName() {
@@ -84,7 +91,8 @@ public class Fonction {
 			break;
 		case local:
 			//this.var_tab.addVariable(ID, var_local);
-			this. var_local.add(ID);
+			this. var_local.put(ID, "Var"+this.numeroVar);
+			this.numeroVar++;
 			break;
 		default:
 			break;
@@ -126,7 +134,7 @@ public class Fonction {
 	 */
 	public String affichageVariablesLocales() {
 		StringBuilder str = new StringBuilder();
-		Iterator<String> it = this.var_local.iterator();
+		Iterator<String> it = this.var_local.keySet().iterator();
 		str.append("Variables Locales: \r\n");
 		while(it.hasNext()) {
 			String var = it.next();
@@ -147,8 +155,8 @@ public class Fonction {
 			str.append("    	" + var + "\r\n");
 		
 		str.append("	  LOCAL\r\n");
-		for(String var : this.var_local)
-			str.append("    	" + var + "\r\n");
+		for(String var : this.var_local.keySet())
+			str.append("    	" + var +"->"+ this.var_local.get(var) +"\r\n");
 		//System.out.println("Les différentes variables du programme : "+ str.toString());
 		return str.toString();
 }

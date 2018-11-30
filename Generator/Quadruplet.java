@@ -26,21 +26,37 @@ public class Quadruplet {
 	public OP getOpe() {
 		return this.ope;
 	}
+	
+	public void setOpe(OP op) {
+		this.ope = op;
+	}
 
 	public String getWrite() {
 		return this.write;
 	}
+	
+	public void setWrite(String write) {
+		this.write = write;
+	}
 
 	public String getRead1() {
 		return this.read1;
+	}
+	
+	public void setRead1(String r1) {
+		this.read1 = r1;
 	}
 
 	public String getRead2() {
 		return this.read2;
 	}
 
+	public void setRead2(String r2) {
+		this.read2 = r2;	
+	}
 	public String toString() {
-		return new String("<" + ope + " , " + write + " , " + read1 + " , " + read2 +">");
+		StringBuilder str = new StringBuilder();
+		return str.append("<" + ope + " , " + write + " , " + read1 + " , " + read2 +">").toString();
 	}
 
 }

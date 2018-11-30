@@ -53,11 +53,13 @@ class PyGenerator extends AbstractGenerator {
 //}
 	def compile(Definition d){
 		symtab.addSymbol('read');
+		//code3.Add(new Quadruplet(OP.READ,"_","_", "_"));
 		compile(d.input);
 		symtab.addSymbol('%');
 		compile(d.commands);
 		symtab.addSymbol('%');
 		symtab.addSymbol('write');
+		//code3.Add(new Quadruplet(OP.WRITE,"_","_", "_"));
 		compile(d.output);
 		
 		return this.symtab.toString+"\n"+this.code3.toString()+"\n"+fonction.toString() ;
@@ -76,10 +78,12 @@ class PyGenerator extends AbstractGenerator {
 			
 		for(var j=0;j<size;j++){
 			fonction.addVariable(i.vars.get(j), VarType.input);
+			code3.read(i.vars.get(j));
 		}
+		println(size);
 //		println(fonction.toString());
 		return fonction.toString();	
-		
+//		return code3.toString(); 	
 	}
 	
 	def compile(Commands cs){
@@ -95,27 +99,33 @@ class PyGenerator extends AbstractGenerator {
 			
 		for(var j=0;j<size;j++){
 			fonction.addVariable(o.vars.get(j), VarType.output);
+			code3.write(o.vars.get(j));
+			println(o.vars.get(j));
 		}
-		return fonction.affichageVariablesSortie();
+//		return fonction.affichageVariablesSortie();
+//		return code3.toString(); 
 	}
 	
 	def compile(Command c){
 		if(c.cmd instanceof Nop){
-			code3.Add(new Quadruplet(OP.NOP,"_","_","_"));
+//			code3.Add(new Quadruplet(OP.NOP,"_","_","_"));
+			code3.nop();
 		}
 		if(c.cmd instanceof Affect){
 			(c.cmd as Affect).compile();
-			}
+		}
 		//println(code3.toString());
-		return code3.toString();
+//		return code3.toString();
 	}
 	
 	def compile(Affect a){
 		val size=a.vars.size;
 		for(var i=0;i<size;i++){
-			code3.Add(new Quadruplet(OP.AFF,a.vars.get(i),a.exprs.get(i).compile(), "_"));
+			//code3.Add(new Quadruplet(OP.AFF,a.vars.get(i),a.exprs.get(i).compile(), "_"));
 			fonction.addVariable(a.vars.get(i), VarType.local);
+			code3.affectation(a.vars.get(i), a.exprs.get(i).compile());
 		}
+//		return code3.toString();
 	}
 	
 	def compile(Expr e){
