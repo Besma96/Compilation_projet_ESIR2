@@ -44,6 +44,9 @@ class binTree:
 	# Affiche l'abre binaire 
 	def ToString(self, bn):
 		print( "(%s , %s , %s)" % (bn.node,self.ToString(bn.left),self.ToString(bn.right)))
+        #Realise le nop
+	def nop():
+	   pass
 
 	#istrue
 	def isTrue(self):
