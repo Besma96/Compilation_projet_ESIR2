@@ -4,6 +4,9 @@ import queue as qu
 
 class WhLib:
     # se reporter à la table de traduction pour les équivalents while
+    def __init__(self):
+        self.tree=bt.binTree()
+
     def nop(self):
         pass
 
@@ -19,13 +22,12 @@ class WhLib:
         return self.cons_list(L)
 
     def list(self,*args):
-        tree=bt.binTree()
         L=qu.LifoQueue(len(args))
 
         for i in args:
             L.put(i)
-        tree=self.list_intermediaire(L)
-        return tree
+        self.tree=self.list_intermediaire(L)
+        return self.tree
 
     def hd(self,X):
         return X.head()
@@ -34,7 +36,7 @@ class WhLib:
         return X.tail()
         
     #istrue
-    def isTrue(self,X):
+    def isTrue(self,X): 
         if X.node == "nil" :
             return False
         return True
@@ -110,17 +112,16 @@ class WhLib:
     ## param : r : fils droit
     ##retour : pas de retour mais création d'un arbre
     def cons_intermediaire(self,l,r):
-        tree=bt.binTree()
         #cas ou on a <cons var nil nil> = <nil    > 
         if ((l is None) & (r is None)):
-            tree.node = "nil"
-            tree.left=None
-            tree.right=None
+            self.tree.node = "nil"
+            self.tree.left=None
+            self.tree.right=None
         else:	
-            tree.node = "cons"
-            tree.left = l
-            tree.right = r
-        return bt
+            self.tree.node = "cons"
+            self.tree.left = l
+            self.tree.right = r
+        return self.tree
 
         
     ## construire un arbre binaire à partir d'un arbre binaire revient à renvoyer cet arbre bianaire
@@ -142,7 +143,7 @@ class WhLib:
             tree=self.cons_intermediaire(None,None)
         else:
             if(queue.qsize()==1):# sil il n'y a qu'un seul élément dans la liste on réalise un cons avec filsgauche Null
-                tree=tree.cons_solo(queue.pop)
+                tree=self.cons_solo(queue.pop)
             else:
                 if(queue.qsize()>=2):# sinon on crée l'arbre de plus bas niveau puis on construit le reste non recursivement (pb python avec recursivité)
                     tree=self.cons_intermediaire(queue.pop,queue.pop)
