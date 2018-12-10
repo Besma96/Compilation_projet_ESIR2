@@ -8,7 +8,8 @@ import java.util.List;
 import org.xtext.comp.generator.Translator;
 
 public class Translator_Python extends Translator {
-
+	
+	private String nameMainFonction;
 	private CodeIntermediaire code;
 	private List<Function_Python> funcList = new ArrayList<Function_Python>();
 	private final static String imports = "from BinTree import binTree as bt\nimport sys \nimport Queue as queue";
@@ -32,6 +33,9 @@ public class Translator_Python extends Translator {
 		//System.out.println("Opname : "+Opname);
 		Function_Python f = new Function_Python(Opname);
 		this.funcList.add(f);
+		if(inMainFunction) {
+			nameMainFonction = q.getWrite();
+		}
 		// Autres choses à ajouter, voir la classe
 		operatorManager(it, f);
 	}
@@ -109,7 +113,7 @@ public class Translator_Python extends Translator {
 				nbParams++;
 			}
 			write("La partie main d'un langage classique");
-			
+			write(nameMainFonction + "(inParams, outParams)");
 		for(int i = 0; i <nbWrites; i++) {
 			write(" #Affichage des paramètres de sortie");
 			write("result = outParams.get()");
