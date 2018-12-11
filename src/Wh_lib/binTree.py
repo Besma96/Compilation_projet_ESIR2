@@ -121,7 +121,7 @@ class binTree:
 
 	## évalue un binTree en int
 	def binTreeToInt(self):
-		if self.right is not None:## cas où l'arbre est vide (en terme de int)
+		if self.right is None:## cas où l'arbre est vide (en terme de int)
 			return 0
 
 		res = 0
