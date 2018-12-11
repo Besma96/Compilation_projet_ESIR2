@@ -127,7 +127,7 @@ class binTree:
 		res = 0
 		tree=binTree()
 		tree=self.right
-		while(tree!="nil"):
+		while(tree.getNode!="nil"):
 			res =res+1
 			tree=tree.getRight()
 		return res+1
