@@ -41,8 +41,7 @@ public abstract class Translator {
 
 			switch(quadruplet.getOpe().getOpe()) {
 			case READ:
-				
-				f.write(""+ quadruplet.getWrite() + " = input.get()"); // on récupère l'élément de tête
+				f.write(""+ quadruplet.getWrite() + " = inputP.get()"); // on récupère l'élément de tête
 				if(inMainFunction) {
 					reads.add(quadruplet.getWrite());
 				}
@@ -50,7 +49,7 @@ public abstract class Translator {
 
 			case WRITE:
 				nbWrites++;
-				f.write("output.put(" + quadruplet.getWrite() + ");");
+				f.write("outputP.put(" + quadruplet.getWrite() + ");");
 				if(inMainFunction || f.name.equals(nameMainFonction)){
 					inMainFunction=true;
 				}
@@ -127,7 +126,9 @@ public abstract class Translator {
 	}
 
 	protected void write2(String s) {
+		tab(numberTabulation);
 		stb.append(s);
+		newLine();
 	}
 
 	protected void newLine() {

@@ -9,11 +9,11 @@ public class Function_Python extends Function {
 
 	public Function_Python(String name) {
 		super(name);
-		this.Inparams = "input , output " ; //paramètres de la fonction d'initilaisation
+		this.Inparams = "inputP , outputP " ; //paramètres de la fonction d'initilaisation
 		this.type_returns = " ";
 		write("inParams = queue.Queue() #Queue de bintree"); //Liste des paramètres d'entrée
+		rightShift();
 		write("outParams =queue.Queue() #Queue de bintree"); //Liste des paramètres d'entrée utile pour le main
-		
 		varsDeclaration();
 	}
 	
@@ -24,28 +24,27 @@ public class Function_Python extends Function {
 			FunctionDef defu = map.get(name.next());
 			write(" #Variables utilisées dans le code While");
 			defu.getVars().forEach((key, value)->{
-				write(key + " = bt(\""+key+"\",None,None)");
+				write(key + " = binTree()");
 			});
 			write("");
 			write(" #Variables temporaires utilisées par le compiler");
 			defu.getVars_local().forEach((key) -> {
-				write(key + " = bt(\"" + key + "\", None, None)");
+				write(key + " = binTree()");
 				System.out.println(key);
 			});
 			write("");
 		}
-
 	}
 	
 	public void printFunction(Translator translator) {
 		
 		newLine();
-		write(" #Le corps de la fonction Function_Python");
+		write(" #Le corps de la fonction qui doit être appelée dans le programme principal");
 		//translator.write();
 		//write("Les paramètres de la fcontion Function_Python");
 		translator.write("def " + getName() + "("+getParams() + ") : ");
 		translator.rightShift();		
-		translator.write2(body.toString());
+		translator.write(body.toString());
 		translator.leftShift();
 		write(" #Fin du corps de la  Function_Python");
 	}

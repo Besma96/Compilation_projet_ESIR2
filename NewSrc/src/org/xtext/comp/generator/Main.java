@@ -4,6 +4,7 @@
 package org.xtext.comp.generator;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -13,15 +14,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import org.antlr.runtime.tree.Tree;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.generator.GeneratorContext;
 import org.eclipse.xtext.generator.GeneratorDelegate;
+import org.eclipse.xtext.generator.IFileSystemAccess2;
+import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
-import org.eclipse.xtext.linking.lazy.SyntheticLinkingSupport;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
@@ -53,7 +57,8 @@ import com.google.inject.Provider;
 
 public class Main {
 	private static String inputFileName = "test_compilation_nop.wh";
-	private static String outputFileName = "./whc_result.py";
+	//	private static String outputFileName = "/projetCompilation/Compilation_projet_ESIR2/whc_result.py";
+	private static String outputFileName = "whc_result.py";
 
 	private static final String VAR_PREFIXE = "Var";
 	private Map<String, FunctionDef> listFunction = new HashMap<String, FunctionDef>();
@@ -61,6 +66,7 @@ public class Main {
 	CodeIntermediaire codeI = new CodeIntermediaire();
 	private static Main instance;
 	private static int count = 0;
+	private Translator_Python Translator ;
 	//	private Main() {
 	//		this.listFunction = new HashMap<String, FunctionDef>();
 	//		this.symboles = new HashMap<String, String>();
@@ -106,8 +112,18 @@ public class Main {
 		else {
 			createSymTable(inputFileName, outputFileName);
 		}
+		this.Translator.translate();
+//		System.out.println("Le resultat :\n"+Translator.toString());
 		System.out.println("Code generation finished.");
 	}
+
+	//A tester pour !!!!!!!!!!!!!!
+//	public static void main(String[] args) {
+//		JavaIoFileSystemAccess fileWriter = new JavaIoFileSystemAccess();
+//		fileWriter.setOutputPath("out");
+//		fileWriter.generateFile("bla", "content");
+//		return;
+//	}
 
 	/**
 	 * Initialise la liste des fonctions avec le nom des focntions déclarées
@@ -125,11 +141,25 @@ public class Main {
 				defFun.setOutputCount(def.getOutput().getVars().size());
 				this.listFunction.put(namef, defFun);
 				System.out.println("Contenue "+ this.getFunList().keySet());
-				
+
 			}
 
 		}
 	}
+
+	//	def doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context,
+	//			String name_file,int global_indent,int if_indent,int for_indent,
+	//			int while_indent,int foreach_indent
+	//)
+	//{
+	//for(r:resource.allContents.toIterable.filter(Program)){
+	//	fsa.generateFile(name_file,r.compile(global_indent,if_indent,for_indent,while_indent
+	//		,foreach_indent
+	//	))	
+	//}
+	//}
+
+
 
 	public void createSymTable(String inputFilePath, String outputFilePath)
 	{
@@ -146,6 +176,14 @@ public class Main {
 			return;
 		}
 
+		// Configure and start the generator
+		fileAccess.setOutputPath("./");
+		GeneratorContext context = new GeneratorContext();
+		context.setCancelIndicator(CancelIndicator.NullImpl);
+		PyGenerator whil = new PyGenerator();
+		whil.doGenerate(resource, fileAccess, context);
+
+
 		TreeIterator<EObject> tree = resource.getAllContents();
 		while (tree.hasNext()) {
 			EObject next = tree.next(); //AST
@@ -159,16 +197,30 @@ public class Main {
 		System.out.println("Le code 3 : "+codeI);
 		Translator_Python translator = new Translator_Python(codeI);
 		translator.translate();
+		this.Translator = new Translator_Python(codeI);
 
 
 		displaySymTable(); 		// Print the symbols table
-		System.out.println(translator); //print code python
+		System.out.println(translator.toString()); //print code python
 		//Ecriture du code python dans un fichier
-		try (PrintWriter out = new PrintWriter(outputFilePath)) {
+		File file = new File(outputFilePath);
+		System.out.println("chemin :"+ file.getAbsolutePath());
+		try (PrintWriter out = new PrintWriter(file.getAbsolutePath())) {
 			out.println(translator.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		//		PrintWriter out =null;
+		//		try {
+		//			 out = new PrintWriter(file.getAbsolutePath());
+		//			out.println(translator.toString());
+		//		}catch(FileNotFoundException e) {
+		//			e.printStackTrace();
+		//		}finally {
+		//			if(out != null) {
+		//				out.close();
+		//			}
+		//		}
 	}
 
 
@@ -181,7 +233,7 @@ public class Main {
 	private void compile(FunctionP f) {
 		String namef = f.getName();
 		codeI.nouvelleEtiquette();
-		codeI.fun(namef);
+		codeI.fun(codeI.getEtiquette());
 		compile(f.getDefinition(), listFunction.get(namef));
 		codeI.finEtiquette();
 	}
@@ -254,9 +306,9 @@ public class Main {
 	}
 
 	private void compile(Affect aff, FunctionDef f) {
-		
+
 		Queue<String> tempVars = new LinkedList<String>(); //Pour stocker les variables temporaires
-		
+
 		EList<String> vars = aff.getVars(); //cote gauche
 		EList<Expr> exprs = aff.getExprs(); // cote droit
 
@@ -288,7 +340,7 @@ public class Main {
 		//gestion du coté gauche
 		while(itVars.hasNext()) {
 			var = itVars.next();
-//			var = VAR_PREFIXE + (i++);
+			//			var = VAR_PREFIXE + (i++);
 			expr = tempVars.poll();
 			f.updateWriteVar(var);
 			varDeclaration3Addr(f, expr);
@@ -306,9 +358,9 @@ public class Main {
 		Queue<String> tempVars = new LinkedList<String>();
 		if(nbExpr > 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-//			String var = VAR_PREFIXE + count++;
-//			varDeclaration3Addr(f, var);
-//			codeI.cons(var, tempVar, "_");
+			//			String var = VAR_PREFIXE + count++;
+			//			varDeclaration3Addr(f, var);
+			//			codeI.cons(var, tempVar, "_");
 			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
 		}
@@ -428,7 +480,6 @@ public class Main {
 	}
 
 	public Map<String, FunctionDef> getFunList() {
-		System.out.println("GetlistFunct "+listFunction.toString());
 		return this.listFunction;
 	}
 

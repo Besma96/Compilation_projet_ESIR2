@@ -12,7 +12,7 @@ public class Translator_Python extends Translator {
 	private String nameMainFonction;
 	private CodeIntermediaire code;
 	private List<Function_Python> funcList = new ArrayList<Function_Python>();
-	private final static String imports = "from BinTree import binTree as bt\nimport sys \nimport Queue as queue";
+	private final static String imports = "#-*- coding:utf-8 -*\nfrom binTree import * \nimport WhLib as bt\nimport sys \nimport queue as queue";
 	private final static String partieMain = "########## Partie main ############";
 	public Translator_Python(CodeIntermediaire code) {
 		super(code);
@@ -63,12 +63,12 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_nop(Function f) {
 		//f.write("bt.nop()");
-		f.write("pass");
+		f.write("bt.WhLib().nop()");
 	}
 	
 	@Override
 	protected void translate_cons(QuadPair quad, Function f) {
-		f.write(quad.getWrite() + " = bt.cons(inParams)");
+		f.write(quad.getWrite() + " = bt.WhLib().cons(inParams)");
 	}
 
 	protected void writeFunction() {
@@ -81,10 +81,10 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void writeSymbs() {
 		write(" # Les symboles utilisés dans le programme while");
-		write("nil = bt(\"None\", None, None)");
+		//write("nil = bt()");
 
 		Main.getInstance().getSymbs().forEach((key, value)->{
-			write(key + " = bt(\"" + key + "\", None, None)");
+			write(key + " = binTree()");
 			System.out.println("Symbole : "+key);
 		});
 		write("");
@@ -93,32 +93,36 @@ public class Translator_Python extends Translator {
 	
 	public void CodePrincipal() {
 		Iterator<String> itR = reads.iterator();
-		int nbParams = 0;
-			write(" #Partie code principal ");
-			
+		int nbParams = 1;
+			//write(" #Partie code principal ");
+			write(partieMain);
+			newLine();
 			write("inParams = queue.Queue() #Queue de BinTree" );
 			write("outParams = queue.Queue() #Queue de BinTree");
 			while(itR.hasNext()) {
 				String s = itR.next();
-				write("" +"if(len(sys.agv) > "+ nbParams +")");
+				write("" +"if(len(sys.argv) > "+ nbParams +") : ");
 				rightShift(); //Indentation
-				write(""+ s + " = bt.intToBinTree(int(sys.argv["+nbParams+"])");
+				write(""+ s + " = bt.WhLib().intToBinTree(int(sys.argv["+nbParams+"]))");
 				write("inParams.put("+ s + ")");
 				leftShift();
 				write("else : ");
 				rightShift();
-				write("" + s+ " = bt(\""+s +"\",None, None)" );
+				write("" + s+ " = binTree()" );
 				write("inParams.put("+ s + ")");
 				leftShift();
 				nbParams++;
 			}
-			write("La partie main d'un langage classique");
+		
+			newLine();
 			write(nameMainFonction + "(inParams, outParams)");
-		for(int i = 0; i <nbWrites; i++) {
+			newLine();
+			System.out.println("Suis avant le for et nbwrites vaut : "+nbWrites);
 			write(" #Affichage des paramètres de sortie");
+		for(int i = 0; i <nbWrites; i++) {
 			write("result = outParams.get()");
 			write("print(result)");
-			write("print(\"Son équivalent en entier : \" + bt.bintTreeInt(result))");
+			write("print(\"Son Equivalent en entier : \" , 	bt.WhLib().binTreeToInt(result))");
 		}
 		
 		
