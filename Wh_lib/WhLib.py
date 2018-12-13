@@ -9,18 +9,19 @@ class WhLib:
         pass
 
     def nil(self):
-        return self.cons(None,None)
+        return self.cons_intermediaire(None,None)
 
-    def cons(self,*args):
+    def cons(self,queue):
         L=[]
-        for i in args:
-            L.append(i)
+        while not queue.empty():
+            L.append(queue.get())
+
         return WhLib.cons_list(self,L)
 
-    def list(self,*args):
+    def list(self,queue):
         L=[]
-        for i in args:
-            L.append(i)
+        while not queue.empty():
+            L.append(queue.get())
         
         return WhLib.list_intermediaire(self,L)
 
@@ -54,7 +55,6 @@ class WhLib:
     def binTreeToInt(self,X):
         if X.right is None:## cas où le fils droit est vide (en terme de int)
             return 0
-
         res = 0
         tree=bt.binTree()
         tree=X.right
@@ -92,11 +92,9 @@ class WhLib:
                 tree=tree.right
             except:
                 tl=False
-            print(chaine)
         chaine+=tree
         return chaine
-        
-
+              
     ###########################################################################################################################
     ###########################################################################################################################
     #fonction intermediaire servant aux fonctions plus haut
@@ -132,7 +130,7 @@ class WhLib:
         return tree
 
     ## construction d’un binTree à partir d’une file (deque) de binTree
-    ## parametre : queue (liste d'element)
+    ## parametre : LISTE D'element 
     ##retour :  l'arbre binaire crée à partir de la file d'elmeent de queue 
     def cons_list(self,L) :
         tree=bt.binTree()
@@ -140,8 +138,12 @@ class WhLib:
         if (len(L)==0): # cas particulier où la liste est vide*
             tree=WhLib.cons_intermediaire(self,None,None)
         else:
-            if(len(L)==1):# sil il n'y a qu'un seul élément dans la liste on réalise un cons avec filsgauche Null
-                tree=WhLib.cons_solo(self,L.pop(len(L)-1))
+            if(len(L)==1):# sil il n'y a qu'un seul élément dans la liste on réalise un retourne le parametre d'entré
+                i=L.pop(len(L)-1)
+                try:
+                    tree=WhLib.cons_solo(self,i)
+                except:
+                    tree=WhLib.cons_intermediaire(self,None,i)
             else:
                 if(len(L)>=2):# sinon on crée l'arbre de plus bas niveau puis on construit le reste non recursivement (pb python avec recursivité)
                     tree=WhLib.cons_intermediaire(self,L.pop(len(L)-2),L.pop(len(L)-1))

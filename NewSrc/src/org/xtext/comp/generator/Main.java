@@ -112,7 +112,7 @@ public class Main {
 		else {
 			createSymTable(inputFileName, outputFileName);
 		}
-		this.Translator.translate();
+//		this.Translator.translate();
 //		System.out.println("Le resultat :\n"+Translator.toString());
 		System.out.println("Code generation finished.");
 	}
@@ -463,6 +463,7 @@ public class Main {
 		String val = expr.getVarSimple(); // variable simple
 		String sym = expr.getSym();
 		Input call = expr.getVars();  //appel de fonction
+		String nil = expr.getStr(); //nil
 		String result = "";
 		if(val != null) {
 			f.updateReadVar(val);
@@ -473,6 +474,12 @@ public class Main {
 		}
 		if(sym != null) {
 			symboles.put(sym, ""); //ajout dans la table des symboles
+		}
+		if(nil != null) {
+			symboles.put(nil, "");
+			f.updateReadVar(nil);
+			varDeclaration3Addr(f, val);
+			result = nil;
 		}
 
 		return result;

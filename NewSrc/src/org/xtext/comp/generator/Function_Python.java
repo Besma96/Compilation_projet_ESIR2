@@ -36,6 +36,19 @@ public class Function_Python extends Function {
 		}
 	}
 	
+	public void printFunction() {
+		
+		newLine();
+		write(" #Le corps de la fonction qui doit être appelée dans le programme principal");
+		//translator.write();
+		//write("Les paramètres de la fcontion Function_Python");
+		this.write("def " + getName() + "("+getParams() + ") : ");
+		this.rightShift();		
+		this.write(body.toString());
+		this.leftShift();
+		write(" #Fin du corps de la  Function_Python");
+	}
+	
 	public void printFunction(Translator translator) {
 		
 		newLine();
@@ -44,7 +57,7 @@ public class Function_Python extends Function {
 		//write("Les paramètres de la fcontion Function_Python");
 		translator.write("def " + getName() + "("+getParams() + ") : ");
 		translator.rightShift();		
-		translator.write(body.toString());
+		translator.write2(body.toString());
 		translator.leftShift();
 		write(" #Fin du corps de la  Function_Python");
 	}

@@ -115,7 +115,7 @@ terminal NIL:
 ;
 
 terminal VARIABLE:
-    'A'..'Z' //('A'..'Z' | 'a'..'z' | '0'..'9')* 
+    'A'..'Z'('A'..'Z' | 'a'..'z' | '0'..'9')* 
 ;
 
 terminal SYMBOLE:

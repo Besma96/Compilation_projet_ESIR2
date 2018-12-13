@@ -11,7 +11,6 @@ public class Translator_Python extends Translator {
 	
 	private String nameMainFonction;
 	private CodeIntermediaire code;
-	private List<Function_Python> funcList = new ArrayList<Function_Python>();
 	private final static String imports = "#-*- coding:utf-8 -*\nfrom binTree import * \nimport WhLib as bt\nimport sys \nimport queue as queue";
 	private final static String partieMain = "########## Partie main ############";
 	public Translator_Python(CodeIntermediaire code) {
@@ -20,17 +19,22 @@ public class Translator_Python extends Translator {
 	}
 	
 	public void iterateCode() {
-		iterateCode("F" + (code.getSize()-1));
+		System.out.println("Taille de la map codeI :"+code.getSize());
+		int taille = code.getSize();
+		for(int i =taille-1; i>=0; i--) {
+			iterateCode("F" + i);
+		}
 	
 	}
 	
 	private void iterateCode(String string) {
 		HashMap<String, LinkedList<QuadPair>> map = code.getCode3Addr();
 		 LinkedList<QuadPair> list = map.get(string);
-		Iterator<QuadPair> it = list.iterator();
+			//gestion des erreurs si list==null
+		 Iterator<QuadPair> it = list.iterator();
 		QuadPair q = it.next();
 		String Opname = q.getWrite();
-		//System.out.println("Opname : "+Opname);
+		System.out.println("Opname : "+Opname);
 		Function_Python f = new Function_Python(Opname);
 		this.funcList.add(f);
 		if(inMainFunction) {
@@ -68,15 +72,24 @@ public class Translator_Python extends Translator {
 	
 	@Override
 	protected void translate_cons(QuadPair quad, Function f) {
+		String r1 = quad.getRead1();
+		String r2 = quad.getRead2();
+		//if(r1.equals("") || r1.equals("_"))
+		f.write("inParams.put("+ quad.getRead1()+")");
+		f.write("inParams.put("+ quad.getRead2()+")");
+		f.write("print(inParams.qsize())");
 		f.write(quad.getWrite() + " = bt.WhLib().cons(inParams)");
+//		f.write(quad.getWrite() + " = bt.WhLib().cons(inputP)");
 	}
 
 	protected void writeFunction() {
 		for(Iterator<Function_Python> iterator = funcList.iterator(); iterator.hasNext();) {
 			Function_Python pf = (Function_Python) iterator.next();
 			pf.printFunction(this);
+			//pf.printFunction();
 		}
 	}
+	
 	
 	@Override
 	protected void writeSymbs() {
@@ -125,6 +138,71 @@ public class Translator_Python extends Translator {
 			write("print(\"Son Equivalent en entier : \" , 	bt.WhLib().binTreeToInt(result))");
 		}
 		
+		
+	}
+
+	@Override
+	protected void translate_function(QuadPair quad) {
+		funcList.add(new Function_Python(quad.getWrite()));
+	}
+
+	@Override
+	protected void translate_and(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_or(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_eq(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_pop(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_call(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_list(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_hd(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_tl(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_foreach(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void translate_if(QuadPair quad, Function f) {
+		// TODO Auto-generated method stub
 		
 	}
 

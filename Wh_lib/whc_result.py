@@ -5,14 +5,14 @@ import sys
 import queue as queue
 
  # Les symboles utilisés dans le programme while
+nil = binTree()
 
 
 def F0(inputP , outputP ) : 
 	inParams = queue.Queue() #Queue de bintree
 	outParams =queue.Queue() #Queue de bintree
 	 #Variables utilisées dans le code While
-	A = binTree()
-	B = binTree()
+	nil = binTree()
 	X = binTree()
 	Z = binTree()
 	K = binTree()
@@ -21,18 +21,15 @@ def F0(inputP , outputP ) :
 	 #Variables temporaires utilisées par le compiler
 	Var0 = binTree()
 	Var1 = binTree()
-	Var2 = binTree()
-	Var3 = binTree()
 	
 	X = inputP.get()
 	O = inputP.get()
-	Var0 = B
-	Var1 = X
-	A = Var0
-	Z = Var1
-	Var2 = bt.WhLib().cons(inParams)
-	Var3 = Var2
-	K = Var3
+	inParams.put(nil)
+	inParams.put(nil)
+	print(inParams.qsize())
+	Var0 = bt.WhLib().cons(inParams)
+	Var1 = Var0
+	K = Var1
 	bt.WhLib().nop()
 	bt.WhLib().nop()
 	outputP.put(X);

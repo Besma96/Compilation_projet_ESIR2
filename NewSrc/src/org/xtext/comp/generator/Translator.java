@@ -11,6 +11,7 @@ import java.util.List;
  */
 public abstract class Translator {
 
+	protected List<Function_Python> funcList = new ArrayList<Function_Python>();
 	protected CodeIntermediaire code;
 	private StringBuilder stb = new StringBuilder();
 	private int numberTabulation = 0;
@@ -30,11 +31,27 @@ public abstract class Translator {
 	public abstract void translate();
 
 	protected abstract void translate_affectation(QuadPair quad, Function f);
-
+	protected abstract void translate_function(QuadPair quad);
 	protected abstract void translate_nop(Function f);
 	protected abstract void translate_cons(QuadPair quad, Function f) ;
-	protected abstract void writeSymbs();
+	protected abstract void translate_and(QuadPair quad, Function f);
 
+	protected abstract void translate_or(QuadPair quad, Function f);
+
+	protected abstract void translate_eq(QuadPair quad, Function f);
+
+	protected abstract void translate_pop(QuadPair quad, Function f);
+
+	protected abstract void translate_call(QuadPair quad, Function f);
+	protected abstract void translate_list(QuadPair quad, Function f);
+
+	protected abstract void translate_hd(QuadPair quad, Function f);
+
+	protected abstract void translate_tl(QuadPair quad, Function f);
+	protected abstract void translate_foreach(QuadPair quad, Function f);
+	protected abstract void translate_if(QuadPair quad, Function f);
+	protected abstract void writeSymbs();
+	protected abstract void writeFunction();
 	protected void operatorManager(Iterator<QuadPair> it, Function_Python f) {
 		while(it.hasNext()) {
 			QuadPair quadruplet = it.next();
@@ -58,68 +75,70 @@ public abstract class Translator {
 			case NOP:
 				translate_nop(f);
 				break;
-				
+
 			case AFF:
 				translate_affectation(quadruplet, f);
 				break;
-				
+
 			case AND:
 				break;
-				
+
 			case CALL:
 				break;
-				
+
 			case CONS:
 				translate_cons(quadruplet, f);
 				break;
-				
+
 			case DECL:
 				break;
-				
+
 			case ELSE:
 				break;
-				
+
 			case EQ:
 				break;
-				
+
 			case FOR:
 				break;
-				
+
 			case FOREACH:
 				break;
-				
+
 			case FUN:
+					translate_function(quadruplet);
+//					funcList.add(new Function_Python(quadruplet.getWrite()));
 				break;
-				
+
 			case HD:
 				break;
-				
+
 			case IF:
 				break;
-				
+
 			case LIST:
 				break;
-				
+
 			case NOT:
 				break;
-				
+
 			case OR:
 				break;
-				
+
 			case TL:
 				break;
-				
+
 			case WHILE:
 				break;
-				
+
 			default:
 				break;
 			}
 
 		}
-			}
+	}
 
-	protected void write(String s) {
+	protected  void write(String s) {
 		tab(numberTabulation);
 		stb.append(s);
 		newLine();
