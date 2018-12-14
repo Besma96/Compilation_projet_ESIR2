@@ -1,0 +1,16 @@
+function test:  
+  read X, O
+    % 
+  K:=(cons nil nil);
+  nop;
+  nop
+ %  
+  write X, K, Z
+  
+function p:
+read B,Z
+%
+nop
+%
+write Q
+  
