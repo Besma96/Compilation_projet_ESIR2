@@ -82,11 +82,10 @@ public class Translator_Python extends Translator {
 //		String r1 = quad.getRead1();
 //		String r2 = quad.getRead2();
 		//if(r1.equals("") || r1.equals("_"))
-		f.write("inParams.put("+ quad.getRead1()+")");
-		f.write("inParams.put("+ quad.getRead2()+")");
+//		f.write("inParams.put("+ quad.getRead1()+")");
+//		f.write("inParams.put("+ quad.getRead2()+")");
 		//f.write("print(inParams.qsize())");
-		f.write(quad.getWrite() + " = bt.WhLib().cons(inParams)");
-		//		f.write(quad.getWrite() + " = bt.WhLib().cons(inputP)");
+		f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +"," + quad.getRead2()+")");
 	}
 
 	protected void writeFunction() {

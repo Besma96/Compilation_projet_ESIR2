@@ -1,12 +1,7 @@
 function test:  
   read X, O
     % 
-  K:=(cons X Y B (cons X O) );
- 	if K then
- 		A:=C
- 	else 
- 		A:=X
- 	fi;
+  K:=(cons X Y B );
   nop;
   nop
  %  

@@ -68,7 +68,6 @@ public class Main {
 	CodeIntermediaire codeI = new CodeIntermediaire();
 	private static Main instance;
 	private static int count = 0;
-	private static int nbF = 0;
 	private Translator_Python Translator ;
 	//	private Main() {
 	//		this.listFunction = new HashMap<String, FunctionDef>();
@@ -127,7 +126,6 @@ public class Main {
 	 * @param prog
 	 */
 	private void discoverFunctions(Program prog) {
-		
 		for(FunctionP f : prog.getFunctions()) {
 			String namef = f.getName();
 			Definition def = f.getDefinition();
@@ -161,17 +159,12 @@ public class Main {
 			return;
 		}
 
-		// Translator
-		System.out.println("Le code 3 : "+codeI);
-		Translator_Python translator = new Translator_Python(codeI);
-		translator.translate();
-		//		this.Translator = new Translator_Python(codeI);
 		// Configure and start the generator
 		fileAccess.setOutputPath("./");
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
-		PyGenerator whil = new PyGenerator();
-		whil.doGenerate(resource, fileAccess, context, outputFilePath,translator );
+//		PyGenerator whil = new PyGenerator();
+//		whil.doGenerate(resource, fileAccess, context);
 
 
 		TreeIterator<EObject> tree = resource.getAllContents();
@@ -183,7 +176,11 @@ public class Main {
 			}
 		}
 
-
+		// Translator
+		System.out.println("Le code 3 : "+codeI);
+		Translator_Python translator = new Translator_Python(codeI);
+		translator.translate();
+		//		this.Translator = new Translator_Python(codeI);
 
 
 		displaySymTable(); 		// Print the symbols table
@@ -225,10 +222,12 @@ public class Main {
 		}
 	}
 
+	private static int nbF = 0;
 	private void compile(FunctionP f) {
 		String namef = f.getName();
 		codeI.nouvelleEtiquette();
-		codeI.fun(namef + "_F"+nbF);
+//		codeI.fun(codeI.getEtiquette());
+		codeI.fun(namef+"_F"+nbF++);
 		compile(f.getDefinition(), listFunction.get(namef));
 		codeI.finEtiquette();
 	}
@@ -435,7 +434,8 @@ public class Main {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
 			String var = VAR_PREFIXE + count++;
 			varDeclaration3Addr(f, var);
-			codeI.cons(var, tempVars.poll(), tempVar);
+//			codeI.cons(var, tempVars.poll(), tempVar);
+			codeI.cons(var, tempVar, tempVars.poll());
 			tempVars.offer(var);
 			nbExpr--;
 			if(nbExpr < 0) {
