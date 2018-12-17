@@ -944,23 +944,23 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNotKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cArg1Assignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cArg1ExprEqParserRuleCall_1_0 = (RuleCall)cArg1Assignment_1.eContents().get(0);
+		private final RuleCall cArg1ExprParserRuleCall_1_0 = (RuleCall)cArg1Assignment_1.eContents().get(0);
 		
 		//ExprNot:
-		//	'not' arg1=ExprEq;
+		//	'not' arg1=Expr;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'not' arg1=ExprEq
+		//'not' arg1=Expr
 		public Group getGroup() { return cGroup; }
 		
 		//'not'
 		public Keyword getNotKeyword_0() { return cNotKeyword_0; }
 		
-		//arg1=ExprEq
+		//arg1=Expr
 		public Assignment getArg1Assignment_1() { return cArg1Assignment_1; }
 		
-		//ExprEq
-		public RuleCall getArg1ExprEqParserRuleCall_1_0() { return cArg1ExprEqParserRuleCall_1_0; }
+		//Expr
+		public RuleCall getArg1ExprParserRuleCall_1_0() { return cArg1ExprParserRuleCall_1_0; }
 	}
 	public class ExprEqElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Py.ExprEq");
@@ -969,13 +969,13 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArg1ExprSimpleParserRuleCall_0_0 = (RuleCall)cArg1Assignment_0.eContents().get(0);
 		private final Keyword cEqualsSignQuestionMarkKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cArg2Assignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cArg2ExprSimpleParserRuleCall_2_0 = (RuleCall)cArg2Assignment_2.eContents().get(0);
+		private final RuleCall cArg2ExprParserRuleCall_2_0 = (RuleCall)cArg2Assignment_2.eContents().get(0);
 		
 		//ExprEq:
-		//	arg1=ExprSimple '=?' arg2=ExprSimple;
+		//	arg1=ExprSimple '=?' arg2=Expr;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//arg1=ExprSimple '=?' arg2=ExprSimple
+		//arg1=ExprSimple '=?' arg2=Expr
 		public Group getGroup() { return cGroup; }
 		
 		//arg1=ExprSimple
@@ -987,11 +987,11 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		//'=?'
 		public Keyword getEqualsSignQuestionMarkKeyword_1() { return cEqualsSignQuestionMarkKeyword_1; }
 		
-		//arg2=ExprSimple
+		//arg2=Expr
 		public Assignment getArg2Assignment_2() { return cArg2Assignment_2; }
 		
-		//ExprSimple
-		public RuleCall getArg2ExprSimpleParserRuleCall_2_0() { return cArg2ExprSimpleParserRuleCall_2_0; }
+		//Expr
+		public RuleCall getArg2ExprParserRuleCall_2_0() { return cArg2ExprParserRuleCall_2_0; }
 	}
 	
 	
@@ -1335,7 +1335,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprNot:
-	//	'not' arg1=ExprEq;
+	//	'not' arg1=Expr;
 	public ExprNotElements getExprNotAccess() {
 		return pExprNot;
 	}
@@ -1345,7 +1345,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprEq:
-	//	arg1=ExprSimple '=?' arg2=ExprSimple;
+	//	arg1=ExprSimple '=?' arg2=Expr;
 	public ExprEqElements getExprEqAccess() {
 		return pExprEq;
 	}

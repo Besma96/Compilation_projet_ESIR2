@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtext.comp.py.ExprEq;
+import org.xtext.comp.py.Expr;
 import org.xtext.comp.py.ExprNot;
 import org.xtext.comp.py.PyPackage;
 
@@ -39,7 +39,7 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
    * @generated
    * @ordered
    */
-  protected ExprEq arg1;
+  protected Expr arg1;
 
   /**
    * <!-- begin-user-doc -->
@@ -67,7 +67,7 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
    * <!-- end-user-doc -->
    * @generated
    */
-  public ExprEq getArg1()
+  public Expr getArg1()
   {
     return arg1;
   }
@@ -77,9 +77,9 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetArg1(ExprEq newArg1, NotificationChain msgs)
+  public NotificationChain basicSetArg1(Expr newArg1, NotificationChain msgs)
   {
-    ExprEq oldArg1 = arg1;
+    Expr oldArg1 = arg1;
     arg1 = newArg1;
     if (eNotificationRequired())
     {
@@ -94,7 +94,7 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setArg1(ExprEq newArg1)
+  public void setArg1(Expr newArg1)
   {
     if (newArg1 != arg1)
     {
@@ -153,7 +153,7 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
     switch (featureID)
     {
       case PyPackage.EXPR_NOT__ARG1:
-        setArg1((ExprEq)newValue);
+        setArg1((Expr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -170,7 +170,7 @@ public class ExprNotImpl extends MinimalEObjectImpl.Container implements ExprNot
     switch (featureID)
     {
       case PyPackage.EXPR_NOT__ARG1:
-        setArg1((ExprEq)null);
+        setArg1((Expr)null);
         return;
     }
     super.eUnset(featureID);

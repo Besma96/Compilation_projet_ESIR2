@@ -4180,9 +4180,9 @@ rule__ExprNot__Arg1Assignment_1
 	}
 :
 	(
-		{ before(grammarAccess.getExprNotAccess().getArg1ExprEqParserRuleCall_1_0()); }
-		ruleExprEq
-		{ after(grammarAccess.getExprNotAccess().getArg1ExprEqParserRuleCall_1_0()); }
+		{ before(grammarAccess.getExprNotAccess().getArg1ExprParserRuleCall_1_0()); }
+		ruleExpr
+		{ after(grammarAccess.getExprNotAccess().getArg1ExprParserRuleCall_1_0()); }
 	)
 ;
 finally {
@@ -4210,9 +4210,9 @@ rule__ExprEq__Arg2Assignment_2
 	}
 :
 	(
-		{ before(grammarAccess.getExprEqAccess().getArg2ExprSimpleParserRuleCall_2_0()); }
-		ruleExprSimple
-		{ after(grammarAccess.getExprEqAccess().getArg2ExprSimpleParserRuleCall_2_0()); }
+		{ before(grammarAccess.getExprEqAccess().getArg2ExprParserRuleCall_2_0()); }
+		ruleExpr
+		{ after(grammarAccess.getExprEqAccess().getArg2ExprParserRuleCall_2_0()); }
 	)
 ;
 finally {

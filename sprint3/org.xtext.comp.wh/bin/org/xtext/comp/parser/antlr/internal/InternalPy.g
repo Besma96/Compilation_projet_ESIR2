@@ -1845,9 +1845,9 @@ ruleExprNot returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getExprNotAccess().getArg1ExprEqParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getExprNotAccess().getArg1ExprParserRuleCall_1_0());
 				}
-				lv_arg1_1_0=ruleExprEq
+				lv_arg1_1_0=ruleExpr
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getExprNotRule());
@@ -1856,7 +1856,7 @@ ruleExprNot returns [EObject current=null]
 						$current,
 						"arg1",
 						lv_arg1_1_0,
-						"org.xtext.comp.Py.ExprEq");
+						"org.xtext.comp.Py.Expr");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1906,9 +1906,9 @@ ruleExprEq returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getExprEqAccess().getArg2ExprSimpleParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getExprEqAccess().getArg2ExprParserRuleCall_2_0());
 				}
-				lv_arg2_2_0=ruleExprSimple
+				lv_arg2_2_0=ruleExpr
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getExprEqRule());
@@ -1917,7 +1917,7 @@ ruleExprEq returns [EObject current=null]
 						$current,
 						"arg2",
 						lv_arg2_2_0,
-						"org.xtext.comp.Py.ExprSimple");
+						"org.xtext.comp.Py.Expr");
 					afterParserOrEnumRuleCall();
 				}
 			)

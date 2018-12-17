@@ -5,8 +5,8 @@ package org.xtext.comp.generator;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import org.antlr.runtime.tree.Tree;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -23,8 +22,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.generator.GeneratorContext;
 import org.eclipse.xtext.generator.GeneratorDelegate;
-import org.eclipse.xtext.generator.IFileSystemAccess2;
-import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
@@ -46,11 +43,16 @@ import org.xtext.comp.py.ExprOr;
 import org.xtext.comp.py.ExprSimple;
 import org.xtext.comp.py.ExprSym;
 import org.xtext.comp.py.ExprTl;
+import org.xtext.comp.py.For;
+import org.xtext.comp.py.Foreach;
 import org.xtext.comp.py.FunctionP;
+import org.xtext.comp.py.If;
 import org.xtext.comp.py.Input;
+import org.xtext.comp.py.LExpr;
 import org.xtext.comp.py.Nop;
 import org.xtext.comp.py.Output;
 import org.xtext.comp.py.Program;
+import org.xtext.comp.py.While;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -112,18 +114,12 @@ public class Main {
 		else {
 			createSymTable(inputFileName, outputFileName);
 		}
-//		this.Translator.translate();
-//		System.out.println("Le resultat :\n"+Translator.toString());
+		//		this.Translator.translate();
+		//		System.out.println("Le resultat :\n"+Translator.toString());
 		System.out.println("Code generation finished.");
 	}
 
-	//A tester pour !!!!!!!!!!!!!!
-//	public static void main(String[] args) {
-//		JavaIoFileSystemAccess fileWriter = new JavaIoFileSystemAccess();
-//		fileWriter.setOutputPath("out");
-//		fileWriter.generateFile("bla", "content");
-//		return;
-//	}
+
 
 	/**
 	 * Initialise la liste des fonctions avec le nom des focntions déclarées
@@ -184,30 +180,39 @@ public class Main {
 		System.out.println("Le code 3 : "+codeI);
 		Translator_Python translator = new Translator_Python(codeI);
 		translator.translate();
-//		this.Translator = new Translator_Python(codeI);
+		//		this.Translator = new Translator_Python(codeI);
 
 
 		displaySymTable(); 		// Print the symbols table
 		System.out.println(translator.toString()); //print code python
 		//Ecriture du code python dans un fichier
-		File file = new File(outputFilePath);
-		System.out.println("chemin :"+ file.getAbsolutePath());
-		try (PrintWriter out = new PrintWriter(file.getAbsolutePath())) {
-			out.println(translator.toString());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		//		PrintWriter out =null;
-		//		try {
-		//			 out = new PrintWriter(file.getAbsolutePath());
+		//		File file = new File(outputFilePath);
+		//		System.out.println("chemin :"+ file.getParentFile());
+		//		try (PrintWriter out = new PrintWriter(file.getAbsolutePath())) {
 		//			out.println(translator.toString());
-		//		}catch(FileNotFoundException e) {
+		//			out.close();
+		//		} catch (FileNotFoundException e) {
 		//			e.printStackTrace();
-		//		}finally {
-		//			if(out != null) {
-		//				out.close();
-		//			}
 		//		}
+
+		//Autre approche
+		File fil = new File(outputFilePath);
+		FileWriter fr = null;
+
+		try {
+			fr = new FileWriter(fil.getAbsolutePath());
+			fr.write(translator.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 
@@ -260,10 +265,22 @@ public class Main {
 		else if(obj instanceof Nop) {
 			codeI.nop();
 		}
-		//		else if(obj instanceof Affect)
-		// TODO le reste des commandes
+		else if(obj instanceof For) {
+			compile((For) obj, f);
+		}
+		else if(obj instanceof While) {
+			compile((While) obj, f);
+		}
+		else if(obj instanceof Foreach) {
+			compile((Foreach) obj, f);
+		}
+		else if(obj instanceof If) {
+			compile((If) obj, f);
+		}
 	}
-
+	
+	
+	
 	private boolean isSymbole(String str) {
 		if (str == null || str.equals("nil")){ return false; }
 		String firstChar = str.substring(0, 1);
@@ -323,6 +340,64 @@ public class Main {
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
+			else if(x instanceof ExprAnd) {
+				expr = compile((ExprAnd) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprOr) {
+				expr = compile((ExprOr) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprList) {
+				expr = compile((ExprList) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprHd) {
+				expr = compile((ExprHd) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprTl) {
+				expr = compile((ExprTl) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprSym) {
+				expr = compile((ExprSym) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprNot) {
+				expr = compile((ExprNot) x, f);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+			else if(x instanceof ExprEq) {
+				expr = compile((ExprEq) x, f);
+				System.out.println("dans affectation EQ "+ expr);
+				var = VAR_PREFIXE + count++;
+				tempVars.offer(var);
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, expr);
+			}
+
 		}
 		//gestion du coté gauche
 		while(itVars.hasNext()) {
@@ -396,53 +471,142 @@ public class Main {
 			return compile((ExprNot) obj, f);
 		}
 		else if(obj instanceof ExprEq ) {
+			System.out.println("Suis dans EQ");
 			return compile((ExprEq) obj, f);
 		}
 		else if(obj instanceof ExprSym ) {
 			return compile((ExprSym) obj, f);
 		}
 		else {
-			//			compile(exp )
-			//System.out.println("L'expression n'est pas reconnue : "+ exp);
+			System.out.println("L'expression n'est pas reconnue : "+ exp);
 		}
 		return null;
 	}
 
 	private String compile(ExprSym exp, FunctionDef f) {
 		// TODO Auto-generated method stub
+		// Ressemble plutot à l'appel de fonction(cf Py.xtext)
+		String arg1 = exp.getArg1();
+		EList<Expr> arg2 = exp.getArg2();
+		if(arg1 != null) {
+			this.symboles.put(arg1, "");
+		}
+
+		if(arg2 != null) {
+			//TODO
+		}
+
 		return null;
 	}
 
 	private String compile(ExprNot exp, FunctionDef f) {
-		// TODO Auto-generated method stub
-		return null;
+		Expr expr = exp.getArg1();
+		String tempVar = compile(expr, f);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.not(var, tempVar);
+
+		return var;
 	}
 
 	private String compile(ExprEq exp, FunctionDef f) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ExprSimple arg1 = exp.getArg1(); //arg1 dans ExprAnd est une ExprSimple
+		Expr arg2 = exp.getArg2();
+
+		String tempVar1 = compile(arg1, f); 
+		String tempVar2 = compile(arg2, f);
+		System.out.println("arg1 " + tempVar1);
+		System.out.println("arg2 " + tempVar2);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.eq(var, tempVar1, tempVar2);
+
+		return var;
+
 	}
 
 	private String compile(ExprList exp, FunctionDef f) {
+
+		EList<Expr> eCons = exp.getArg();
+		int nbExpr = eCons.size();
+		nbExpr--;
+		Expr temp = eCons.get(nbExpr);
+		String tempVar = "";
+		Queue<String> tempVars = new LinkedList<String>();
+		if(nbExpr > 0) {
+			tempVar = compile(temp, f); //resultat de la compile de l'expression
+			//			String var = VAR_PREFIXE + count++;
+			//			varDeclaration3Addr(f, var);
+			//			codeI.cons(var, tempVar, "_");
+			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
+			nbExpr--;
+		}
+
+		while(nbExpr >= 0) {
+			temp = eCons.get(nbExpr);
+			tempVar = compile(temp, f); //resultat de la compile de l'expression
+			String var = VAR_PREFIXE + count++;
+			varDeclaration3Addr(f, var);
+			codeI.list(var, tempVars.poll(), tempVar);
+			tempVars.offer(var);
+			nbExpr--;
+			if(nbExpr < 0) {
+				return var;
+			}
+		}
+
 		return null;
 	}
 
 	private String compile(ExprOr exp, FunctionDef f) {
-		return null;
+
+		ExprSimple arg1 = exp.getArg1(); //arg1 dans ExprAnd est une ExprSimple
+		Expr arg2 = exp.getArg2();
+		String tempVar1 = "";
+		tempVar1 = compile(arg1, f); 
+		String tempVar2 = compile(arg2, f);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.or(var, tempVar1, tempVar2);
+
+		return var;
 	}
 
 	private String compile(ExprAnd exp, FunctionDef f) {
 		// TODO Auto-generated method stub
-		return null;
+		ExprSimple arg1 = exp.getArg1(); //arg1 dans ExprAnd est une ExprSimple
+		Expr arg2 = exp.getArg2();
+		String tempVar1 = "";
+		tempVar1 = compile(arg1, f); 
+		String tempVar2 = compile(arg2, f);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.and(var, tempVar1, tempVar2);
+
+		return var;
 	}
 
 	private String compile(ExprTl exp, FunctionDef f) {
-		// TODO Auto-generated method stub
+		Expr arg = exp.getArg();
+		String temp = compile(arg ,f);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.tl(var, temp);
+		if(arg != null)
+			return var;
 		return null;
 	}
 
 	private String compile(ExprHd exp, FunctionDef f) {
-		// TODO Auto-generated method stub
+
+		Expr arg = exp.getArg();
+		String temp = compile(arg ,f);
+		String var = VAR_PREFIXE+count++;
+		varDeclaration3Addr(f, var);
+		codeI.hd(var, temp);
+		if(arg != null)
+			return var;
 		return null;
 	}
 
@@ -461,6 +625,7 @@ public class Main {
 		}
 		if(sym != null) {
 			symboles.put(sym, ""); //ajout dans la table des symboles
+			result = sym;
 		}
 		if(nil != null) {
 			symboles.put(nil, "");
@@ -473,18 +638,372 @@ public class Main {
 
 	}
 
+//	private void compile(LExpr lexpr, FunctionDef f) {
+//		EList<Expr> exprs = lexpr.getLexpr();
+//		for(Expr e : exprs) {
+//			compile(e, f);
+//		}
+//	}
+	
+	/**************************** Structures de contrôles ***************/
+	
+	private void compile(While wh, FunctionDef f) {
+		String label = codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		String cond = compile(wh.getExpr(), f); // condition
+		if(cond !=null) {
+			codeI.decl(cond);
+		}
+		codeI.finEtiquette();
+		
+		codeI.nouvelleEtiquette();
+		Commands cmds = wh.getCmds();
+		compile(cmds, f); //corps du while
+		codeI.finEtiquette();
+		codeI.whileLoop(label, codeI.getFutureEtiquette());
+	}
+	
+	private void compile(For fr, FunctionDef f) {
+		Expr exp = fr.getExpr();
+		if(exp instanceof ExprAnd || exp instanceof ExprOr || exp instanceof ExprEq || exp instanceof ExprNot) {
+			System.out.println("Pas d'expression bouléenne comme condition pour la boucle For");
+			return;
+		}
+		String label = codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		String cond = compile(exp, f);
+		if(cond != null) {
+			codeI.decl(cond);
+		}
+		
+		codeI.finEtiquette();
+		
+		codeI.nouvelleEtiquette();
+		Commands cmds = fr.getCmds();
+		compile(cmds, f);
+		
+	}
+	
+	
+	/***************************************** Code mofifié pour tester avec les inlineExpression ************/
+
+	/*
+	// Affectation
+	private void compile(Affect affCmd, FunctionDef f)  {
+		EList<String> affs = affCmd.getVars(); 	//Left side
+		EList<Expr> vals = affCmd.getExprs();			// Right side
+
+//		checkAffUsage(affCmd);
+
+		Iterator<String> itAff = affs.iterator();
+		Iterator<Expr> itVal = vals.iterator();
+
+		int i = 0;
+		String val, var;
+
+		// Right side to evaluate before
+		while (itVal.hasNext()) {
+			compile(itVal.next(), f); // For Expr
+			List<String> list = codeI.inlineExpression(this, f);
+			Iterator<String> it = list.iterator();
+			while (it.hasNext()) {
+				var = VAR_PREFIXE + (i++);
+				val = it.next();
+				varDeclaration3Addr(f, var);
+				codeI.aff(var, val);
+			}
+		}
+
+		i = 0;
+		// Left side 
+		while (itAff.hasNext()) {
+			var = itAff.next();
+			val = VAR_PREFIXE + (i++);
+			f.updateWriteVar(var);
+			varDeclaration3Addr(f, val);
+			codeI.aff(var, val);
+		}
+}
+
+
+	private void compile(LExpr lexpr, FunctionDef f) {
+		//TODO
+		EList<Expr> exprs = lexpr.getLexpr();
+		for(Expr e : exprs) {
+			compile(e, f);
+		}
+	}
+	//ExprCons
+	private void compile(ExprCons cons, FunctionDef f){
+		LExpr lexpr = cons.getLexpr();
+
+		if(lexpr != null) {
+			compile(lexpr, f);
+		}
+		codeI.addToExpression(OP.CONS.name(), (HashMap<String, FunctionDef>) listFunction);
+	}
+
+	//ExprSimple
+	private void compile(ExprSimple expr, FunctionDef f) {
+		String val = expr.getVarSimple(); // variable simple
+		String sym = expr.getSym();
+		Input call = expr.getVars();  //appel de fonction
+		String namefunction = expr.getNameFunction();
+		String nil = expr.getStr(); //nil
+		if(val != null) {
+			f.updateReadVar(val);
+//			varDeclaration3Addr(f, val); //ajout dans la table des variables locales
+//			codeI.addToExpression(val, (HashMap<String, FunctionDef>) listFunction);
+			//System.out.println("dans l'exprS "+ result);
+		}
+		if(sym != null) {
+			symboles.put(sym, ""); //ajout dans la table des symboles
+		}
+		if(nil != null) {
+			//symboles.put(nil, "");
+			//f.updateReadVar(nil);
+			varDeclaration3Addr(f, nil);
+			codeI.addToExpression(val, (HashMap<String, FunctionDef>) listFunction);
+
+		}
+		if(namefunction != null) {
+			codeI.addToExpression(namefunction, (HashMap<String, FunctionDef>) listFunction);
+		}
+		if(call != null && namefunction != null) {
+			f.updateCalls(namefunction, (Expr)expr);
+		}
+
+	}
+
+	//Expr
+	private void compile(Expr exp, FunctionDef f) {
+		codeI.addLevel();
+		EObject obj = exp.getExpr();
+
+		if(obj instanceof ExprSimple) {
+			compile((ExprSimple)obj, f);
+		}
+		else if(obj instanceof ExprCons ) {
+			compile((ExprCons) obj, f);
+		}
+		else if(obj instanceof ExprHd ) {
+			 compile((ExprHd) obj, f);
+		}
+		else if(obj instanceof ExprTl ) {
+			compile((ExprTl) obj, f);
+		}
+		else if(obj instanceof ExprAnd ) {
+			compile((ExprAnd) obj, f);
+		}
+		else if(obj instanceof ExprOr ) {
+			compile((ExprOr) obj, f);
+		}
+		else if(obj instanceof ExprList ) {
+			compile((ExprList) obj, f);
+		}
+		else if(obj instanceof ExprNot ) {
+			compile((ExprNot) obj, f);
+		}
+		else if(obj instanceof ExprEq ) {
+			compile((ExprEq) obj, f);
+		}
+		else if(obj instanceof ExprSym ) {
+			compile((ExprSym) obj, f);
+		}
+		else {
+			//System.out.println("L'expression n'est pas reconnue : "+ exp);
+		}
+		codeI.subLevel();
+	}
+
+	private void compile(ExprSym exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+	}
+
+	private void compile(ExprNot exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+	}
+
+	private void compile(ExprEq exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+	}
+
+	private void compile(ExprList exp, FunctionDef f) {
+	}
+
+	private void compile(ExprOr exp, FunctionDef f) {
+	}
+
+	private void compile(ExprAnd exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+	}
+
+
+
+
+
 	/*************************** compile des structures de contrôles ****************/
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/*
+	private void compile(If i,FunctionDef f) {
+		String etiquetteIf= codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(i.getExpr(),f);
+		List<String>list=codeI.inlineExpression(this, f);
+		if(list.size()==1) {
+			codeI.decl(list.get(0));
+		}
+		codeI.finEtiquette();
+		codeI.nouvelleEtiquette();
+		Commands cm1=i.getCommands1();
+		compile(cm1,f);
+		String etiquetteThen=codeI.getEtiquette();
+		Commands cm2=i.getCommands2();
+		if(cm2!=null) {
+			codeI.finEtiquette();
+			codeI.nouvelleEtiquette();
+			compile(cm2,f);
+			codeI.finEtiquette();
+			codeI.ifElseCond(etiquetteIf, etiquetteThen,codeI.getPreviousEtiquette());
+		}
+		else {
+			codeI.finEtiquette();
+			codeI.ifCond(etiquetteIf, etiquetteThen);
+		}
+	}
+
+	private void compile(While w,FunctionDef f) {
+		String etiquetteWhile=codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(w.getExpr(),f);
+		List<String>list=codeI.inlineExpression(this, f);
+		if(list.size()==1) {
+			codeI.decl(list.get(0));
+		}
+		codeI.finEtiquette();
+		codeI.nouvelleEtiquette();
+
+		Commands cms=w.getCmds();
+		compile(cms,f);
+		codeI.finEtiquette();
+		codeI.whileLoop(etiquetteWhile, codeI.getPreviousEtiquette());
+	}
+	private void compile(For fr,FunctionDef f) {
+		Expr exprcond=fr.getExpr();
+		if(exprcond instanceof ExprAnd ||exprcond instanceof ExprOr ||exprcond instanceof ExprEq) {
+			System.out.println("Erreur d'expression dans la boucle");
+			System.exit(1);
+		}
+		String etiquetteFor=codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(exprcond,f);
+		List<String>list=codeI.inlineExpression(this, f);
+		if(list.size()==1) {
+			codeI.decl(list.get(0));
+		}
+		codeI.finEtiquette();
+		codeI.nouvelleEtiquette();
+		Commands cms=fr.getCmds();
+		compile(cms,f);
+		//
+		Expr expression	=new ExprImpl();
+		ExprTl expr=new ExprTlImpl();
+		expr.setArg(exprcond);
+		expression.setExpr(expr);
+		compile(expression,f);
+		codeI.inlineExpression(this, f);
+		codeI.finEtiquette();
+		codeI.forLoop(etiquetteFor, codeI.getPreviousEtiquette());
+	}
+
+	private void compile(Foreach frch,FunctionDef f) {
+		Expr expr1Foreach=frch.getExpr();
+		String namevar=expr1Foreach.toString();
+		Expr expr2Foreach=frch.getExpr2();
+
+		if(expr2Foreach instanceof ExprAnd ||expr2Foreach instanceof ExprOr ||expr2Foreach instanceof ExprEq) {
+			System.out.println("Erreur d'expression dans la boucle");
+			System.exit(1);
+		}
+
+		if(namevar==null) {
+			System.out.println("Erreur d'expression 1");
+			System.exit(1);
+		}
+
+		String etiquetteForeachCond=codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(expr2Foreach,f);
+		codeI.inlineExpression(this, f);
+		codeI.finEtiquette();
+
+		codeI.nouvelleEtiquette();
+		Expr expression=new ExprImpl();
+		ExprHd expr=new ExprHdImpl(); 
+
+		expr.setArg(expr2Foreach);
+		expression.setExpr(expr);
+
+		compile(expression,f);
+		List<String>list=codeI.inlineExpression(this, f);
+		codeI.aff(namevar,list.get(0));
+
+		Commands cmds=frch.getCmd();
+		compile(cmds,f);
+
+		Expr expression2=new ExprImpl();
+		ExprTl expr2=new ExprTlImpl();
+
+		expr2.setArg(expr2Foreach);
+		expression2.setExpr(expr2);
+
+		compile(expression2,f);
+		codeI.inlineExpression(this, f);
+		codeI.finEtiquette();
+
+		codeI.forEachLoop(etiquetteForeachCond,codeI.getPreviousEtiquette());
+
+	}
+
+	private String compile(ExprTl exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+		EList<EObject> contents=exp.getArg().eContents();
+		if(contents.size()!=1) {
+			System.out.println("nb arguements incorrect");
+			System.exit(1);
+		}
+		String etiquetteTl=codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(exp.getArg(),f);
+		codeI.finEtiquette();
+		codeI.inlineExpression(this, f);
+		codeI.tl(etiquetteTl,codeI.getPreviousEtiquette());
+
+		return null;
+
+	}
+
+	private String compile(ExprHd exp, FunctionDef f) {
+		// TODO Auto-generated method stub
+		EList<EObject> contents=exp.getArg().eContents();
+		if(contents.size()!=1) {
+			System.out.println("nb arguements incorrect");
+			System.exit(1);
+		}
+		String etiquetteTl=codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		compile(exp.getArg(),f);
+		codeI.finEtiquette();
+		codeI.inlineExpression(this, f);
+		codeI.tl(etiquetteTl,codeI.getPreviousEtiquette());
+		return null;
+	}
+
+	 */
+
 	/*************************** Quelques méthodes du Main ***************/
-	
-	
+
+
 	public Map<String, FunctionDef> getFunList() {
 		return this.listFunction;
 	}

@@ -22,11 +22,6 @@ public class FunctionDef {
 		Vars_local = new HashSet<String>();
 	}
 	
-//	public static getInstance() {
-//		if(instance == null) {
-//			instance = new FunctionDef;
-//		}
-//	}
 	/**
 	 * Ajoute une variable dans la table des variables selon qu'elle soit utlisée à gauche
 	 * @param var
@@ -92,7 +87,7 @@ public class FunctionDef {
 	}
 
 	public void setOutputCount(int out){
-		//if(out<=0){throw new SymTableException("A function can't have no return!");}
+//		if(out<=0){throw new SymTableException("A function can't have no return!");}
 		this.out = out;
 	}
 

@@ -4799,7 +4799,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprNot"
-    // InternalPy.g:1833:1: ruleExprNot returns [EObject current=null] : (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExprEq ) ) ) ;
+    // InternalPy.g:1833:1: ruleExprNot returns [EObject current=null] : (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) ;
     public final EObject ruleExprNot() throws RecognitionException {
         EObject current = null;
 
@@ -4811,11 +4811,11 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1839:2: ( (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExprEq ) ) ) )
-            // InternalPy.g:1840:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExprEq ) ) )
+            // InternalPy.g:1839:2: ( (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) )
+            // InternalPy.g:1840:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1840:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExprEq ) ) )
-            // InternalPy.g:1841:3: otherlv_0= 'not' ( (lv_arg1_1_0= ruleExprEq ) )
+            // InternalPy.g:1840:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
+            // InternalPy.g:1841:3: otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) )
             {
             otherlv_0=(Token)match(input,41,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4823,19 +4823,19 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_0, grammarAccess.getExprNotAccess().getNotKeyword_0());
               		
             }
-            // InternalPy.g:1845:3: ( (lv_arg1_1_0= ruleExprEq ) )
-            // InternalPy.g:1846:4: (lv_arg1_1_0= ruleExprEq )
+            // InternalPy.g:1845:3: ( (lv_arg1_1_0= ruleExpr ) )
+            // InternalPy.g:1846:4: (lv_arg1_1_0= ruleExpr )
             {
-            // InternalPy.g:1846:4: (lv_arg1_1_0= ruleExprEq )
-            // InternalPy.g:1847:5: lv_arg1_1_0= ruleExprEq
+            // InternalPy.g:1846:4: (lv_arg1_1_0= ruleExpr )
+            // InternalPy.g:1847:5: lv_arg1_1_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getExprNotAccess().getArg1ExprEqParserRuleCall_1_0());
+              					newCompositeNode(grammarAccess.getExprNotAccess().getArg1ExprParserRuleCall_1_0());
               				
             }
             pushFollow(FOLLOW_2);
-            lv_arg1_1_0=ruleExprEq();
+            lv_arg1_1_0=ruleExpr();
 
             state._fsp--;
             if (state.failed) return current;
@@ -4848,7 +4848,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               						current,
               						"arg1",
               						lv_arg1_1_0,
-              						"org.xtext.comp.Py.ExprEq");
+              						"org.xtext.comp.Py.Expr");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -4923,7 +4923,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprEq"
-    // InternalPy.g:1875:1: ruleExprEq returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExprSimple ) ) ) ;
+    // InternalPy.g:1875:1: ruleExprEq returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
     public final EObject ruleExprEq() throws RecognitionException {
         EObject current = null;
 
@@ -4937,11 +4937,11 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1881:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExprSimple ) ) ) )
-            // InternalPy.g:1882:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExprSimple ) ) )
+            // InternalPy.g:1881:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) )
+            // InternalPy.g:1882:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1882:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExprSimple ) ) )
-            // InternalPy.g:1883:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExprSimple ) )
+            // InternalPy.g:1882:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1883:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) )
             {
             // InternalPy.g:1883:3: ( (lv_arg1_0_0= ruleExprSimple ) )
             // InternalPy.g:1884:4: (lv_arg1_0_0= ruleExprSimple )
@@ -4978,25 +4978,25 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,42,FOLLOW_30); if (state.failed) return current;
+            otherlv_1=(Token)match(input,42,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getExprEqAccess().getEqualsSignQuestionMarkKeyword_1());
               		
             }
-            // InternalPy.g:1906:3: ( (lv_arg2_2_0= ruleExprSimple ) )
-            // InternalPy.g:1907:4: (lv_arg2_2_0= ruleExprSimple )
+            // InternalPy.g:1906:3: ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1907:4: (lv_arg2_2_0= ruleExpr )
             {
-            // InternalPy.g:1907:4: (lv_arg2_2_0= ruleExprSimple )
-            // InternalPy.g:1908:5: lv_arg2_2_0= ruleExprSimple
+            // InternalPy.g:1907:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1908:5: lv_arg2_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getExprEqAccess().getArg2ExprSimpleParserRuleCall_2_0());
+              					newCompositeNode(grammarAccess.getExprEqAccess().getArg2ExprParserRuleCall_2_0());
               				
             }
             pushFollow(FOLLOW_2);
-            lv_arg2_2_0=ruleExprSimple();
+            lv_arg2_2_0=ruleExpr();
 
             state._fsp--;
             if (state.failed) return current;
@@ -5009,7 +5009,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               						current,
               						"arg2",
               						lv_arg2_2_0,
-              						"org.xtext.comp.Py.ExprSimple");
+              						"org.xtext.comp.Py.Expr");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -5164,6 +5164,5 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000010000000000L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000200000070L});
 
 }

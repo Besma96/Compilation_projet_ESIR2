@@ -82,7 +82,7 @@ ExprCons:
 ;
 
 LExpr :
-	(lexpr+=Expr)+
+	lexpr+=Expr+
 ;
 
 ExprList:
@@ -102,11 +102,11 @@ ExprSym:
 ;
 
 ExprNot:
-    'not' arg1=ExprEq
+    'not' arg1=Expr
 ;
 
 ExprEq:
-     arg1=ExprSimple '=?' arg2=ExprSimple
+     arg1=ExprSimple '=?' arg2=Expr
 ;
 
 

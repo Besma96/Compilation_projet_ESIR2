@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.comp.py.Expr;
 import org.xtext.comp.py.ExprEq;
 import org.xtext.comp.py.ExprSimple;
 import org.xtext.comp.py.PyPackage;
@@ -50,7 +51,7 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
    * @generated
    * @ordered
    */
-  protected ExprSimple arg2;
+  protected Expr arg2;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,7 +127,7 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
    * <!-- end-user-doc -->
    * @generated
    */
-  public ExprSimple getArg2()
+  public Expr getArg2()
   {
     return arg2;
   }
@@ -136,9 +137,9 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetArg2(ExprSimple newArg2, NotificationChain msgs)
+  public NotificationChain basicSetArg2(Expr newArg2, NotificationChain msgs)
   {
-    ExprSimple oldArg2 = arg2;
+    Expr oldArg2 = arg2;
     arg2 = newArg2;
     if (eNotificationRequired())
     {
@@ -153,7 +154,7 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setArg2(ExprSimple newArg2)
+  public void setArg2(Expr newArg2)
   {
     if (newArg2 != arg2)
     {
@@ -219,7 +220,7 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
         setArg1((ExprSimple)newValue);
         return;
       case PyPackage.EXPR_EQ__ARG2:
-        setArg2((ExprSimple)newValue);
+        setArg2((Expr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,7 +240,7 @@ public class ExprEqImpl extends MinimalEObjectImpl.Container implements ExprEq
         setArg1((ExprSimple)null);
         return;
       case PyPackage.EXPR_EQ__ARG2:
-        setArg2((ExprSimple)null);
+        setArg2((Expr)null);
         return;
     }
     super.eUnset(featureID);

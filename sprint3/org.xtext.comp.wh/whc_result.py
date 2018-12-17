@@ -5,22 +5,17 @@ import sys
 import queue as queue
 
  # Les symboles utilisés dans le programme while
-nil = binTree()
+a = binTree()
 
 
 def F0(inputP , outputP ) : 
 	inParams = queue.Queue() #Queue de bintree
 	outParams =queue.Queue() #Queue de bintree
-	 #Variables utilisées dans le code While de la fonction : p
-	Q = binTree()
-	B = binTree()
-	Z = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : p
-	
 	 #Variables utilisées dans le code While de la fonction : test
-	nil = binTree()
+	P = binTree()
+	B = binTree()
 	X = binTree()
+	Y = binTree()
 	Z = binTree()
 	K = binTree()
 	O = binTree()
@@ -28,50 +23,55 @@ def F0(inputP , outputP ) :
 	 #Variables temporaires utilisées par le compiler pour la fonction : test
 	Var0 = binTree()
 	Var1 = binTree()
+	Var2 = binTree()
+	Var3 = binTree()
+	Var4 = binTree()
+	Var5 = binTree()
+	Var6 = binTree()
+	Var7 = binTree()
+	Var8 = binTree()
+	Var9 = binTree()
+	Var11 = binTree()
+	Var10 = binTree()
 	
 	X = inputP.get()
 	O = inputP.get()
-	inParams.put(nil)
-	inParams.put(nil)
-	print(inParams.qsize())
+	inParams.put(O)
+	inParams.put(X)
 	Var0 = bt.WhLib().cons(inParams)
-	Var1 = Var0
-	K = Var1
+	inParams.put(Var0)
+	inParams.put(B)
+	Var1 = bt.WhLib().cons(inParams)
+	inParams.put(Var1)
+	inParams.put(Y)
+	Var2 = bt.WhLib().cons(inParams)
+	inParams.put(Var2)
+	inParams.put(X)
+	Var3 = bt.WhLib().cons(inParams)
+	Var4 = Var3
+	K = Var4
+	inParams.put(P)
+	inParams.put(K)
+	Var5 = bt.WhLib().cons(inParams)
+	Var6 = Var5
+	P = Var6
+	Var7 = bt.WhLib().hd(Y)
+	inParams.put(a)
+	inParams.put(Var7)
+	Var8 = bt.WhLib().cons(inParams)
+	Var9 = bt.WhLib().tail(X)
+	inParams.put(Var8)
+	inParams.put(Var9)
+	Var10 = bt.WhLib().cons(inParams)
+	Var11 = Var10
+	Z = Var11
+	bt.WhLib().nop()
 	bt.WhLib().nop()
 	bt.WhLib().nop()
 	outputP.put(X);
 	outputP.put(K);
 	outputP.put(Z);
 
-	 #Le corps de la fonction qui doit être appelée dans le programme principal
-
-def F1(inputP , outputP ) : 
-	inParams = queue.Queue() #Queue de bintree
-	outParams =queue.Queue() #Queue de bintree
-	 #Variables utilisées dans le code While de la fonction : p
-	Q = binTree()
-	B = binTree()
-	Z = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : p
-	
-	 #Variables utilisées dans le code While de la fonction : test
-	nil = binTree()
-	X = binTree()
-	Z = binTree()
-	K = binTree()
-	O = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test
-	Var0 = binTree()
-	Var1 = binTree()
-	
-	B = inputP.get()
-	Z = inputP.get()
-	bt.WhLib().nop()
-	outputP.put(Q);
-
-	 #Le corps de la fonction qui doit être appelée dans le programme principal
 
 ########## Partie main ############
 
@@ -89,20 +89,8 @@ if(len(sys.argv) > 2) :
 else : 
 	O = binTree()
 	inParams.put(O)
-if(len(sys.argv) > 3) : 
-	B = bt.WhLib().intToBinTree(int(sys.argv[3]))
-	inParams.put(B)
-else : 
-	B = binTree()
-	inParams.put(B)
-if(len(sys.argv) > 4) : 
-	Z = bt.WhLib().intToBinTree(int(sys.argv[4]))
-	inParams.put(Z)
-else : 
-	Z = binTree()
-	inParams.put(Z)
 
-F1(inParams, outParams)
+F0(inParams, outParams)
 
  #Affichage des paramètres de sortie
 result = outParams.get()
@@ -114,7 +102,3 @@ print("Son Equivalent en entier : " , 	bt.WhLib().binTreeToInt(result))
 result = outParams.get()
 print(result)
 print("Son Equivalent en entier : " , 	bt.WhLib().binTreeToInt(result))
-result = outParams.get()
-print(result)
-print("Son Equivalent en entier : " , 	bt.WhLib().binTreeToInt(result))
-

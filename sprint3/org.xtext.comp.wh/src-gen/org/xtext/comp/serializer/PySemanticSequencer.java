@@ -251,7 +251,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExprEq returns ExprEq
 	 *
 	 * Constraint:
-	 *     (arg1=ExprSimple arg2=ExprSimple)
+	 *     (arg1=ExprSimple arg2=Expr)
 	 */
 	protected void sequence_ExprEq(ISerializationContext context, ExprEq semanticObject) {
 		if (errorAcceptor != null) {
@@ -262,7 +262,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExprEqAccess().getArg1ExprSimpleParserRuleCall_0_0(), semanticObject.getArg1());
-		feeder.accept(grammarAccess.getExprEqAccess().getArg2ExprSimpleParserRuleCall_2_0(), semanticObject.getArg2());
+		feeder.accept(grammarAccess.getExprEqAccess().getArg2ExprParserRuleCall_2_0(), semanticObject.getArg2());
 		feeder.finish();
 	}
 	
@@ -302,7 +302,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExprNot returns ExprNot
 	 *
 	 * Constraint:
-	 *     arg1=ExprEq
+	 *     arg1=Expr
 	 */
 	protected void sequence_ExprNot(ISerializationContext context, ExprNot semanticObject) {
 		if (errorAcceptor != null) {
@@ -310,7 +310,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, PyPackage.Literals.EXPR_NOT__ARG1));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getExprNotAccess().getArg1ExprEqParserRuleCall_1_0(), semanticObject.getArg1());
+		feeder.accept(grammarAccess.getExprNotAccess().getArg1ExprParserRuleCall_1_0(), semanticObject.getArg1());
 		feeder.finish();
 	}
 	

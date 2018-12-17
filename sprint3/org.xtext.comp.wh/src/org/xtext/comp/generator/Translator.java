@@ -50,6 +50,8 @@ public abstract class Translator {
 	protected abstract void translate_tl(QuadPair quad, Function f);
 	protected abstract void translate_foreach(QuadPair quad, Function f);
 	protected abstract void translate_if(QuadPair quad, Function f);
+	
+	
 	protected abstract void writeSymbs();
 	protected abstract void writeFunction();
 	protected void operatorManager(Iterator<QuadPair> it, Function_Python f) {
@@ -81,6 +83,7 @@ public abstract class Translator {
 				break;
 
 			case AND:
+				translate_and(quadruplet, f);
 				break;
 
 			case CALL:
@@ -97,6 +100,7 @@ public abstract class Translator {
 				break;
 
 			case EQ:
+				translate_eq(quadruplet, f);
 				break;
 
 			case FOR:
@@ -111,21 +115,26 @@ public abstract class Translator {
 				break;
 
 			case HD:
+				translate_hd(quadruplet, f);
 				break;
 
 			case IF:
 				break;
 
 			case LIST:
+				translate_list(quadruplet, f);
 				break;
 
 			case NOT:
+				
 				break;
 
 			case OR:
+				translate_or(quadruplet, f);
 				break;
 
 			case TL:
+				translate_tl(quadruplet, f);
 				break;
 
 			case WHILE:

@@ -32,12 +32,12 @@ public interface ExprNot extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Arg1</em>' containment reference.
-   * @see #setArg1(ExprEq)
+   * @see #setArg1(Expr)
    * @see org.xtext.comp.py.PyPackage#getExprNot_Arg1()
    * @model containment="true"
    * @generated
    */
-  ExprEq getArg1();
+  Expr getArg1();
 
   /**
    * Sets the value of the '{@link org.xtext.comp.py.ExprNot#getArg1 <em>Arg1</em>}' containment reference.
@@ -47,6 +47,6 @@ public interface ExprNot extends EObject
    * @see #getArg1()
    * @generated
    */
-  void setArg1(ExprEq value);
+  void setArg1(Expr value);
 
 } // ExprNot

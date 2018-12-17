@@ -59,12 +59,12 @@ public interface ExprEq extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Arg2</em>' containment reference.
-   * @see #setArg2(ExprSimple)
+   * @see #setArg2(Expr)
    * @see org.xtext.comp.py.PyPackage#getExprEq_Arg2()
    * @model containment="true"
    * @generated
    */
-  ExprSimple getArg2();
+  Expr getArg2();
 
   /**
    * Sets the value of the '{@link org.xtext.comp.py.ExprEq#getArg2 <em>Arg2</em>}' containment reference.
@@ -74,6 +74,6 @@ public interface ExprEq extends EObject
    * @see #getArg2()
    * @generated
    */
-  void setArg2(ExprSimple value);
+  void setArg2(Expr value);
 
 } // ExprEq

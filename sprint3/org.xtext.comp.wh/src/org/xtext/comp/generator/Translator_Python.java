@@ -79,12 +79,12 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_cons(QuadPair quad, Function f) {
-		String r1 = quad.getRead1();
-		String r2 = quad.getRead2();
+//		String r1 = quad.getRead1();
+//		String r2 = quad.getRead2();
 		//if(r1.equals("") || r1.equals("_"))
 		f.write("inParams.put("+ quad.getRead1()+")");
 		f.write("inParams.put("+ quad.getRead2()+")");
-		f.write("print(inParams.qsize())");
+		//f.write("print(inParams.qsize())");
 		f.write(quad.getWrite() + " = bt.WhLib().cons(inParams)");
 		//		f.write(quad.getWrite() + " = bt.WhLib().cons(inputP)");
 	}
@@ -155,21 +155,22 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_and(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
+		f.write(quad.getWrite() + " = bt.WhLib().and(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 
+		
 	}
 
 	@Override
 	protected void translate_or(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
+		f.write(quad.getWrite() + " = bt.WhLib().or(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 
 	}
 
 	@Override
 	protected void translate_eq(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
+		f.write(quad.getWrite() + " = bt.WhLib().isEqual(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 
-	}
+	}// A verifier avec l'équipe de la librairie
 
 	@Override
 	protected void translate_pop(QuadPair quad, Function f) {
@@ -179,25 +180,26 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_call(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
-
+		f.write(quad.getEtiquette() + "(inParams, outParams)");
+		inMainFunction = false;
 	}
 
 	@Override
 	protected void translate_list(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
+		f.write("inParams.put("+ quad.getRead1()+")");
+		f.write("inParams.put("+ quad.getRead2()+")");
+		f.write(quad.getWrite() + " = bt.WhLib().list(inParams)");
 
 	}
 
 	@Override
 	protected void translate_hd(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
-
+		f.write(quad.getWrite() + " = bt.WhLib().hd("+ quad.getRead1() + ")");
 	}
 
 	@Override
 	protected void translate_tl(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
+		f.write(quad.getWrite() + " = bt.WhLib().tail("+ quad.getRead1() + ")");
 
 	}
 
