@@ -33,7 +33,9 @@ class binTree:
 		if self.right is not None :
 			return self.right
 		return None
-
+	
+	def isNil(self):
+		return (self.node=="nil" & self.left==None & self.right==None)
 
 	
 	
