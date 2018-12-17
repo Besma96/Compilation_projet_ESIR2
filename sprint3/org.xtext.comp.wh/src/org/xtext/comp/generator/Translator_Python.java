@@ -25,7 +25,7 @@ public class Translator_Python extends Translator {
 		//			iterateCode("F" + i);
 		//		}
 		for(int i =0; i<taille; i++){
-			iterateCode("F" + i);
+			iterateCode("L" + i);
 		}
 	}
 

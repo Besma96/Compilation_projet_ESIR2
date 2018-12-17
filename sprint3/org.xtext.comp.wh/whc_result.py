@@ -5,15 +5,15 @@ import sys
 import queue as queue
 
  # Les symboles utilisés dans le programme while
-a = binTree()
 
 
-def F0(inputP , outputP ) : 
+def K(inputP , outputP ) : 
 	inParams = queue.Queue() #Queue de bintree
 	outParams =queue.Queue() #Queue de bintree
 	 #Variables utilisées dans le code While de la fonction : test
-	P = binTree()
+	A = binTree()
 	B = binTree()
+	C = binTree()
 	X = binTree()
 	Y = binTree()
 	Z = binTree()
@@ -28,11 +28,80 @@ def F0(inputP , outputP ) :
 	Var4 = binTree()
 	Var5 = binTree()
 	Var6 = binTree()
-	Var7 = binTree()
-	Var8 = binTree()
-	Var9 = binTree()
-	Var11 = binTree()
-	Var10 = binTree()
+	
+
+
+def Var5(inputP , outputP ) : 
+	inParams = queue.Queue() #Queue de bintree
+	outParams =queue.Queue() #Queue de bintree
+	 #Variables utilisées dans le code While de la fonction : test
+	A = binTree()
+	B = binTree()
+	C = binTree()
+	X = binTree()
+	Y = binTree()
+	Z = binTree()
+	K = binTree()
+	O = binTree()
+	
+	 #Variables temporaires utilisées par le compiler pour la fonction : test
+	Var0 = binTree()
+	Var1 = binTree()
+	Var2 = binTree()
+	Var3 = binTree()
+	Var4 = binTree()
+	Var5 = binTree()
+	Var6 = binTree()
+	
+	A = Var5
+
+
+def Var6(inputP , outputP ) : 
+	inParams = queue.Queue() #Queue de bintree
+	outParams =queue.Queue() #Queue de bintree
+	 #Variables utilisées dans le code While de la fonction : test
+	A = binTree()
+	B = binTree()
+	C = binTree()
+	X = binTree()
+	Y = binTree()
+	Z = binTree()
+	K = binTree()
+	O = binTree()
+	
+	 #Variables temporaires utilisées par le compiler pour la fonction : test
+	Var0 = binTree()
+	Var1 = binTree()
+	Var2 = binTree()
+	Var3 = binTree()
+	Var4 = binTree()
+	Var5 = binTree()
+	Var6 = binTree()
+	
+	A = Var6
+
+
+def test_F0(inputP , outputP ) : 
+	inParams = queue.Queue() #Queue de bintree
+	outParams =queue.Queue() #Queue de bintree
+	 #Variables utilisées dans le code While de la fonction : test
+	A = binTree()
+	B = binTree()
+	C = binTree()
+	X = binTree()
+	Y = binTree()
+	Z = binTree()
+	K = binTree()
+	O = binTree()
+	
+	 #Variables temporaires utilisées par le compiler pour la fonction : test
+	Var0 = binTree()
+	Var1 = binTree()
+	Var2 = binTree()
+	Var3 = binTree()
+	Var4 = binTree()
+	Var5 = binTree()
+	Var6 = binTree()
 	
 	X = inputP.get()
 	O = inputP.get()
@@ -50,22 +119,6 @@ def F0(inputP , outputP ) :
 	Var3 = bt.WhLib().cons(inParams)
 	Var4 = Var3
 	K = Var4
-	inParams.put(P)
-	inParams.put(K)
-	Var5 = bt.WhLib().cons(inParams)
-	Var6 = Var5
-	P = Var6
-	Var7 = bt.WhLib().hd(Y)
-	inParams.put(a)
-	inParams.put(Var7)
-	Var8 = bt.WhLib().cons(inParams)
-	Var9 = bt.WhLib().tail(X)
-	inParams.put(Var8)
-	inParams.put(Var9)
-	Var10 = bt.WhLib().cons(inParams)
-	Var11 = Var10
-	Z = Var11
-	bt.WhLib().nop()
 	bt.WhLib().nop()
 	bt.WhLib().nop()
 	outputP.put(X);
@@ -90,7 +143,7 @@ else :
 	O = binTree()
 	inParams.put(O)
 
-F0(inParams, outParams)
+test_F0(inParams, outParams)
 
  #Affichage des paramètres de sortie
 result = outParams.get()

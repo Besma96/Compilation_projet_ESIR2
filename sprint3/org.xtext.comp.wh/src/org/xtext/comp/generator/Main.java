@@ -68,6 +68,7 @@ public class Main {
 	CodeIntermediaire codeI = new CodeIntermediaire();
 	private static Main instance;
 	private static int count = 0;
+	private static int nbF = 0;
 	private Translator_Python Translator ;
 	//	private Main() {
 	//		this.listFunction = new HashMap<String, FunctionDef>();
@@ -126,6 +127,7 @@ public class Main {
 	 * @param prog
 	 */
 	private void discoverFunctions(Program prog) {
+		
 		for(FunctionP f : prog.getFunctions()) {
 			String namef = f.getName();
 			Definition def = f.getDefinition();
@@ -159,12 +161,17 @@ public class Main {
 			return;
 		}
 
+		// Translator
+		System.out.println("Le code 3 : "+codeI);
+		Translator_Python translator = new Translator_Python(codeI);
+		translator.translate();
+		//		this.Translator = new Translator_Python(codeI);
 		// Configure and start the generator
 		fileAccess.setOutputPath("./");
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		PyGenerator whil = new PyGenerator();
-		whil.doGenerate(resource, fileAccess, context);
+		whil.doGenerate(resource, fileAccess, context, outputFilePath,translator );
 
 
 		TreeIterator<EObject> tree = resource.getAllContents();
@@ -176,11 +183,7 @@ public class Main {
 			}
 		}
 
-		// Translator
-		System.out.println("Le code 3 : "+codeI);
-		Translator_Python translator = new Translator_Python(codeI);
-		translator.translate();
-		//		this.Translator = new Translator_Python(codeI);
+
 
 
 		displaySymTable(); 		// Print the symbols table
@@ -225,7 +228,7 @@ public class Main {
 	private void compile(FunctionP f) {
 		String namef = f.getName();
 		codeI.nouvelleEtiquette();
-		codeI.fun(codeI.getEtiquette());
+		codeI.fun(namef + "_F"+nbF);
 		compile(f.getDefinition(), listFunction.get(namef));
 		codeI.finEtiquette();
 	}
@@ -278,9 +281,9 @@ public class Main {
 			compile((If) obj, f);
 		}
 	}
-	
-	
-	
+
+
+
 	private boolean isSymbole(String str) {
 		if (str == null || str.equals("nil")){ return false; }
 		String firstChar = str.substring(0, 1);
@@ -638,15 +641,16 @@ public class Main {
 
 	}
 
-//	private void compile(LExpr lexpr, FunctionDef f) {
-//		EList<Expr> exprs = lexpr.getLexpr();
-//		for(Expr e : exprs) {
-//			compile(e, f);
-//		}
-//	}
-	
+	//	private void compile(LExpr lexpr, FunctionDef f) {
+	//		EList<Expr> exprs = lexpr.getLexpr();
+	//		for(Expr e : exprs) {
+	//			compile(e, f);
+	//		}
+	//	}
+
 	/**************************** Structures de contrôles ***************/
-	
+
+	//while
 	private void compile(While wh, FunctionDef f) {
 		String label = codeI.getEtiquette();
 		codeI.nouvelleEtiquette();
@@ -655,14 +659,15 @@ public class Main {
 			codeI.decl(cond);
 		}
 		codeI.finEtiquette();
-		
+
 		codeI.nouvelleEtiquette();
 		Commands cmds = wh.getCmds();
 		compile(cmds, f); //corps du while
 		codeI.finEtiquette();
-		codeI.whileLoop(label, codeI.getFutureEtiquette());
+		codeI.whileLoop(label, codeI.getPreviousEtiquette());
 	}
-	
+
+	//For
 	private void compile(For fr, FunctionDef f) {
 		Expr exp = fr.getExpr();
 		if(exp instanceof ExprAnd || exp instanceof ExprOr || exp instanceof ExprEq || exp instanceof ExprNot) {
@@ -675,16 +680,51 @@ public class Main {
 		if(cond != null) {
 			codeI.decl(cond);
 		}
-		
+
 		codeI.finEtiquette();
-		
+
 		codeI.nouvelleEtiquette();
 		Commands cmds = fr.getCmds();
 		compile(cmds, f);
+		/// une petite partie bizare à revoir
+		codeI.finEtiquette();
+		codeI.forLoop(label, codeI.getPreviousEtiquette());
+	}
+	
+	//Foreach
+	private void compile(Foreach freach, FunctionDef f) {
 		
 	}
 	
-	
+	//If
+	private void compile(If ifcmd, FunctionDef f) {
+		String label = codeI.getEtiquette();
+		codeI.nouvelleEtiquette();
+		String cond = compile(ifcmd.getExpr(), f);
+		if(cond != null) {
+			codeI.decl(cond);
+		}
+		codeI.finEtiquette();
+		
+		codeI.nouvelleEtiquette();
+		Commands cmds1 = ifcmd.getCommands1();
+		compile(cmds1, f);
+		String label2 = codeI.getEtiquette();
+		//else
+		Commands cmds2 = ifcmd.getCommands2();
+		if(cmds2 != null) {
+			codeI.finEtiquette();
+			codeI.nouvelleEtiquette();
+			compile(cmds2, f);
+			codeI.finEtiquette();
+			codeI.ifElseCond(label, label2, codeI.getPreviousEtiquette());
+		}
+		else {
+			codeI.finEtiquette();
+			codeI.ifCond(label, codeI.getPreviousEtiquette());
+		}
+	}
+
 	/***************************************** Code mofifié pour tester avec les inlineExpression ************/
 
 	/*

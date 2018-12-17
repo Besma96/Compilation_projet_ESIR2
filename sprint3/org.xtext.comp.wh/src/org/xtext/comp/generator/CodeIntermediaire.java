@@ -23,9 +23,11 @@ public class CodeIntermediaire {
 	private Stack<LinkedList<QuadPair>> stack = new Stack<LinkedList<QuadPair>>();
 
 	private String getEtiquetteName(int i) {
-		return "F" + i;
+		return "L" + i;
 	}
 
+	///Essai de labelisation des structures de controles
+	
 	public int getSize(){
 		return code3Addr.size();
 	}

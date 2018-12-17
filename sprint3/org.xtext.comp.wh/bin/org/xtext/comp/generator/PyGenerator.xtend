@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import org.xtext.comp.py.Program
 
 /**
  * Generates code from your model files on save.
@@ -15,12 +16,13 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class PyGenerator extends AbstractGenerator {
 
-	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+	def void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String outputFilename, Translator trans) {
+		fsa.generateFile(outputFilename, trans.toString())
+
+	}
+	
+	override doGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 }
