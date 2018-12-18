@@ -10,15 +10,6 @@ import queue as queue
 def F0(inputP , outputP ) : 
 	inParams = queue.Queue() #Queue de bintree
 	outParams =queue.Queue() #Queue de bintree
-	 #Variables utilisées dans le code While de la fonction : test
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	Var3 = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test
-	
 	 #Variables utilisées dans le code While de la fonction : main
 	A = binTree()
 	Var1 = binTree()
@@ -27,107 +18,20 @@ def F0(inputP , outputP ) :
 	
 	 #Variables temporaires utilisées par le compiler pour la fonction : main
 	Var0 = binTree()
-	
-	 #Variables utilisées dans le code While de la fonction : test1
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test1
-	Var4 = binTree()
-	Var5 = binTree()
+	Var3 = binTree()
 	
 	Var1 = inputP.get()
 	Var0 = Var2
 	A = Var0
 	Var1 = A
 	C = Var1
-	bt.WhLib().nop()
-	outputP.put(Var1);
-	outputP.put(A);
-
-
-def F1(inputP , outputP ) : 
-	inParams = queue.Queue() #Queue de bintree
-	outParams =queue.Queue() #Queue de bintree
-	 #Variables utilisées dans le code While de la fonction : test
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	Var3 = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test
-	
-	 #Variables utilisées dans le code While de la fonction : main
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : main
-	Var0 = binTree()
-	
-	 #Variables utilisées dans le code While de la fonction : test1
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test1
-	Var4 = binTree()
-	Var5 = binTree()
-	
-	Var1 = inputP.get()
-	Var2 = inputP.get()
-	Var3 = inputP.get()
-	Var2 = Var2
-	A = Var2
-	Var3 = A
-	C = Var3
-	bt.WhLib().nop()
-	outputP.put(Var1);
-	outputP.put(A);
-
-
-def F2(inputP , outputP ) : 
-	inParams = queue.Queue() #Queue de bintree
-	outParams =queue.Queue() #Queue de bintree
-	 #Variables utilisées dans le code While de la fonction : test
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	Var3 = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test
-	
-	 #Variables utilisées dans le code While de la fonction : main
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : main
-	Var0 = binTree()
-	
-	 #Variables utilisées dans le code While de la fonction : test1
-	A = binTree()
-	Var1 = binTree()
-	Var2 = binTree()
-	C = binTree()
-	
-	 #Variables temporaires utilisées par le compiler pour la fonction : test1
-	Var4 = binTree()
-	Var5 = binTree()
-	
-	Var1 = inputP.get()
-	Var2 = inputP.get()
-	Var4 = Var2
-	A = Var4
-	Var5 = A
-	C = Var5
+	while bt.WhLib().isTrue(C) : 
+		bt.WhLib().nop()
+		Var2 = A
+		C = Var2
+		while bt.WhLib().isTrue(A) : 
+			Var3 = C
+			A = Var3
 	bt.WhLib().nop()
 	outputP.put(Var1);
 	outputP.put(A);

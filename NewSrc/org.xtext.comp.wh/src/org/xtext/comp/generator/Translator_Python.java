@@ -189,11 +189,11 @@ public class Translator_Python extends Translator {
 	}
 
 	@Override
+	//A supprimer
 	protected void translate_list(QuadPair quad, Function f) {
 		f.write("inParams.put("+ quad.getRead1()+")");
 		f.write("inParams.put("+ quad.getRead2()+")");
 		f.write(quad.getWrite() + " = bt.WhLib().list(inParams)");
-
 	}
 
 	@Override
@@ -234,13 +234,17 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_while(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
-
+		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		f.write("while bt.WhLib().isTrue("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") : " );
+		f.rightShift();
+		operatorManager(code.getCode3Addr().get(quadruplet.getRead1()).iterator(), f);
+		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		f.leftShift();
 	}
 
 	@Override
 	protected void translate_for(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

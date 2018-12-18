@@ -5,24 +5,16 @@
   % 
   	A:=Var2;
   	C:=A;
+  	while C 
+  	do
+  		nop;
+  		C:=A;
+  		while A 
+  		do 	
+  			A:=C
+  		od
+  	od;
   	nop
   %
   write Var1, A
   
-   function test :
-  read Var1, Var2, Var3
-  % 
-  	A:=Var2;
-  	C:=A;
-  	nop
-  %
-  write Var1, A
-
-     function test1 :
-  read Var1, Var2
-  % 
-  	A:=Var2;
-  	C:=A;
-  	nop
-  %
-  write Var1, A
