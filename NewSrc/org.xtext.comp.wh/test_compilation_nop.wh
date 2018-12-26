@@ -5,15 +5,11 @@
   % 
   	A:=Var2;
   	C:=A;
-  	while C 
+  	foreach C in (cons A B) 
   	do
-  		nop;
-  		C:=A;
-  		while A 
-  		do 	
-  			A:=C
-  		od
-  	od;
+		A:=B
+	od;
+	A := not ( cons A B C);
   	nop
   %
   write Var1, A

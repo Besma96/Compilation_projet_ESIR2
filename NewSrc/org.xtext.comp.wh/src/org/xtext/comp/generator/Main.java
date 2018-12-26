@@ -48,7 +48,6 @@ import org.xtext.comp.py.Foreach;
 import org.xtext.comp.py.FunctionP;
 import org.xtext.comp.py.If;
 import org.xtext.comp.py.Input;
-import org.xtext.comp.py.LExpr;
 import org.xtext.comp.py.Nop;
 import org.xtext.comp.py.Output;
 import org.xtext.comp.py.Program;
@@ -64,7 +63,7 @@ public class Main {
 
 	//Map pour conserver l'étiquettage des fonctions et leurs noms en while
 	private static Map<String, String> etiquettesFunction = new HashMap<String, String>();
-	
+
 	private static final String VAR_PREFIXE = "Var";
 	private Map<String, FunctionDef> listFunction = new HashMap<String, FunctionDef>();
 	private Map<String, String> symboles = new HashMap<String, String>();
@@ -169,8 +168,8 @@ public class Main {
 		fileAccess.setOutputPath("./");
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
-//		PyGenerator whil = new PyGenerator();
-//		whil.doGenerate(resource, fileAccess, context);
+		//		PyGenerator whil = new PyGenerator();
+		//		whil.doGenerate(resource, fileAccess, context);
 
 
 		TreeIterator<EObject> tree = resource.getAllContents();
@@ -234,7 +233,7 @@ public class Main {
 		String etiquetteF = "F"+nbF++;
 		if(!etiquettesFunction.containsValue(namef)) {
 			codeI.fun(etiquetteF);
-			
+
 			etiquettesFunction.put(etiquetteF, namef);
 			compile(f.getDefinition(), listFunction.get(namef));
 			codeI.finEtiquette();
@@ -243,10 +242,10 @@ public class Main {
 			System.err.println("Les fonctions doivent avoir des noms differents ");
 			return;
 		}
-		
+
 	}
-	
-	
+
+
 	private void compile(Definition d, FunctionDef f) {
 		//Inputs
 		compile(d.getInput(), f);
@@ -339,7 +338,7 @@ public class Main {
 
 		String var; //variable temporaire
 		String expr; //expression
-		
+
 		//Evaluation du coté droit d'abord
 		while(itExprs.hasNext()) {
 			Expr e = itExprs.next();
@@ -451,7 +450,7 @@ public class Main {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
 			String var = VAR_PREFIXE + count++;
 			varDeclaration3Addr(f, var);
-//			codeI.cons(var, tempVars.poll(), tempVar);
+			//			codeI.cons(var, tempVars.poll(), tempVar);
 			codeI.cons(var, tempVar, tempVars.poll());
 			tempVars.offer(var);
 			nbExpr--;
@@ -531,13 +530,13 @@ public class Main {
 
 	private String compile(ExprEq exp, FunctionDef f) {
 
-		ExprSimple arg1 = exp.getArg1(); //arg1 dans ExprAnd est une ExprSimple
+		ExprSimple arg1 = exp.getArg1(); 
 		Expr arg2 = exp.getArg2();
 
 		String tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-		System.out.println("arg1 " + tempVar1);
-		System.out.println("arg2 " + tempVar2);
+//		System.out.println("arg1 " + tempVar1);
+//		System.out.println("arg2 " + tempVar2);
 		String var = VAR_PREFIXE+count++;
 		varDeclaration3Addr(f, var);
 		codeI.eq(var, tempVar1, tempVar2);
@@ -547,7 +546,7 @@ public class Main {
 	}
 
 	private String compile(ExprList exp, FunctionDef f) {
-		
+
 		//Doit être transformer en plusieurs instructions cons: list  A B C D --> cons(nil D) 
 		EList<Expr> eCons = exp.getArg();
 		int nbExpr = eCons.size();
@@ -708,12 +707,40 @@ public class Main {
 		codeI.finEtiquette();
 		codeI.forLoop(label, codeI.getPreviousEtiquette());
 	}
-	
+
 	//Foreach
 	private void compile(Foreach freach, FunctionDef f) {
+
+		String var = freach.getVar();
+		Expr expression = freach.getExpr2();
+
+		if(expression != null) {
+			if(expression instanceof ExprAnd || expression instanceof ExprOr || expression instanceof ExprEq || expression instanceof ExprNot) {
+				System.err.println("Pas d'expression bouléenne comme expression pour la boucle Foreach");
+				return;
+			}
+		}
+		if(var == null) {
+			System.err.println("La variable dans la boucle est null ");
+			return;
+		}
 		
+		String etiquetteexpr=codeI.getEtiquette();
+
+		codeI.nouvelleEtiquette();
+		String expr=compile(expression, f);
+
+		
+		codeI.finEtiquette();
+		codeI.nouvelleEtiquette();
+		
+		codeI.aff(var, expr);
+		compile(freach.getCmd(),f);
+		codeI.finEtiquette();
+		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette());
+
 	}
-	
+
 	//If
 	private void compile(If ifcmd, FunctionDef f) {
 		String label = codeI.getEtiquette();
@@ -723,7 +750,7 @@ public class Main {
 			codeI.decl(cond);
 		}
 		codeI.finEtiquette();
-		
+
 		codeI.nouvelleEtiquette();
 		Commands cmds1 = ifcmd.getCommands1();
 		compile(cmds1, f);
@@ -743,7 +770,7 @@ public class Main {
 		}
 	}
 
-	
+
 	/*************************** Quelques méthodes du Main ***************/
 
 
@@ -754,13 +781,16 @@ public class Main {
 	public Map<String, String> getEtiquettesFunctions(){
 		return etiquettesFunction;
 	}
-	
+
 	public Map<String, String> getSymbs() {
 		return symboles;
 	}
 
 	public CodeIntermediaire getCode3Addresses() {
 		return codeI;
+	}
+	public int getCount() {
+		return count++;
 	}
 
 

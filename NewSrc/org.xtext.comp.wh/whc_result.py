@@ -13,25 +13,34 @@ def F0(inputP , outputP ) :
 	 #Variables utilisées dans le code While de la fonction : main
 	A = binTree()
 	Var1 = binTree()
+	B = binTree()
 	Var2 = binTree()
 	C = binTree()
 	
 	 #Variables temporaires utilisées par le compiler pour la fonction : main
 	Var0 = binTree()
 	Var3 = binTree()
+	Var4 = binTree()
+	Var5 = binTree()
+	Var6 = binTree()
+	Var7 = binTree()
 	
 	Var1 = inputP.get()
 	Var0 = Var2
 	A = Var0
 	Var1 = A
 	C = Var1
-	while bt.WhLib().isTrue(C) : 
-		bt.WhLib().nop()
-		Var2 = A
+	Var2 = bt.WhLib().cons(A,B)
+	for i in Var2 : 
 		C = Var2
-		while bt.WhLib().isTrue(A) : 
-			Var3 = C
-			A = Var3
+		Var3 = B
+		A = Var3
+		Var3 = A
+	Var4 = bt.WhLib().cons(B,C)
+	Var5 = bt.WhLib().cons(A,Var4)
+	Var6 = bt.WhLib().not(Var5)
+	Var7 = Var6
+	A = Var7
 	bt.WhLib().nop()
 	outputP.put(Var1);
 	outputP.put(A);

@@ -39,12 +39,12 @@ public class Translator_Python extends Translator {
 		while(it.hasNext()) {
 			QuadPair q = it.next();
 			String Opname = q.getWrite();
-			
+
 			System.out.println("Opname : "+Opname);
 			Map<String, FunctionDef> mapF= Main.getInstance().getFunList();
 			Map<String, String> mapEti = Main.getInstance().getEtiquettesFunctions();
 			Function_Python f = new Function_Python(Opname);
-			
+
 			if(mapF.containsKey(mapEti.get(Opname)) && !this.funcList.contains(f)) {
 				//du fait de la definition des etiquettes dans Code3@ il y a risque de conflit avec la gestion des structures de controles et les fonctions à la traduction
 				this.funcList.add(f);
@@ -210,7 +210,13 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_foreach(QuadPair quad, Function f) {
 		// TODO Auto-generated method stub
+		operatorManager(code.getCode3Addr().get(quad.getEtiquette()).iterator(), f);
 
+		f.write("for i in "+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + " : ");
+		f.rightShift();
+		operatorManager(code.getCode3Addr().get(quad.getRead1()).iterator(), f);
+		f.write(code.getCode3Addr().get(quad.getRead1()).getLast().getRead1() + " = "+ code.getCode3Addr().get(quad.getRead1()).getLast().getWrite());
+		f.leftShift();
 	}
 
 	@Override
@@ -234,7 +240,7 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_while(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
-		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		//operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
 		f.write("while bt.WhLib().isTrue("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") : " );
 		f.rightShift();
 		operatorManager(code.getCode3Addr().get(quadruplet.getRead1()).iterator(), f);
@@ -245,11 +251,23 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_for(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
+		int numeroVarExpressionFor = Main.getInstance().getCount(); 
+		//operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		//Interpretation de l'expression du for en int
+		f.write("Var"+ numeroVarExpressionFor+ " = bt.WhLib().binTreeToInt("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") : ");
+		//Ecriture du for
+
+		f.write("for i in range(0, "+"Var"+ numeroVarExpressionFor +") : ");
+		f.rightShift();
+		operatorManager(code.getCode3Addr().get(quadruplet.getRead1()).iterator(), f);
+		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		f.leftShift();
 	}
 
 	@Override
 	protected void translate_not(QuadPair quad, Function f) {
 		// TODO Auto-generated method stub
+		f.write(quad.getWrite() + " = bt.WhLib().not("+ quad.getRead1() + ")");
 
 	}
 
