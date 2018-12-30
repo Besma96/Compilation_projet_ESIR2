@@ -697,16 +697,6 @@ public class PyPackageImpl extends EPackageImpl implements PyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExpr_ExprEq()
-  {
-    return (EReference)exprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getExprSimple()
   {
     return exprSimpleEClass;
@@ -1086,7 +1076,6 @@ public class PyPackageImpl extends EPackageImpl implements PyPackage
 
     exprEClass = createEClass(EXPR);
     createEReference(exprEClass, EXPR__EXPR);
-    createEReference(exprEClass, EXPR__EXPR_EQ);
 
     exprSimpleEClass = createEClass(EXPR_SIMPLE);
     createEAttribute(exprSimpleEClass, EXPR_SIMPLE__STR);
@@ -1215,7 +1204,6 @@ public class PyPackageImpl extends EPackageImpl implements PyPackage
 
     initEClass(exprEClass, Expr.class, "Expr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExpr_Expr(), ecorePackage.getEObject(), null, "expr", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExpr_ExprEq(), this.getExprEq(), null, "exprEq", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprSimpleEClass, ExprSimple.class, "ExprSimple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getExprSimple_Str(), ecorePackage.getEString(), "str", null, 0, 1, ExprSimple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

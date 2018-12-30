@@ -290,7 +290,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExprList returns ExprList
 	 *
 	 * Constraint:
-	 *     arg+=Expr
+	 *     arg+=Expr+
 	 */
 	protected void sequence_ExprList(ISerializationContext context, ExprList semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -393,7 +393,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         expr=ExprTl | 
 	 *         expr=ExprSym | 
 	 *         expr=ExprNot | 
-	 *         exprEq=ExprEq
+	 *         expr=ExprEq
 	 *     )
 	 */
 	protected void sequence_Expr(ISerializationContext context, Expr semanticObject) {

@@ -9,8 +9,7 @@ class WhLib:
         pass
 
     def nil(self):
-        tree = bt.binTree()
-        return tree.cons(None, None)
+        return bt.binTree().cons(None, None)
 
     def hd(self, tree):
         return tree.head()
@@ -19,32 +18,21 @@ class WhLib:
         return tree.tail()
 
     def isTrue(self, tree):
-        return tree.isTrue()
+        if tree.node=="nil":
+            return False
+        return True
+        
     
     def isEqual(self, X, Y):
         return X.isEqual(Y)
 
-    def cons(self, l, r):
-        tree = bt.binTree()
-        return tree.cons(l, r)
-
-    def cons_solo(self, X):
-        tree=bt.binTree()
-        return tree.cons_solo(X)
-
-    def cons_list(self, L):
-        liste=[]
-        tree = bt.binTree()
-        while not L.empty():
-            liste.append(L.get())
-        return tree.cons_list(liste)
-
-    def list(self, L):
-        liste=[]
-        tree=bt.binTree()
-        while not L.empty():
-            liste.append(L.get())
-        return tree.list(liste)
+    def cons(self, l=None, r=None):
+        if( l is None and isinstance(r,bt.binTree)):
+            return bt.binTree().cons_solo(r)
+        if( r is None and isinstance(l,bt.binTree)):
+            return bt.binTree().cons_solo(l)
+        else:
+            return bt.binTree().cons(l,r)
 
     def intToBinTree(self, val):
         res=bt.binTree()
@@ -66,19 +54,20 @@ class WhLib:
             res = res+1
             tree = tree.getRight()
         return res
+
+    def toString(self,X) -> str:
+        if (not isinstance(X,bt.binTree)):
+            return str(X)
+        else:
+            return "(  " +WhLib.toString(self,X.getLeft())+" cons " + WhLib.toString(self,X.getRight()) + ")"
     
-   
+    def and_wh(self,X,Y):
+        return (WhLib.isTrue(self,X) and WhLib.isTrue(self,Y))
 
+    def or_wh(self,X,Y):
+        tmp=WhLib().isTrue(X) or WhLib().isTrue(Y)
+        return tmp
 
-
-
-
-    
-
-
-
-
-
-
-
-
+    def not_wh(self,X):
+        tmp=not(WhLib().isTrue(X))
+        return tmp

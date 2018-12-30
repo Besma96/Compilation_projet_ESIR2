@@ -61,7 +61,7 @@ While:
 
 Expr:
    ( expr = ExprAnd | expr = ExprOr | expr =ExprSimple | expr=ExprCons |
-    expr=ExprList | expr=ExprHd | expr=ExprTl | expr=ExprSym | expr=ExprNot | exprEq=ExprEq) 
+    expr=ExprList | expr=ExprHd | expr=ExprTl | expr=ExprSym | expr=ExprNot | expr=ExprEq) 
 ;
 
 ExprSimple:
@@ -86,7 +86,7 @@ LExpr :
 ;
 
 ExprList:
-    '(' 'list' arg+=Expr ')'
+    '(' 'list' arg+=Expr+ ')'
 ;
 
 ExprHd:

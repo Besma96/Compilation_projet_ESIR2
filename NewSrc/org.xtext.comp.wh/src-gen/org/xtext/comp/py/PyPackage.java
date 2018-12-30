@@ -559,22 +559,13 @@ public interface PyPackage extends EPackage
   int EXPR__EXPR = 0;
 
   /**
-   * The feature id for the '<em><b>Expr Eq</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPR_EQ = 1;
-
-  /**
    * The number of structural features of the '<em>Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_FEATURE_COUNT = 2;
+  int EXPR_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.xtext.comp.py.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.
@@ -1383,17 +1374,6 @@ public interface PyPackage extends EPackage
   EReference getExpr_Expr();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.comp.py.Expr#getExprEq <em>Expr Eq</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr Eq</em>'.
-   * @see org.xtext.comp.py.Expr#getExprEq()
-   * @see #getExpr()
-   * @generated
-   */
-  EReference getExpr_ExprEq();
-
-  /**
    * Returns the meta object for class '{@link org.xtext.comp.py.ExprSimple <em>Expr Simple</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2084,14 +2064,6 @@ public interface PyPackage extends EPackage
      * @generated
      */
     EReference EXPR__EXPR = eINSTANCE.getExpr_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Expr Eq</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPR__EXPR_EQ = eINSTANCE.getExpr_ExprEq();
 
     /**
      * The meta object literal for the '{@link org.xtext.comp.py.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.

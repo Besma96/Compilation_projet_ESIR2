@@ -60,7 +60,6 @@
     </genClasses>
     <genClasses ecoreClass="Py.ecore#//Expr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Py.ecore#//Expr/expr"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Py.ecore#//Expr/exprEq"/>
     </genClasses>
     <genClasses ecoreClass="Py.ecore#//ExprSimple">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Py.ecore#//ExprSimple/str"/>

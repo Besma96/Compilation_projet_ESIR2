@@ -52,6 +52,7 @@ import org.xtext.comp.py.Nop;
 import org.xtext.comp.py.Output;
 import org.xtext.comp.py.Program;
 import org.xtext.comp.py.While;
+import org.xtext.comp.py.impl.ExprImpl;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -409,15 +410,17 @@ public class Main {
 			}
 			else if(x instanceof ExprEq) {
 				expr = compile((ExprEq) x, f);
-				System.out.println("dans affectation EQ "+ expr);
 				var = VAR_PREFIXE + count++;
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
+			else {
+				System.err.println("Erreur d'affectation");
+			}
 
 		}
-		//gestion du coté gauche
+		//gestion du coté gauche de l'affectation
 		while(itVars.hasNext()) {
 			var = itVars.next();
 			//			var = VAR_PREFIXE + (i++);
@@ -436,13 +439,17 @@ public class Main {
 		Expr temp = eCons.get(nbExpr);
 		String tempVar = "";
 		Queue<String> tempVars = new LinkedList<String>();
-		if(nbExpr > 0) {
+		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			//			String var = VAR_PREFIXE + count++;
-			//			varDeclaration3Addr(f, var);
-			//			codeI.cons(var, tempVar, "_");
+			String var = VAR_PREFIXE + count++;
+			if(nbExpr == 0) {
+				varDeclaration3Addr(f, var);
+				codeI.cons(var, tempVar, "nil");
+			}
 			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
+			if(nbExpr < 0) 
+				return var;
 		}
 
 		while(nbExpr >= 0) {
@@ -458,7 +465,7 @@ public class Main {
 				return var;
 			}
 		}
-		return null;
+		return "nil";
 	}
 
 	//Expr
@@ -490,7 +497,6 @@ public class Main {
 			return compile((ExprNot) obj, f);
 		}
 		else if(obj instanceof ExprEq ) {
-			System.out.println("Suis dans EQ");
 			return compile((ExprEq) obj, f);
 		}
 		else if(obj instanceof ExprSym ) {
@@ -535,8 +541,6 @@ public class Main {
 
 		String tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-//		System.out.println("arg1 " + tempVar1);
-//		System.out.println("arg2 " + tempVar2);
 		String var = VAR_PREFIXE+count++;
 		varDeclaration3Addr(f, var);
 		codeI.eq(var, tempVar1, tempVar2);
@@ -554,13 +558,16 @@ public class Main {
 		Expr temp = eCons.get(nbExpr);
 		String tempVar = "";
 		Queue<String> tempVars = new LinkedList<String>();
-		if(nbExpr > 0) {
+		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			//			String var = VAR_PREFIXE + count++;
-			//			varDeclaration3Addr(f, var);
-			//			codeI.cons(var, tempVar, "_");
-			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
+			String var = VAR_PREFIXE + count++;
+			varDeclaration3Addr(f, var);
+			codeI.cons(var, tempVar, "nil");
+			tempVars.offer(var); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
+			if(nbExpr < 0) {
+				return var;
+			}
 		}
 
 		while(nbExpr >= 0) {
@@ -568,7 +575,7 @@ public class Main {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
 			String var = VAR_PREFIXE + count++;
 			varDeclaration3Addr(f, var);
-			codeI.list(var, tempVars.poll(), tempVar);
+			codeI.cons(var, tempVars.poll(), tempVar);
 			tempVars.offer(var);
 			nbExpr--;
 			if(nbExpr < 0) {
@@ -724,16 +731,16 @@ public class Main {
 			System.err.println("La variable dans la boucle est null ");
 			return;
 		}
-		
+
 		String etiquetteexpr=codeI.getEtiquette();
 
 		codeI.nouvelleEtiquette();
 		String expr=compile(expression, f);
 
-		
+
 		codeI.finEtiquette();
 		codeI.nouvelleEtiquette();
-		
+
 		codeI.aff(var, expr);
 		compile(freach.getCmd(),f);
 		codeI.finEtiquette();

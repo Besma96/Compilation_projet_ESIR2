@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.comp.py.Expr;
-import org.xtext.comp.py.ExprEq;
 import org.xtext.comp.py.PyPackage;
 
 /**
@@ -26,7 +25,6 @@ import org.xtext.comp.py.PyPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.comp.py.impl.ExprImpl#getExpr <em>Expr</em>}</li>
- *   <li>{@link org.xtext.comp.py.impl.ExprImpl#getExprEq <em>Expr Eq</em>}</li>
  * </ul>
  *
  * @generated
@@ -44,21 +42,11 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
   protected EObject expr;
 
   /**
-   * The cached value of the '{@link #getExprEq() <em>Expr Eq</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExprEq()
-   * @generated
-   * @ordered
-   */
-  protected ExprEq exprEq;
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ExprImpl()
+  public ExprImpl()
   {
     super();
   }
@@ -127,54 +115,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ExprEq getExprEq()
-  {
-    return exprEq;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetExprEq(ExprEq newExprEq, NotificationChain msgs)
-  {
-    ExprEq oldExprEq = exprEq;
-    exprEq = newExprEq;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PyPackage.EXPR__EXPR_EQ, oldExprEq, newExprEq);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExprEq(ExprEq newExprEq)
-  {
-    if (newExprEq != exprEq)
-    {
-      NotificationChain msgs = null;
-      if (exprEq != null)
-        msgs = ((InternalEObject)exprEq).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PyPackage.EXPR__EXPR_EQ, null, msgs);
-      if (newExprEq != null)
-        msgs = ((InternalEObject)newExprEq).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PyPackage.EXPR__EXPR_EQ, null, msgs);
-      msgs = basicSetExprEq(newExprEq, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PyPackage.EXPR__EXPR_EQ, newExprEq, newExprEq));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -182,8 +122,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
     {
       case PyPackage.EXPR__EXPR:
         return basicSetExpr(null, msgs);
-      case PyPackage.EXPR__EXPR_EQ:
-        return basicSetExprEq(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -200,8 +138,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
     {
       case PyPackage.EXPR__EXPR:
         return getExpr();
-      case PyPackage.EXPR__EXPR_EQ:
-        return getExprEq();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -218,9 +154,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
     {
       case PyPackage.EXPR__EXPR:
         setExpr((EObject)newValue);
-        return;
-      case PyPackage.EXPR__EXPR_EQ:
-        setExprEq((ExprEq)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,9 +172,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
       case PyPackage.EXPR__EXPR:
         setExpr((EObject)null);
         return;
-      case PyPackage.EXPR__EXPR_EQ:
-        setExprEq((ExprEq)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -258,8 +188,6 @@ public class ExprImpl extends MinimalEObjectImpl.Container implements Expr
     {
       case PyPackage.EXPR__EXPR:
         return expr != null;
-      case PyPackage.EXPR__EXPR_EQ:
-        return exprEq != null;
     }
     return super.eIsSet(featureID);
   }

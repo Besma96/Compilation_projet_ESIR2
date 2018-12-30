@@ -75,33 +75,29 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_affectation(QuadPair quad, Function f) {
-		//		f.write(quad.getWrite() + " = bt(\""+ quad.getRead1()+"\", None, None)");
 		f.write(quad.getWrite() + " = " +quad.getRead1());
-
 	}
 
 	@Override
 	protected void translate_nop(Function f) {
-		//f.write("bt.nop()");
 		f.write("bt.WhLib().nop()");
 	}
 
 	@Override
 	protected void translate_cons(QuadPair quad, Function f) {
-		//		String r1 = quad.getRead1();
-		//		String r2 = quad.getRead2();
-		//if(r1.equals("") || r1.equals("_"))
-		//		f.write("inParams.put("+ quad.getRead1()+")");
-		//		f.write("inParams.put("+ quad.getRead2()+")");
-		//f.write("print(inParams.qsize())");
-		f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +"," + quad.getRead2()+")");
+
+		if(quad.getRead2() != null && quad.getRead2() !="nil") {
+			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +"," + quad.getRead2()+")");
+		}
+		else {
+			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", bt.WhLib().nil())");
+		}
 	}
 
 	protected void writeFunction() {
 		for(Iterator<Function_Python> iterator = funcList.iterator(); iterator.hasNext();) {
 			Function_Python pf = (Function_Python) iterator.next();
 			pf.printFunction(this);
-			//pf.printFunction();
 		}
 	}
 
@@ -150,7 +146,7 @@ public class Translator_Python extends Translator {
 		write(" #Affichage des paramètres de sortie");
 		for(int i = 0; i <nbWrites; i++) {
 			write("result = outParams.get()");
-			write("print(result)");
+			write("print(bt.WhLib().toString(result))");
 			write("print(\"Son Equivalent en entier : \" , 	bt.WhLib().binTreeToInt(result))");
 		}
 	}
@@ -162,12 +158,12 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_and(QuadPair quad, Function f) {
-		f.write(quad.getWrite() + " = bt.WhLib().and(" + quad.getRead1() + ","+ quad.getRead2() + ")");
+		f.write(quad.getWrite() + " = bt.WhLib().and_wh(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 	}
 
 	@Override
 	protected void translate_or(QuadPair quad, Function f) {
-		f.write(quad.getWrite() + " = bt.WhLib().or(" + quad.getRead1() + ","+ quad.getRead2() + ")");
+		f.write(quad.getWrite() + " = bt.WhLib().or_wh(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 	}
 
 	@Override
@@ -267,7 +263,7 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_not(QuadPair quad, Function f) {
 		// TODO Auto-generated method stub
-		f.write(quad.getWrite() + " = bt.WhLib().not("+ quad.getRead1() + ")");
+		f.write(quad.getWrite() + " = bt.WhLib().not_wh("+ quad.getRead1() + ")");
 
 	}
 

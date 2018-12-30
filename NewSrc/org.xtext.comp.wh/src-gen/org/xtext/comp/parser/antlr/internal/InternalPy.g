@@ -1253,17 +1253,17 @@ ruleExpr returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getExprAccess().getExprEqExprEqParserRuleCall_9_0());
+					newCompositeNode(grammarAccess.getExprAccess().getExprExprEqParserRuleCall_9_0());
 				}
-				lv_exprEq_9_0=ruleExprEq
+				lv_expr_9_0=ruleExprEq
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getExprRule());
 					}
 					set(
 						$current,
-						"exprEq",
-						lv_exprEq_9_0,
+						"expr",
+						lv_expr_9_0,
 						"org.xtext.comp.Py.ExprEq");
 					afterParserOrEnumRuleCall();
 				}
@@ -1649,7 +1649,7 @@ ruleExprList returns [EObject current=null]
 					afterParserOrEnumRuleCall();
 				}
 			)
-		)
+		)+
 		otherlv_3=')'
 		{
 			newLeafNode(otherlv_3, grammarAccess.getExprListAccess().getRightParenthesisKeyword_3());

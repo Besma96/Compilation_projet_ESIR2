@@ -565,16 +565,16 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExprExprSymParserRuleCall_7_0 = (RuleCall)cExprAssignment_7.eContents().get(0);
 		private final Assignment cExprAssignment_8 = (Assignment)cAlternatives.eContents().get(8);
 		private final RuleCall cExprExprNotParserRuleCall_8_0 = (RuleCall)cExprAssignment_8.eContents().get(0);
-		private final Assignment cExprEqAssignment_9 = (Assignment)cAlternatives.eContents().get(9);
-		private final RuleCall cExprEqExprEqParserRuleCall_9_0 = (RuleCall)cExprEqAssignment_9.eContents().get(0);
+		private final Assignment cExprAssignment_9 = (Assignment)cAlternatives.eContents().get(9);
+		private final RuleCall cExprExprEqParserRuleCall_9_0 = (RuleCall)cExprAssignment_9.eContents().get(0);
 		
 		//Expr:
 		//	expr=ExprAnd | expr=ExprOr | expr=ExprSimple | expr=ExprCons | expr=ExprList | expr=ExprHd | expr=ExprTl |
-		//	expr=ExprSym | expr=ExprNot | exprEq=ExprEq;
+		//	expr=ExprSym | expr=ExprNot | expr=ExprEq;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//expr=ExprAnd | expr=ExprOr | expr=ExprSimple | expr=ExprCons | expr=ExprList | expr=ExprHd | expr=ExprTl | expr=ExprSym
-		//| expr=ExprNot | exprEq=ExprEq
+		//| expr=ExprNot | expr=ExprEq
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//expr=ExprAnd
@@ -631,11 +631,11 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		//ExprNot
 		public RuleCall getExprExprNotParserRuleCall_8_0() { return cExprExprNotParserRuleCall_8_0; }
 		
-		//exprEq=ExprEq
-		public Assignment getExprEqAssignment_9() { return cExprEqAssignment_9; }
+		//expr=ExprEq
+		public Assignment getExprAssignment_9() { return cExprAssignment_9; }
 		
 		//ExprEq
-		public RuleCall getExprEqExprEqParserRuleCall_9_0() { return cExprEqExprEqParserRuleCall_9_0; }
+		public RuleCall getExprExprEqParserRuleCall_9_0() { return cExprExprEqParserRuleCall_9_0; }
 	}
 	public class ExprSimpleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Py.ExprSimple");
@@ -821,10 +821,10 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ExprList:
-		//	'(' 'list' arg+=Expr ')';
+		//	'(' 'list' arg+=Expr+ ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'(' 'list' arg+=Expr ')'
+		//'(' 'list' arg+=Expr+ ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'('
@@ -833,7 +833,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		//'list'
 		public Keyword getListKeyword_1() { return cListKeyword_1; }
 		
-		//arg+=Expr
+		//arg+=Expr+
 		public Assignment getArgAssignment_2() { return cArgAssignment_2; }
 		
 		//Expr
@@ -1234,7 +1234,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Expr:
 	//	expr=ExprAnd | expr=ExprOr | expr=ExprSimple | expr=ExprCons | expr=ExprList | expr=ExprHd | expr=ExprTl |
-	//	expr=ExprSym | expr=ExprNot | exprEq=ExprEq;
+	//	expr=ExprSym | expr=ExprNot | expr=ExprEq;
 	public ExprElements getExprAccess() {
 		return pExpr;
 	}
@@ -1295,7 +1295,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprList:
-	//	'(' 'list' arg+=Expr ')';
+	//	'(' 'list' arg+=Expr+ ')';
 	public ExprListElements getExprListAccess() {
 		return pExprList;
 	}

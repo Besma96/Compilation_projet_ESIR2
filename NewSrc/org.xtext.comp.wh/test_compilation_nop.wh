@@ -1,16 +1,10 @@
 
   
   function main :
-  read Var1
+  read DA, SA
   % 
-  	A:=Var2;
-  	C:=A;
-  	foreach C in (cons A B) 
-  	do
-		A:=B
-	od;
-	A := not ( cons A B C);
+  	A:=(cons DA Q);
   	nop
   %
-  write Var1, A
+  write A, SA
   

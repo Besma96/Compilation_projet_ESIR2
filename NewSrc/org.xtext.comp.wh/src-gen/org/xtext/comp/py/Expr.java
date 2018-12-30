@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.comp.py.Expr#getExpr <em>Expr</em>}</li>
- *   <li>{@link org.xtext.comp.py.Expr#getExprEq <em>Expr Eq</em>}</li>
  * </ul>
  *
  * @see org.xtext.comp.py.PyPackage#getExpr()
@@ -49,31 +48,5 @@ public interface Expr extends EObject
    * @generated
    */
   void setExpr(EObject value);
-
-  /**
-   * Returns the value of the '<em><b>Expr Eq</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Expr Eq</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Expr Eq</em>' containment reference.
-   * @see #setExprEq(ExprEq)
-   * @see org.xtext.comp.py.PyPackage#getExpr_ExprEq()
-   * @model containment="true"
-   * @generated
-   */
-  ExprEq getExprEq();
-
-  /**
-   * Sets the value of the '{@link org.xtext.comp.py.Expr#getExprEq <em>Expr Eq</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Expr Eq</em>' containment reference.
-   * @see #getExprEq()
-   * @generated
-   */
-  void setExprEq(ExprEq value);
 
 } // Expr
