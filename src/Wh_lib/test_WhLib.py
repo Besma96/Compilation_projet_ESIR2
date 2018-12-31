@@ -113,7 +113,23 @@ class WhLibTest(unittest.TestCase) :
         self.assertTrue(wh.WhLib().or_wh(C,C))
 
         
+    def test_intToBinTree(self):
+        """test int to binTree"""
+        tree=wh.WhLib().intToBinTree(2)
+        i=0
+        hey=True
+        while hey:
+            if isinstance(tree,binTree):
+                i+=1
+                tree=tree.right
+                print("hum")
+            else:
+                hey=False
+        self.assertEqual(i,2)
 
+    def test_BinTreetoInt(self):
+        """test binTRee to Int"""
+        self.assertEqual((wh.WhLib().binTreeToInt(wh.WhLib().intToBinTree(11))),11)
 
 
 unittest.main()
