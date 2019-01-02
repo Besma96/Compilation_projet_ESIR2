@@ -18,6 +18,11 @@ class WhLib:
         return tree.tail()
 
     def isTrue(self, tree):
+        if tree==True:
+            return True
+        else:
+            if tree==False:
+                return False
         if tree.node=="nil":
             return False
         return True
