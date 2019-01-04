@@ -15,13 +15,14 @@ class WhLib:
         return tree.head()
 
     def tail(self, tree):
+        print(type(tree.tail()))
         return tree.tail()
 
     def isTrue(self, tree):
         if tree==True:
             return True
         else:
-            if tree==False:
+            if tree==False or tree==None:
                 return False
         if tree.node=="nil":
             return False
