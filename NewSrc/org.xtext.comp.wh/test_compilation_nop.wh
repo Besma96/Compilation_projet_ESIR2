@@ -1,10 +1,26 @@
 
   
   function main :
-  read DA, SA
+  read DA, SA, BA
   % 
-  	A:=(cons DA Q);
+  	A:=nil;
+  	B:=(cons nil nil);
+  	C:=(cons nil nil nil (cons nil nil));
+  	D:= A and B;
+  	D1:= B and B;
+  	E:= A or B;
+  	E1:= A or A;
+  	F:= not B;
+  	F1:= not A;
+  	G:= A =? B;
+  	G1 := A =? A;
+  	
+
+  	for C do
+  		Z:=(cons nil nil Z Z Z)
+  	od;
+  	 	
   	nop
   %
-  write A, SA
+  write B, C, Z
   

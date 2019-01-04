@@ -40,7 +40,7 @@ public class Translator_Python extends Translator {
 			QuadPair q = it.next();
 			String Opname = q.getWrite();
 
-			System.out.println("Opname : "+Opname);
+//			System.out.println("Opname : "+Opname);
 			Map<String, FunctionDef> mapF= Main.getInstance().getFunList();
 			Map<String, String> mapEti = Main.getInstance().getEtiquettesFunctions();
 			Function_Python f = new Function_Python(Opname);
@@ -86,11 +86,14 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_cons(QuadPair quad, Function f) {
 
-		if(quad.getRead2() != null && quad.getRead2() !="nil") {
+		if(quad.getRead2() != null && !quad.getRead2().equals("")) {
 			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +"," + quad.getRead2()+")");
 		}
 		else {
-			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", bt.WhLib().nil())");
+			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", bt.WhLib().nil())");
+			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", None)");
+			f.write(quad.getWrite() + " = bt.WhLib().cons( None, " +quad.getRead1() + ")" );
+
 		}
 	}
 
@@ -108,7 +111,8 @@ public class Translator_Python extends Translator {
 		//write("nil = bt()");
 
 		Main.getInstance().getSymbs().forEach((key, value)->{
-			write(key + " = binTree()");
+//			write(key + " = binTree()");
+			write(key + " = bt.WhLib().cons(None, None)");
 			System.out.println("Symbole : "+key);
 		});
 		write("");
@@ -133,7 +137,9 @@ public class Translator_Python extends Translator {
 			leftShift();
 			write("else : ");
 			rightShift();
-			write("" + s+ " = binTree()" );
+//			write("" + s+ " = binTree()" );
+			write("" + s+ " = bt.WhLib().cons(None, None)" );
+
 			write("inParams.put("+ s + ")");
 			leftShift();
 			nbParams++;
@@ -147,7 +153,10 @@ public class Translator_Python extends Translator {
 		for(int i = 0; i <nbWrites; i++) {
 			write("result = outParams.get()");
 			write("print(bt.WhLib().toString(result))");
+			write("if not (result==True or result==False or result == None ) : ");
+			rightShift();
 			write("print(\"Son Equivalent en entier : \" , 	bt.WhLib().binTreeToInt(result))");
+			leftShift();
 		}
 	}
 
@@ -208,7 +217,7 @@ public class Translator_Python extends Translator {
 		// TODO Auto-generated method stub
 		operatorManager(code.getCode3Addr().get(quad.getEtiquette()).iterator(), f);
 
-		f.write("for i in "+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + " : ");
+		f.write("for " + quad.getRead2() + " in "+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + " : ");
 		f.rightShift();
 		operatorManager(code.getCode3Addr().get(quad.getRead1()).iterator(), f);
 		f.write(code.getCode3Addr().get(quad.getRead1()).getLast().getRead1() + " = "+ code.getCode3Addr().get(quad.getRead1()).getLast().getWrite());
@@ -217,7 +226,7 @@ public class Translator_Python extends Translator {
 
 	@Override
 	protected void translate_if(QuadPair quad, Function f) {
-		//		operatorManager(code.getCode3Addr().get(quad.getEtiquette()).iterator(), f);
+		operatorManager(code.getCode3Addr().get(quad.getEtiquette()).iterator(), f);
 		f.write("if bt.WhLib().isTrue("+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + ") : ");
 		f.rightShift();
 		//f.write("");
@@ -236,7 +245,7 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void translate_while(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
-		//operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
 		f.write("while bt.WhLib().isTrue("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") : " );
 		f.rightShift();
 		operatorManager(code.getCode3Addr().get(quadruplet.getRead1()).iterator(), f);
@@ -248,9 +257,9 @@ public class Translator_Python extends Translator {
 	protected void translate_for(QuadPair quadruplet, Function f) {
 		// TODO Auto-generated method stub
 		int numeroVarExpressionFor = Main.getInstance().getCount(); 
-		//operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
+		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
 		//Interpretation de l'expression du for en int
-		f.write("Var"+ numeroVarExpressionFor+ " = bt.WhLib().binTreeToInt("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") : ");
+		f.write("Var"+ numeroVarExpressionFor+ " = bt.WhLib().binTreeToInt("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") ");
 		//Ecriture du for
 
 		f.write("for i in range(0, "+"Var"+ numeroVarExpressionFor +") : ");

@@ -52,6 +52,7 @@ import org.xtext.comp.py.Nop;
 import org.xtext.comp.py.Output;
 import org.xtext.comp.py.Program;
 import org.xtext.comp.py.While;
+import org.xtext.comp.py.impl.ExprHdImpl;
 import org.xtext.comp.py.impl.ExprImpl;
 
 import com.google.inject.Inject;
@@ -328,6 +329,7 @@ public class Main {
 	}
 
 	private void compile(Affect aff, FunctionDef f) {
+		assert aff.getVars().size() == aff.getExprs().size() : " Le nombre de variables à gauche doit être le même que celui des expressions à droite de l'affectation";
 
 		Queue<String> tempVars = new LinkedList<String>(); //Pour stocker les variables temporaires
 
@@ -444,7 +446,7 @@ public class Main {
 			String var = VAR_PREFIXE + count++;
 			if(nbExpr == 0) {
 				varDeclaration3Addr(f, var);
-				codeI.cons(var, tempVar, "nil");
+				codeI.cons(var, tempVar, "");
 			}
 			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
@@ -693,11 +695,9 @@ public class Main {
 
 	//For
 	private void compile(For fr, FunctionDef f) {
+		Object expr = fr.getExpr().getExpr();
+		assert !((expr instanceof ExprAnd) || (expr instanceof ExprOr) || (expr instanceof ExprEq) || (expr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le For";
 		Expr exp = fr.getExpr();
-		if(exp instanceof ExprAnd || exp instanceof ExprOr || exp instanceof ExprEq || exp instanceof ExprNot) {
-			System.out.println("Pas d'expression bouléenne comme condition pour la boucle For");
-			return;
-		}
 		String label = codeI.getEtiquette();
 		codeI.nouvelleEtiquette();
 		String cond = compile(exp, f);
@@ -713,20 +713,24 @@ public class Main {
 		/// une petite partie bizare à revoir
 		codeI.finEtiquette();
 		codeI.forLoop(label, codeI.getPreviousEtiquette());
+
 	}
 
 	//Foreach
 	private void compile(Foreach freach, FunctionDef f) {
-
+		Object exprr = freach.getExpr2().getExpr();
+		assert !((exprr instanceof ExprAnd) || (exprr instanceof ExprOr) || (exprr instanceof ExprEq) || (exprr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le Foreach";
+		
 		String var = freach.getVar();
 		Expr expression = freach.getExpr2();
 
-		if(expression != null) {
-			if(expression instanceof ExprAnd || expression instanceof ExprOr || expression instanceof ExprEq || expression instanceof ExprNot) {
-				System.err.println("Pas d'expression bouléenne comme expression pour la boucle Foreach");
-				return;
-			}
-		}
+//		if(expression != null) {
+//			if(expression instanceof ExprAnd || expression instanceof ExprOr || expression instanceof ExprEq || expression instanceof ExprNot) {
+//				System.err.println("Pas d'expression bouléenne comme expression pour la boucle Foreach");
+//				return;
+//			}
+//		}
+		
 		if(var == null) {
 			System.err.println("La variable dans la boucle est null ");
 			return;
@@ -739,12 +743,21 @@ public class Main {
 
 
 		codeI.finEtiquette();
-		codeI.nouvelleEtiquette();
 
-		codeI.aff(var, expr);
+		codeI.nouvelleEtiquette(); //Pour le corps de du foreach
+		//		codeI.aff(var, expr);
+
+		Expr express = new ExprImpl();
+		ExprHd exprhd = new ExprHdImpl();
+		exprhd.setArg(expression);
+		express.setExpr(exprhd);
+		String expr2 = compile(express, f);
+		codeI.aff(var, expr2);
+
 		compile(freach.getCmd(),f);
 		codeI.finEtiquette();
-		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette());
+//		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette());
+		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette(), var);
 
 	}
 

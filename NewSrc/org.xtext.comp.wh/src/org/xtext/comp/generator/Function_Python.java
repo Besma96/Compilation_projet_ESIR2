@@ -24,13 +24,16 @@ public class Function_Python extends Function {
 			FunctionDef defu = map.get(name.next());
 			write(" #Variables utilisées dans le code While de la fonction : "+defu.getNameFunction());
 			defu.getVars().forEach((key, value)->{
-				write(key + " = binTree()");
+//				write(key + " = binTree()");
+				write(key + " = bt.WhLib().cons(None, None)");
+
 			});
 			write("");
 			write(" #Variables temporaires utilisées par le compiler pour la fonction : "+ defu.getNameFunction());
 			defu.getVars_local().forEach((key) -> {
-				write(key + " = binTree()");
-				System.out.println(key);
+//				write(key + " = binTree()");
+				write(key + " = bt.WhLib().cons(None, None)");
+//				System.out.println(key);
 			});
 			write("");
 		}
