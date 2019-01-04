@@ -3,7 +3,7 @@ import copy
 import queue as qu
 
 class WhLib:
-    # se reporter Ã  la table de traduction pour les Ã©quivalents while
+    # se reporter à la table de traduction pour les équivalents while
 
     def nop(self):
         pass
@@ -55,7 +55,7 @@ class WhLib:
     def binTreeToInt(self, X):
         if X.getRight() is None:
             return 0
-        res = 1
+        res = 0
         tree = bt.binTree()
         tree = X.getRight()
         while isinstance(tree,bt.binTree) :

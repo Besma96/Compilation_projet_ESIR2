@@ -3,7 +3,7 @@ import copy
 import queue as qu
 
 class WhLib:
-    # se reporter Ã  la table de traduction pour les Ã©quivalents while
+    # se reporter à la table de traduction pour les équivalents while
 
     def nop(self):
         pass
@@ -18,6 +18,11 @@ class WhLib:
         return tree.tail()
 
     def isTrue(self, tree):
+        if tree==True:
+            return True
+        else:
+            if tree==False:
+                return False
         if tree.node=="nil":
             return False
         return True
@@ -35,22 +40,25 @@ class WhLib:
             return bt.binTree().cons(l,r)
 
     def intToBinTree(self, val):
-        res=bt.binTree()
-        res.cons("nil", "nil")
-        if(val != 0):
-            i=0
-            while i<val:
-                res.cons("nil", res)
-                i=i+1
-        return res
-    
+        if (val==0):
+            return WhLib().cons()
+        else:
+            tree=WhLib().cons("nil","nil")
+            val-=1
+            while(val!=0):
+                tree=WhLib().cons("nil",tree)
+                val-=1
+        return tree
+
+
+
     def binTreeToInt(self, X):
         if X.getRight() is None:
             return 0
         res = 0
         tree = bt.binTree()
         tree = X.getRight()
-        while not tree.isNil() :
+        while isinstance(tree,bt.binTree) :
             res = res+1
             tree = tree.getRight()
         return res
