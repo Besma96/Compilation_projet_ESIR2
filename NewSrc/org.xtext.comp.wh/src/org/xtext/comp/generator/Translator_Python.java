@@ -39,8 +39,7 @@ public class Translator_Python extends Translator {
 		while(it.hasNext()) {
 			QuadPair q = it.next();
 			String Opname = q.getWrite();
-
-//			System.out.println("Opname : "+Opname);
+			System.out.println("opname "+ Opname);
 			Map<String, FunctionDef> mapF= Main.getInstance().getFunList();
 			Map<String, String> mapEti = Main.getInstance().getEtiquettesFunctions();
 			Function_Python f = new Function_Python(Opname);
@@ -179,7 +178,7 @@ public class Translator_Python extends Translator {
 	protected void translate_eq(QuadPair quad, Function f) {
 		f.write(quad.getWrite() + " = bt.WhLib().isEqual(" + quad.getRead1() + ","+ quad.getRead2() + ")");
 
-	}// A verifier avec l'équipe de la librairie
+	}
 
 	@Override
 	protected void translate_pop(QuadPair quad, Function f) {

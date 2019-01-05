@@ -206,5 +206,7 @@ public abstract class Translator {
 		return stb.toString();
 	}
 
-
+	public List<Function_Python> getListFunctionsPython(){
+		return this.funcList;
+	}
 }

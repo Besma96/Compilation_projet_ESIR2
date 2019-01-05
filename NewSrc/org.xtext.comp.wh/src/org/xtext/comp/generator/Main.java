@@ -7,6 +7,7 @@ package org.xtext.comp.generator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -73,12 +74,7 @@ public class Main {
 	private static Main instance;
 	private static int count = 0;
 	private static int nbF = 0; //numerotaion des fonctions
-	private Translator_Python Translator ;
-	//	private Main() {
-	//		this.listFunction = new HashMap<String, FunctionDef>();
-	//		this.symboles = new HashMap<String, String>();
-	//		codeI = new CodeIntermediaire();
-	//	}
+
 	/**
 	 * Get the singleton instance of the GeneratorAddr
 	 * @return The unique instance of the GeneratorAddr
@@ -132,7 +128,7 @@ public class Main {
 	 * Initialise la liste des fonctions avec le nom des focntions déclarées
 	 * @param prog
 	 */
-	private void discoverFunctions(Program prog) {
+	private void exploration_Functions(Program prog) {
 		for(FunctionP f : prog.getFunctions()) {
 			String namef = f.getName();
 			Definition def = f.getDefinition();
@@ -178,7 +174,7 @@ public class Main {
 		while (tree.hasNext()) {
 			EObject next = tree.next(); //AST
 			if (next instanceof Program) {
-				discoverFunctions((Program) next); // Just read the function's names and inputs / outputs
+				exploration_Functions((Program) next); // Just read the function's names and inputs / outputs
 				compile((Program) next); // Start to discover all the program
 			}
 		}
@@ -187,7 +183,6 @@ public class Main {
 		System.out.println("Le code 3 : "+codeI);
 		Translator_Python translator = new Translator_Python(codeI);
 		translator.translate();
-		//		this.Translator = new Translator_Python(codeI);
 
 
 		displaySymTable(); 		// Print the symbols table
@@ -349,70 +344,80 @@ public class Main {
 			EObject x = e.getExpr();
 			if(x instanceof ExprSimple) {
 				expr = compile((ExprSimple)x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprCons) {
 				expr = compile((ExprCons) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprAnd) {
 				expr = compile((ExprAnd) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprOr) {
 				expr = compile((ExprOr) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprList) {
 				expr = compile((ExprList) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprHd) {
 				expr = compile((ExprHd) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprTl) {
 				expr = compile((ExprTl) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprSym) {
 				expr = compile((ExprSym) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprNot) {
 				expr = compile((ExprNot) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else if(x instanceof ExprEq) {
 				expr = compile((ExprEq) x, f);
-				var = VAR_PREFIXE + count++;
+//				var = VAR_PREFIXE + count++;
+				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
@@ -443,7 +448,8 @@ public class Main {
 		Queue<String> tempVars = new LinkedList<String>();
 		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			String var = VAR_PREFIXE + count++;
+//			String var = VAR_PREFIXE + count++;
+			String var = f.getNewVar();
 			if(nbExpr == 0) {
 				varDeclaration3Addr(f, var);
 				codeI.cons(var, tempVar, "");
@@ -457,7 +463,8 @@ public class Main {
 		while(nbExpr >= 0) {
 			temp = eCons.get(nbExpr);
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			String var = VAR_PREFIXE + count++;
+//			String var = VAR_PREFIXE + count++;
+			String var = f.getNewVar();
 			varDeclaration3Addr(f, var);
 			//			codeI.cons(var, tempVars.poll(), tempVar);
 			codeI.cons(var, tempVar, tempVars.poll());
@@ -529,7 +536,8 @@ public class Main {
 	private String compile(ExprNot exp, FunctionDef f) {
 		Expr expr = exp.getArg1();
 		String tempVar = compile(expr, f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.not(var, tempVar);
 
@@ -543,7 +551,8 @@ public class Main {
 
 		String tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.eq(var, tempVar1, tempVar2);
 
@@ -562,7 +571,8 @@ public class Main {
 		Queue<String> tempVars = new LinkedList<String>();
 		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			String var = VAR_PREFIXE + count++;
+//			String var = VAR_PREFIXE + count++;
+			String var = f.getNewVar();
 			varDeclaration3Addr(f, var);
 			codeI.cons(var, tempVar, "nil");
 			tempVars.offer(var); // on stocke toutes les variables contenant le resultat du compile de chaque expression
@@ -575,7 +585,8 @@ public class Main {
 		while(nbExpr >= 0) {
 			temp = eCons.get(nbExpr);
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-			String var = VAR_PREFIXE + count++;
+//			String var = VAR_PREFIXE + count++;
+			String var = f.getNewVar();
 			varDeclaration3Addr(f, var);
 			codeI.cons(var, tempVars.poll(), tempVar);
 			tempVars.offer(var);
@@ -595,7 +606,8 @@ public class Main {
 		String tempVar1 = "";
 		tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.or(var, tempVar1, tempVar2);
 
@@ -609,7 +621,8 @@ public class Main {
 		String tempVar1 = "";
 		tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.and(var, tempVar1, tempVar2);
 
@@ -619,7 +632,8 @@ public class Main {
 	private String compile(ExprTl exp, FunctionDef f) {
 		Expr arg = exp.getArg();
 		String temp = compile(arg ,f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.tl(var, temp);
 		if(arg != null)
@@ -631,7 +645,8 @@ public class Main {
 
 		Expr arg = exp.getArg();
 		String temp = compile(arg ,f);
-		String var = VAR_PREFIXE+count++;
+//		String var = VAR_PREFIXE+count++;
+		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.hd(var, temp);
 		if(arg != null)
@@ -722,14 +737,8 @@ public class Main {
 		assert !((exprr instanceof ExprAnd) || (exprr instanceof ExprOr) || (exprr instanceof ExprEq) || (exprr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le Foreach";
 		
 		String var = freach.getVar();
-//		String var = VAR_PREFIXE + count++;
 		Expr expression = freach.getExpr2();
 
-		
-//		if(var == null) {
-//			System.err.println("La variable dans la boucle est null ");
-//			return;
-//		}
 
 		String etiquetteexpr=codeI.getEtiquette();
 
@@ -740,20 +749,10 @@ public class Main {
 		codeI.finEtiquette();
 
 		codeI.nouvelleEtiquette(); //Pour le corps de du foreach
-		//		codeI.aff(var, expr);
-
-//		Expr express = new ExprImpl();
-//		ExprHd exprhd = new ExprHdImpl();
-//		exprhd.setArg(expression);
-//		express.setExpr(exprhd);
-//		String expr2 = compile(express, f);
-//		codeI.aff(var, expr2);
 
 		compile(freach.getCmd(),f);
 		codeI.finEtiquette();
-//		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette());
 		codeI.forEachLoop(etiquetteexpr, codeI.getPreviousEtiquette(), var);
-
 	}
 
 	//If
@@ -817,7 +816,6 @@ public class Main {
 		}
 		System.out.println("Symboles Table correctly generated.");
 	}
-
 
 
 }

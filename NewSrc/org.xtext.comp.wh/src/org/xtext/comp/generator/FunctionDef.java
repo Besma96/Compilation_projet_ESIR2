@@ -11,8 +11,10 @@ public class FunctionDef {
 	HashMap<String, VarCounter> vars;
 	HashMap<String,Expr> calls; //gestion des appels
 	HashSet<String> Vars_local;
+	private static final String VAR_PREFIXE = "Var";
+	private int count;
 
-	private static FunctionDef instance;
+//	private static FunctionDef instance;
 	public FunctionDef(String nameFunction){
 		NameFunction = nameFunction;
 		in = 0;
@@ -20,6 +22,11 @@ public class FunctionDef {
 		vars = new HashMap<String,VarCounter>();
 		calls = new HashMap<String,Expr>();
 		Vars_local = new HashSet<String>();
+		this.count = 0;
+	}
+	
+	public String getNewVar() {
+		return VAR_PREFIXE+count++;
 	}
 	
 	/**
@@ -87,7 +94,7 @@ public class FunctionDef {
 	}
 
 	public void setOutputCount(int out){
-//		if(out<=0){throw new SymTableException("A function can't have no return!");}
+		assert out > 0 : "Il faut au moins une variable en sortie";
 		this.out = out;
 	}
 

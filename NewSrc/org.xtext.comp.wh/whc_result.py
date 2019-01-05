@@ -133,6 +133,28 @@ def F0(inputP , outputP ) :
 	outputP.put(W);
 
 
+def F1(inputP , outputP ) : 
+	inParams = queue.Queue() #Queue de bintree
+	outParams =queue.Queue() #Queue de bintree
+	 #Variables utilisées dans le code While de la fonction : autre
+	A = bt.WhLib().cons(None, None)
+	B = bt.WhLib().cons(None, None)
+	X = bt.WhLib().cons(None, None)
+	Y = bt.WhLib().cons(None, None)
+	
+	 #Variables temporaires utilisées par le compiler pour la fonction : autre
+	Var0 = bt.WhLib().cons(None, None)
+	
+	X = inputP.get()
+	Y = inputP.get()
+	Var0 = B
+	A = Var0
+	bt.WhLib().nop()
+	outputP.put(X);
+	outputP.put(Y);
+	outputP.put(A);
+
+
 ########## Partie main ############
 
 inParams = queue.Queue() #Queue de BinTree

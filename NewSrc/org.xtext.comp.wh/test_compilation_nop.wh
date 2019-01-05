@@ -28,3 +28,11 @@
   %
   write B, C, W
   
+  function autre:
+  read X, Y
+  %
+  	A:=B;
+  	nop
+  %
+  write X, Y, A
+  
