@@ -722,19 +722,14 @@ public class Main {
 		assert !((exprr instanceof ExprAnd) || (exprr instanceof ExprOr) || (exprr instanceof ExprEq) || (exprr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le Foreach";
 		
 		String var = freach.getVar();
+//		String var = VAR_PREFIXE + count++;
 		Expr expression = freach.getExpr2();
 
-//		if(expression != null) {
-//			if(expression instanceof ExprAnd || expression instanceof ExprOr || expression instanceof ExprEq || expression instanceof ExprNot) {
-//				System.err.println("Pas d'expression bouléenne comme expression pour la boucle Foreach");
-//				return;
-//			}
-//		}
 		
-		if(var == null) {
-			System.err.println("La variable dans la boucle est null ");
-			return;
-		}
+//		if(var == null) {
+//			System.err.println("La variable dans la boucle est null ");
+//			return;
+//		}
 
 		String etiquetteexpr=codeI.getEtiquette();
 
@@ -747,12 +742,12 @@ public class Main {
 		codeI.nouvelleEtiquette(); //Pour le corps de du foreach
 		//		codeI.aff(var, expr);
 
-		Expr express = new ExprImpl();
-		ExprHd exprhd = new ExprHdImpl();
-		exprhd.setArg(expression);
-		express.setExpr(exprhd);
-		String expr2 = compile(express, f);
-		codeI.aff(var, expr2);
+//		Expr express = new ExprImpl();
+//		ExprHd exprhd = new ExprHdImpl();
+//		exprhd.setArg(expression);
+//		express.setExpr(exprhd);
+//		String expr2 = compile(express, f);
+//		codeI.aff(var, expr2);
 
 		compile(freach.getCmd(),f);
 		codeI.finEtiquette();

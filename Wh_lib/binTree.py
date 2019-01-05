@@ -1,3 +1,5 @@
+import queue as qu
+
 class binTree:
     #constructeur
     # #Le constructeur est vide car on construira l'arbre grace aux methode list, cons, etc...
@@ -6,15 +8,6 @@ class binTree:
         self.node = None
         self.left = None
         self.right = None
-
-  #  def __init__(self, data, leftTree, rightTree):
-   #     self.node=data
-   #     if self.node == "nil":
-    #        self.left = None
-    #        self.right = None
-     #   else:
-      #      self.left = leftTree
-       #     self.right = rightTree
 
         
     #getteur
@@ -84,5 +77,15 @@ class binTree:
         self.right = X.right
         return self
 
+    def all_nodes(self):
+        liste_nodes=[]
+        nodes = qu.Queue()
+        nodes.put(self)
+        while nodes.qsize() > 0 :
+            node = nodes.get()
+            if node is not None:
+                liste_nodes.append(node)
+                nodes.put(node.left)
+                nodes.put(node.right)
+        return liste_nodes
 
-    

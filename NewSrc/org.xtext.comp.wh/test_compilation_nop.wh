@@ -4,7 +4,7 @@
   read DA, SA, BA
   % 
   	A:=nil;
-  	B:=(cons nil nil);
+  	B:=(cons nil nil nil nil SA DA);
   	C:=(cons nil nil nil (cons nil nil));
   	D:= A and B;
   	D1:= B and B;
@@ -14,13 +14,17 @@
   	F1:= not A;
   	G:= A =? B;
   	G1 := A =? A;
-  	
-
-  	for C do
-  		Z:=(cons nil nil Z Z Z)
-  	od;
+  	H:=(hd B);
+	I:=(tl B);
+	J:=(tl I);
+	if A then 
+		W:=B
+	else
+		W:=C
+	fi;
+	
   	 	
   	nop
   %
-  write B, C, Z
+  write B, C, W
   

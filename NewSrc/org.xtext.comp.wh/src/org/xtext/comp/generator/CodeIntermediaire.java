@@ -143,8 +143,8 @@ public class CodeIntermediaire {
 //	public void forEachLoop(String condition, String body){
 //		addIn3Addr(OP.FOREACH, condition, "", body,"");
 //	}
-	public void forEachLoop(String condition, String body, String Variable){
-		addIn3Addr(OP.FOREACH, condition, "", body, Variable);
+	public void forEachLoop(String expression, String body, String Variable){
+		addIn3Addr(OP.FOREACH, expression, "", body, Variable);
 	}
 
 	//CONDITION

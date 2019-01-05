@@ -148,7 +148,7 @@ public class Translator_Python extends Translator {
 		newLine();
 		write(nameMainFonction + "(inParams, outParams)");
 		newLine();
-		System.out.println("Suis avant le for et nbwrites vaut : "+nbWrites);
+//		System.out.println("Suis avant le for et nbwrites vaut : "+nbWrites);
 		write(" #Affichage des paramètres de sortie");
 		for(int i = 0; i <nbWrites; i++) {
 			write("result = outParams.get()");
@@ -217,10 +217,10 @@ public class Translator_Python extends Translator {
 		// TODO Auto-generated method stub
 		operatorManager(code.getCode3Addr().get(quad.getEtiquette()).iterator(), f);
 
-		f.write("for " + quad.getRead2() + " in "+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + " : ");
+		f.write("for " + quad.getRead2() + " in bt.WhLib().all_nodes("+ code.getCode3Addr().get(quad.getEtiquette()).getLast().getWrite() + ") : ");
 		f.rightShift();
 		operatorManager(code.getCode3Addr().get(quad.getRead1()).iterator(), f);
-		f.write(code.getCode3Addr().get(quad.getRead1()).getLast().getRead1() + " = "+ code.getCode3Addr().get(quad.getRead1()).getLast().getWrite());
+		//f.write(code.getCode3Addr().get(quad.getRead1()).getLast().getRead1() + " = "+ code.getCode3Addr().get(quad.getRead1()).getLast().getWrite());
 		f.leftShift();
 	}
 
@@ -273,7 +273,6 @@ public class Translator_Python extends Translator {
 	protected void translate_not(QuadPair quad, Function f) {
 		// TODO Auto-generated method stub
 		f.write(quad.getWrite() + " = bt.WhLib().not_wh("+ quad.getRead1() + ")");
-
 	}
 
 

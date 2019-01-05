@@ -19,31 +19,37 @@ def F0(inputP , outputP ) :
 	E = bt.WhLib().cons(None, None)
 	F = bt.WhLib().cons(None, None)
 	G = bt.WhLib().cons(None, None)
+	H = bt.WhLib().cons(None, None)
+	I = bt.WhLib().cons(None, None)
 	G1 = bt.WhLib().cons(None, None)
+	J = bt.WhLib().cons(None, None)
 	F1 = bt.WhLib().cons(None, None)
 	E1 = bt.WhLib().cons(None, None)
 	D1 = bt.WhLib().cons(None, None)
 	SA = bt.WhLib().cons(None, None)
 	nil = bt.WhLib().cons(None, None)
-	Z = bt.WhLib().cons(None, None)
+	W = bt.WhLib().cons(None, None)
 	DA = bt.WhLib().cons(None, None)
 	BA = bt.WhLib().cons(None, None)
 	
 	 #Variables temporaires utilisées par le compiler pour la fonction : main
 	Var13 = bt.WhLib().cons(None, None)
+	Var35 = bt.WhLib().cons(None, None)
 	Var12 = bt.WhLib().cons(None, None)
 	Var34 = bt.WhLib().cons(None, None)
 	Var15 = bt.WhLib().cons(None, None)
+	Var37 = bt.WhLib().cons(None, None)
 	Var14 = bt.WhLib().cons(None, None)
+	Var36 = bt.WhLib().cons(None, None)
 	Var17 = bt.WhLib().cons(None, None)
 	Var16 = bt.WhLib().cons(None, None)
+	Var38 = bt.WhLib().cons(None, None)
 	Var19 = bt.WhLib().cons(None, None)
 	Var18 = bt.WhLib().cons(None, None)
 	Var31 = bt.WhLib().cons(None, None)
 	Var30 = bt.WhLib().cons(None, None)
 	Var11 = bt.WhLib().cons(None, None)
 	Var33 = bt.WhLib().cons(None, None)
-	Var10 = bt.WhLib().cons(None, None)
 	Var32 = bt.WhLib().cons(None, None)
 	Var24 = bt.WhLib().cons(None, None)
 	Var0 = bt.WhLib().cons(None, None)
@@ -53,13 +59,15 @@ def F0(inputP , outputP ) :
 	Var25 = bt.WhLib().cons(None, None)
 	Var3 = bt.WhLib().cons(None, None)
 	Var28 = bt.WhLib().cons(None, None)
+	Var4 = bt.WhLib().cons(None, None)
 	Var27 = bt.WhLib().cons(None, None)
 	Var5 = bt.WhLib().cons(None, None)
+	Var6 = bt.WhLib().cons(None, None)
+	Var29 = bt.WhLib().cons(None, None)
 	Var20 = bt.WhLib().cons(None, None)
 	Var22 = bt.WhLib().cons(None, None)
 	Var21 = bt.WhLib().cons(None, None)
 	Var7 = bt.WhLib().cons(None, None)
-	Var8 = bt.WhLib().cons(None, None)
 	Var9 = bt.WhLib().cons(None, None)
 	
 	DA = inputP.get()
@@ -67,55 +75,62 @@ def F0(inputP , outputP ) :
 	BA = inputP.get()
 	Var0 = nil
 	A = Var0
-	Var2 = bt.WhLib().cons(nil,nil)
-	Var3 = Var2
-	B = Var3
-	Var5 = bt.WhLib().cons(nil,nil)
-	Var7 = bt.WhLib().cons(nil,Var5)
-	Var8 = bt.WhLib().cons(nil,Var7)
-	Var9 = bt.WhLib().cons(nil,Var8)
-	Var10 = Var9
-	C = Var10
-	Var11 = bt.WhLib().and_wh(A,B)
-	Var12 = Var11
-	D = Var12
-	Var13 = bt.WhLib().and_wh(B,B)
+	Var2 = bt.WhLib().cons(SA,DA)
+	Var3 = bt.WhLib().cons(nil,Var2)
+	Var4 = bt.WhLib().cons(nil,Var3)
+	Var5 = bt.WhLib().cons(nil,Var4)
+	Var6 = bt.WhLib().cons(nil,Var5)
+	Var7 = Var6
+	B = Var7
+	Var9 = bt.WhLib().cons(nil,nil)
+	Var11 = bt.WhLib().cons(nil,Var9)
+	Var12 = bt.WhLib().cons(nil,Var11)
+	Var13 = bt.WhLib().cons(nil,Var12)
 	Var14 = Var13
-	D1 = Var14
-	Var15 = bt.WhLib().or_wh(A,B)
+	C = Var14
+	Var15 = bt.WhLib().and_wh(A,B)
 	Var16 = Var15
-	E = Var16
-	Var17 = bt.WhLib().or_wh(A,A)
+	D = Var16
+	Var17 = bt.WhLib().and_wh(B,B)
 	Var18 = Var17
-	E1 = Var18
-	Var19 = bt.WhLib().not_wh(B)
+	D1 = Var18
+	Var19 = bt.WhLib().or_wh(A,B)
 	Var20 = Var19
-	F = Var20
-	Var21 = bt.WhLib().not_wh(A)
+	E = Var20
+	Var21 = bt.WhLib().or_wh(A,A)
 	Var22 = Var21
-	F1 = Var22
-	Var23 = bt.WhLib().isEqual(A,B)
+	E1 = Var22
+	Var23 = bt.WhLib().not_wh(B)
 	Var24 = Var23
-	G = Var24
-	Var25 = bt.WhLib().isEqual(A,A)
+	F = Var24
+	Var25 = bt.WhLib().not_wh(A)
 	Var26 = Var25
-	G1 = Var26
-	Var27 = C
-	Var28 = D
-	A = Var27
-	B = Var28
-	Var35 = bt.WhLib().binTreeToInt(C) 
-	for i in range(0, Var35) : 
-		Var30 = bt.WhLib().cons(Z,Z)
-		Var31 = bt.WhLib().cons(Z,Var30)
-		Var32 = bt.WhLib().cons(nil,Var31)
-		Var33 = bt.WhLib().cons(nil,Var32)
-		Var34 = Var33
-		Z = Var34
+	F1 = Var26
+	Var27 = bt.WhLib().isEqual(A,B)
+	Var28 = Var27
+	G = Var28
+	Var29 = bt.WhLib().isEqual(A,A)
+	Var30 = Var29
+	G1 = Var30
+	Var31 = bt.WhLib().hd(B)
+	Var32 = Var31
+	H = Var32
+	Var33 = bt.WhLib().tail(B)
+	Var34 = Var33
+	I = Var34
+	Var35 = bt.WhLib().tail(I)
+	Var36 = Var35
+	J = Var36
+	if bt.WhLib().isTrue(A) : 
+		Var37 = B
+		W = Var37
+	else : 
+		Var38 = C
+		W = Var38
 	bt.WhLib().nop()
 	outputP.put(B);
 	outputP.put(C);
-	outputP.put(Z);
+	outputP.put(W);
 
 
 ########## Partie main ############

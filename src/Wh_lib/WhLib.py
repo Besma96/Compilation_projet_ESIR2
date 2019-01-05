@@ -15,13 +15,16 @@ class WhLib:
         return tree.head()
 
     def tail(self, tree):
-        return tree.tail()
+        #print(type(tree.tail()))
+        if tree isinstance(tree, bt.binTree):
+            return tree.tail()
+        return None
 
     def isTrue(self, tree):
         if tree==True:
             return True
         else:
-            if tree==False:
+            if tree==False or tree==None:
                 return False
         if tree.node=="nil":
             return False
@@ -79,3 +82,8 @@ class WhLib:
     def not_wh(self,X):
         tmp=not(WhLib().isTrue(X))
         return tmp
+
+    def all_nodes(self, tree):
+        if tree is not None:
+            return tree.all_nodes() 
+        
