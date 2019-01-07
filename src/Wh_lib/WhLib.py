@@ -58,7 +58,7 @@ class WhLib:
     def binTreeToInt(self, X):
         if X.getRight() is None:
             return 0
-        res = 0
+        res = 1
         tree = bt.binTree()
         tree = X.getRight()
         while isinstance(tree,bt.binTree) :
