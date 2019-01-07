@@ -32,7 +32,18 @@ class WhLib:
         
     
     def isEqual(self, X, Y):
-        return X.isEqual(Y)
+        equal=True
+        tree1=X
+        tree2=Y
+        while(isinstance(tree1,bt.binTree) and isinstance(tree2,bt.binTree)):
+            #if(tree1.getLeft() not None and tree2.getLeft() not None):
+            equal=(tree1.getLeft()==tree2.getLeft())
+            if (not equal ) :
+                return False
+            tree1=tree1.getRight()
+            tree2=tree2.getRight()
+        equal=(tree1==tree2)
+        return equal
 
     def cons(self, l=None, r=None):
         if( l is None and isinstance(r,bt.binTree)):
@@ -56,14 +67,13 @@ class WhLib:
 
 
     def binTreeToInt(self, X):
-        if X.getRight() is None:
-            return 0
-        res = 1
-        tree = bt.binTree()
-        tree = X.getRight()
+        res = 0
+        tree=X
         while isinstance(tree,bt.binTree) :
-            res = res+1
-            tree = tree.getRight()
+            if(tree.node=="cons"):
+                res+=1
+            tree=tree.getRight()
+            
         return res
 
     def toString(self,X) -> str:
