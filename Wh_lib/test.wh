@@ -1,0 +1,10 @@
+function main :
+read X, Y
+%
+	A:=B;
+	for X do
+		Z:=(cons nil Z)
+	od;
+	nop
+%
+write X,Y,Z
