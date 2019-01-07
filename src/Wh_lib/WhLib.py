@@ -16,7 +16,7 @@ class WhLib:
 
     def tail(self, tree):
         #print(type(tree.tail()))
-        if tree isinstance(tree, bt.binTree):
+        if( isinstance(tree, bt.binTree)):
             return tree.tail()
         return None
 

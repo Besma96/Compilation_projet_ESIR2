@@ -1,6 +1,7 @@
 function test:
 read X
 %
-A:=B
+A:=B;
+A, C := C, B
 %
 write A
