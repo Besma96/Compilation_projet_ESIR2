@@ -68,7 +68,7 @@ class WhLib:
 
     def binTreeToInt(self, X):
         res = 0
-        tree=X
+        tree=X.getRight()
         while isinstance(tree,bt.binTree) :
             if(tree.node=="cons"):
                 res+=1
