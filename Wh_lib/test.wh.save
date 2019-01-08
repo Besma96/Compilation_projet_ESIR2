@@ -1,0 +1,8 @@
+function main:
+read X, Y
+%
+	A:=X;
+	nop
+%
+write A, X
+, Y

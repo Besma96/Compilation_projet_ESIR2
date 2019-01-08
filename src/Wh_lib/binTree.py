@@ -1,4 +1,5 @@
 import queue as qu
+import WhLib as wh
 
 class binTree:
     #constructeur
@@ -83,9 +84,10 @@ class binTree:
         nodes.put(self)
         while nodes.qsize() > 0 :
             node = nodes.get()
-            if node is not None:
-                liste_nodes.append(node)
-                nodes.put(node.left)
-                nodes.put(node.right)
+            if node is not None and isinstance(node, binTree):
+                if ((node not in liste_nodes) ):  
+                    liste_nodes.append(node)
+                    nodes.put(node.head())
+                    nodes.put(node.tail())
         return liste_nodes
 

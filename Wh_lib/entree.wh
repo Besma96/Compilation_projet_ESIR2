@@ -1,0 +1,9 @@
+function main:
+read X, Y, Z
+%
+	foreach C in (list X Y Z) do
+		S:=(list nil  S)
+	od;
+	L:=(list X Y Z)
+%
+write X, Y, Z, L, S 
