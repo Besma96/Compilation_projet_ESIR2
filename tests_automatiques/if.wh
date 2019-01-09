@@ -1,0 +1,8 @@
+function main:
+	read A, B
+	%
+		if A =? B then 
+			C := (cons A B)
+		fi 
+	%
+	write C 
