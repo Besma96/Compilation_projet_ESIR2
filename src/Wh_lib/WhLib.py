@@ -3,7 +3,7 @@ import copy
 import queue as qu
 
 class WhLib:
-    # se reporter à la table de traduction pour les équivalents while
+    # se reporter Ã  la table de traduction pour les Ã©quivalents while
 
     def nop(self):
         pass
@@ -26,7 +26,7 @@ class WhLib:
         else:
             if tree==False or tree==None:
                 return False
-        if tree.node=="nil":
+        if tree=="nil":
             return False
         return True
         
