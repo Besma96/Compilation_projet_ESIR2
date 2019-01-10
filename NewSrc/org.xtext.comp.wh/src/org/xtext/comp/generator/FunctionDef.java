@@ -3,13 +3,14 @@ package org.xtext.comp.generator;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.eclipse.emf.common.util.EList;
 import org.xtext.comp.py.Expr;
 
 public class FunctionDef {
 	private int in, out; // nb de variables d'entrée et de sortie
 	private String NameFunction;
 	HashMap<String, VarCounter> vars;
-	HashMap<String,Expr> calls; //gestion des appels
+	HashMap<String,EList<Expr>> calls; //gestion des appels
 	HashSet<String> Vars_local;
 	private static final String VAR_PREFIXE = "Var";
 	private int count;
@@ -20,13 +21,13 @@ public class FunctionDef {
 		in = 0;
 		out = 0;
 		vars = new HashMap<String,VarCounter>();
-		calls = new HashMap<String,Expr>();
+		calls = new HashMap<String,EList<Expr>>();
 		Vars_local = new HashSet<String>();
 		this.count = 0;
 	}
 	
 	public String getNewVar() {
-		return VAR_PREFIXE+count++;
+		return VAR_PREFIXE+ this.count++;
 	}
 	
 	/**
@@ -50,7 +51,7 @@ public class FunctionDef {
 		}
 	}
 
-	public void updateCalls(String symb, Expr exprs){
+	public void updateCalls(String symb, EList<Expr> exprs){
 		calls.put(symb,exprs);
 	}
 
@@ -106,7 +107,7 @@ public class FunctionDef {
 		return Vars_local;
 	}
 
-	public HashMap<String,Expr> getCalls() {
+	public HashMap<String, EList<Expr>> getCalls() {
 		return calls;
 	}
 

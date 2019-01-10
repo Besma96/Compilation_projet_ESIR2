@@ -341,7 +341,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExprSimple returns ExprSimple
 	 *
 	 * Constraint:
-	 *     (str=NIL | varSimple=VARIABLE | sym=SYMBOLE | (nameFunction=SYMBOLE vars=Input))
+	 *     (str=NIL | varSimple=VARIABLE | sym=SYMBOLE)
 	 */
 	protected void sequence_ExprSimple(ISerializationContext context, ExprSimple semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -353,7 +353,7 @@ public class PySemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ExprSym returns ExprSym
 	 *
 	 * Constraint:
-	 *     (arg1=SYMBOLE arg2+=Expr)
+	 *     (arg1=SYMBOLE arg2+=Expr+)
 	 */
 	protected void sequence_ExprSym(ISerializationContext context, ExprSym semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

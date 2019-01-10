@@ -46,7 +46,7 @@ public class ExprHdImpl extends MinimalEObjectImpl.Container implements ExprHd
    * <!-- end-user-doc -->
    * @generated
    */
-  public ExprHdImpl()
+  protected ExprHdImpl()
   {
     super();
   }

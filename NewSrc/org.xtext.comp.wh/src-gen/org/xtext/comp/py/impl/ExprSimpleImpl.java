@@ -4,16 +4,13 @@
 package org.xtext.comp.py.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.comp.py.ExprSimple;
-import org.xtext.comp.py.Input;
 import org.xtext.comp.py.PyPackage;
 
 /**
@@ -27,8 +24,6 @@ import org.xtext.comp.py.PyPackage;
  *   <li>{@link org.xtext.comp.py.impl.ExprSimpleImpl#getStr <em>Str</em>}</li>
  *   <li>{@link org.xtext.comp.py.impl.ExprSimpleImpl#getVarSimple <em>Var Simple</em>}</li>
  *   <li>{@link org.xtext.comp.py.impl.ExprSimpleImpl#getSym <em>Sym</em>}</li>
- *   <li>{@link org.xtext.comp.py.impl.ExprSimpleImpl#getNameFunction <em>Name Function</em>}</li>
- *   <li>{@link org.xtext.comp.py.impl.ExprSimpleImpl#getVars <em>Vars</em>}</li>
  * </ul>
  *
  * @generated
@@ -94,36 +89,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
    * @ordered
    */
   protected String sym = SYM_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getNameFunction() <em>Name Function</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNameFunction()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_FUNCTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getNameFunction() <em>Name Function</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNameFunction()
-   * @generated
-   * @ordered
-   */
-  protected String nameFunction = NAME_FUNCTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getVars() <em>Vars</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVars()
-   * @generated
-   * @ordered
-   */
-  protected Input vars;
 
   /**
    * <!-- begin-user-doc -->
@@ -220,93 +185,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getNameFunction()
-  {
-    return nameFunction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNameFunction(String newNameFunction)
-  {
-    String oldNameFunction = nameFunction;
-    nameFunction = newNameFunction;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PyPackage.EXPR_SIMPLE__NAME_FUNCTION, oldNameFunction, nameFunction));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Input getVars()
-  {
-    return vars;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetVars(Input newVars, NotificationChain msgs)
-  {
-    Input oldVars = vars;
-    vars = newVars;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PyPackage.EXPR_SIMPLE__VARS, oldVars, newVars);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVars(Input newVars)
-  {
-    if (newVars != vars)
-    {
-      NotificationChain msgs = null;
-      if (vars != null)
-        msgs = ((InternalEObject)vars).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PyPackage.EXPR_SIMPLE__VARS, null, msgs);
-      if (newVars != null)
-        msgs = ((InternalEObject)newVars).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PyPackage.EXPR_SIMPLE__VARS, null, msgs);
-      msgs = basicSetVars(newVars, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PyPackage.EXPR_SIMPLE__VARS, newVars, newVars));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case PyPackage.EXPR_SIMPLE__VARS:
-        return basicSetVars(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -318,10 +196,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
         return getVarSimple();
       case PyPackage.EXPR_SIMPLE__SYM:
         return getSym();
-      case PyPackage.EXPR_SIMPLE__NAME_FUNCTION:
-        return getNameFunction();
-      case PyPackage.EXPR_SIMPLE__VARS:
-        return getVars();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -344,12 +218,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
         return;
       case PyPackage.EXPR_SIMPLE__SYM:
         setSym((String)newValue);
-        return;
-      case PyPackage.EXPR_SIMPLE__NAME_FUNCTION:
-        setNameFunction((String)newValue);
-        return;
-      case PyPackage.EXPR_SIMPLE__VARS:
-        setVars((Input)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -374,12 +242,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
       case PyPackage.EXPR_SIMPLE__SYM:
         setSym(SYM_EDEFAULT);
         return;
-      case PyPackage.EXPR_SIMPLE__NAME_FUNCTION:
-        setNameFunction(NAME_FUNCTION_EDEFAULT);
-        return;
-      case PyPackage.EXPR_SIMPLE__VARS:
-        setVars((Input)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -400,10 +262,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
         return VAR_SIMPLE_EDEFAULT == null ? varSimple != null : !VAR_SIMPLE_EDEFAULT.equals(varSimple);
       case PyPackage.EXPR_SIMPLE__SYM:
         return SYM_EDEFAULT == null ? sym != null : !SYM_EDEFAULT.equals(sym);
-      case PyPackage.EXPR_SIMPLE__NAME_FUNCTION:
-        return NAME_FUNCTION_EDEFAULT == null ? nameFunction != null : !NAME_FUNCTION_EDEFAULT.equals(nameFunction);
-      case PyPackage.EXPR_SIMPLE__VARS:
-        return vars != null;
     }
     return super.eIsSet(featureID);
   }
@@ -425,8 +283,6 @@ public class ExprSimpleImpl extends MinimalEObjectImpl.Container implements Expr
     result.append(varSimple);
     result.append(", sym: ");
     result.append(sym);
-    result.append(", nameFunction: ");
-    result.append(nameFunction);
     result.append(')');
     return result.toString();
   }

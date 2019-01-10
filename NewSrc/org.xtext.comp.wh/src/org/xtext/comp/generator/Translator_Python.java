@@ -19,14 +19,13 @@ public class Translator_Python extends Translator {
 	}
 
 	public void iterateCode() {
-		System.out.println("Taille de la map codeI :"+code.getSize());
 		int taille = code.getSize();
-		//		for(int i =taille-1; i>=0; i--) {
-		//			iterateCode("F" + i);
-		//		}
 		for(int i =0; i<taille; i++){
 			iterateCode("L" + i);
 		}
+//		for(int i =taille-1; i>0; i--){
+//			iterateCode("L" + i);
+//		}
 	}
 
 	private void iterateCode(String string) {
@@ -39,7 +38,6 @@ public class Translator_Python extends Translator {
 		while(it.hasNext()) {
 			QuadPair q = it.next();
 			String Opname = q.getWrite();
-			System.out.println("opname "+ Opname);
 			Map<String, FunctionDef> mapF= Main.getInstance().getFunList();
 			Map<String, String> mapEti = Main.getInstance().getEtiquettesFunctions();
 			Function_Python f = new Function_Python(Opname);
@@ -68,7 +66,12 @@ public class Translator_Python extends Translator {
 
 		iterateCode();
 		writeFunction();
-		CodePrincipal();
+		try {
+			CodePrincipal();
+		} catch (WhileExceptions e) {
+			System.err.println(e);
+			//			e.printStackTrace();
+		}
 	}
 
 
@@ -91,8 +94,7 @@ public class Translator_Python extends Translator {
 		else {
 			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", bt.WhLib().nil())");
 			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", None)");
-			f.write(quad.getWrite() + " = bt.WhLib().cons( None, " +quad.getRead1() + ")" );
-
+			f.write(quad.getWrite() + " = bt.WhLib().cons( None,"  + quad.getRead1() + ")" );
 		}
 	}
 
@@ -107,19 +109,21 @@ public class Translator_Python extends Translator {
 	@Override
 	protected void writeSymbs() {
 		write(" # Les symboles utilisés dans le programme while");
-		//write("nil = bt()");
 
 		Main.getInstance().getSymbs().forEach((key, value)->{
-//			write(key + " = binTree()");
+			//			write(key + " = bt.WhLib().cons(\"nil\", \"nil\")");
 			write(key + " = bt.WhLib().cons(None, None)");
-			System.out.println("Symbole : "+key);
+			//			System.out.println("Symbole : "+key);
 		});
 		write("");
 	}
 
 
-	public void CodePrincipal() {
-		assert nameMainFonction != null : "Il faut au moins une fonction portant le nom (main) dans le programme";
+	public void CodePrincipal() throws WhileExceptions {
+		//		assert nameMainFonction != null : "Il faut au moins une fonction portant le nom (main) dans le programme";
+		if(nameMainFonction == null) {
+			throw new WhileExceptions("Il faut au moins une fonction portant le nom (main) dans le programme");
+		}
 		Iterator<String> itR = reads.iterator();
 		int nbParams = 1;
 		//write(" #Partie code principal ");
@@ -136,8 +140,8 @@ public class Translator_Python extends Translator {
 			leftShift();
 			write("else : ");
 			rightShift();
-//			write("" + s+ " = binTree()" );
-			write("" + s+ " = bt.WhLib().cons(None, None)" );
+			//			write("" + s+ " = bt.WhLib().cons(\"nil\", \"nil\")" );
+			write(s + " = bt.WhLib().cons(None, None)");
 
 			write("inParams.put("+ s + ")");
 			leftShift();
@@ -147,15 +151,28 @@ public class Translator_Python extends Translator {
 		newLine();
 		write(nameMainFonction + "(inParams, outParams)");
 		newLine();
-//		System.out.println("Suis avant le for et nbwrites vaut : "+nbWrites);
 		write(" #Affichage des paramètres de sortie");
 		for(int i = 0; i <nbWrites; i++) {
 			write("result = outParams.get()");
-			write("print(bt.WhLib().toString(result))");
+			//			write("resultInt = result");
 			write("if not (result==True or result==False or result == None ) : ");
 			rightShift();
-			write("print(\"Son Equivalent en entier : \" , 	bt.WhLib().binTreeToInt(result))");
+			write("resultInt = bt.WhLib().binTreeToInt(result) ");
+			write("if resultInt < 250 : ");
+			rightShift();
+			write("print(bt.WhLib().toString(result))");
 			leftShift();
+			write("else : ");
+			rightShift();
+			write("print(\"Arbre trop grand pour l'affichage\")");
+			leftShift();
+			write("print(\"Son Equivalent en entier : \" , 	resultInt)");
+			leftShift();
+			write("else : ");
+			rightShift();
+			write("print(\"Son Equivalent en boolean : \" , 	result)");
+			leftShift();
+
 		}
 	}
 
@@ -180,11 +197,7 @@ public class Translator_Python extends Translator {
 
 	}
 
-	@Override
-	protected void translate_pop(QuadPair quad, Function f) {
-		// TODO Auto-generated method stub
 
-	}
 
 	@Override
 	protected void translate_call(QuadPair quad, Function f) {
@@ -193,11 +206,25 @@ public class Translator_Python extends Translator {
 	}
 
 	@Override
+	protected void translate_push(QuadPair quad, Function f) {
+		f.write("inParams.put(" + quad.getRead1() + ")");
+	}
+	@Override
+	protected void translate_pop(QuadPair quad, Function f) {
+		f.write(quad.getWrite() + " = outParams.get()");
+	}
+
+	@Override
 	//A supprimer
 	protected void translate_list(QuadPair quad, Function f) {
-		f.write("inParams.put("+ quad.getRead1()+")");
-		f.write("inParams.put("+ quad.getRead2()+")");
-		f.write(quad.getWrite() + " = bt.WhLib().list(inParams)");
+		if(quad.getRead2() != null && !quad.getRead2().equals("")) {
+			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +"," + quad.getRead2()+")");
+		}
+		//		else {
+		//			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", bt.WhLib().nil())");
+		//			//			f.write(quad.getWrite() + " = bt.WhLib().cons(" +quad.getRead1() +", None)");
+		//			f.write(quad.getWrite() + " = bt.WhLib().cons( None, " +quad.getRead1() + ")" );
+		//		}
 	}
 
 	@Override
@@ -258,10 +285,10 @@ public class Translator_Python extends Translator {
 		int numeroVarExpressionFor = Main.getInstance().getCount(); 
 		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);
 		//Interpretation de l'expression du for en int
-		f.write("Var"+ numeroVarExpressionFor+ " = bt.WhLib().binTreeToInt("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") ");
+		f.write("Varfor"+ numeroVarExpressionFor+ " = bt.WhLib().binTreeToInt("+ code.getCode3Addr().get(quadruplet.getEtiquette()).getLast().getWrite() +") ");
 		//Ecriture du for
 
-		f.write("for i in range(0, "+"Var"+ numeroVarExpressionFor +") : ");
+		f.write("for i in range(0, "+"Varfor"+ numeroVarExpressionFor +") : ");
 		f.rightShift();
 		operatorManager(code.getCode3Addr().get(quadruplet.getRead1()).iterator(), f);
 		operatorManager(code.getCode3Addr().get(quadruplet.getEtiquette()).iterator(), f);

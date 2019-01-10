@@ -18,7 +18,6 @@ public abstract class Translator {
 	private int numberTabulation = 0;
 	protected int nbWrites = 0;
 	protected List<String> reads = new ArrayList<String>();
-	private String nameMainFonction;
 
 	protected boolean inMainFunction = true; // permet de savoir si les éléments concernés sont dans le main du While
 	private final static String newLine = "\n";
@@ -53,6 +52,8 @@ public abstract class Translator {
 	protected abstract void translate_while(QuadPair quadruplet, Function f);
 	protected abstract void translate_for(QuadPair quadruplet, Function f);
 	protected abstract void translate_not(QuadPair quad, Function f);
+	protected abstract void translate_push(QuadPair quad, Function f) ;
+
 
 	protected abstract void writeSymbs();
 	protected abstract void writeFunction();
@@ -80,16 +81,10 @@ public abstract class Translator {
 					break;
 
 				case WRITE:
-					f.write("outputP.put(" + quadruplet.getWrite() + ");");
+					f.write("outputP.put(" + quadruplet.getWrite() + ")");
 					if(isInMainFunction(f)) {
 						nbWrites++;
 					}
-//					if(inMainFunction || f.name.equals(nameMainFonction)){
-//						inMainFunction=true;
-//						nbWrites++;
-//
-//					}
-
 					break;
 				case NOP:
 					translate_nop(f);
@@ -157,6 +152,12 @@ public abstract class Translator {
 				case WHILE:
 					translate_while(quadruplet, f);
 					break;
+				case PUSH:
+					translate_push(quadruplet, f);
+					break;
+				case POP:
+					translate_pop(quadruplet, f);
+					break;
 
 				default:
 					break;
@@ -209,4 +210,6 @@ public abstract class Translator {
 	public List<Function_Python> getListFunctionsPython(){
 		return this.funcList;
 	}
+
+
 }

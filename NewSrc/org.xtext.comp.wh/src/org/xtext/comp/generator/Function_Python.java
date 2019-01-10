@@ -30,11 +30,14 @@ public class Function_Python extends Function {
 					FunctionDef defu = map.get(nom);
 					write(" #Variables utilisées dans le code While de la fonction : "+defu.getNameFunction());
 					defu.getVars().forEach((key, value)->{
+//						write(key + " = bt.WhLib().cons(\"nil\", \"nil\")");
 						write(key + " = bt.WhLib().cons(None, None)");
+
 					});
 					write("");
 					write(" #Variables temporaires utilisées par le compiler pour la fonction : "+ defu.getNameFunction());
 					defu.getVars_local().forEach((key) -> {
+//						write(key + " = bt.WhLib().cons(\"nil\", \"nil\")");
 						write(key + " = bt.WhLib().cons(None, None)");
 					});
 					write("");
@@ -59,9 +62,6 @@ public class Function_Python extends Function {
 	public void printFunction(Translator translator) {
 
 		newLine();
-		//write(" #Le corps de la fonction qui doit être appelée dans le programme principal");
-		//translator.write();
-		//write("Les paramètres de la fcontion Function_Python");
 		translator.write("def " + getName() + "("+getParams() + ") : ");
 		translator.rightShift();		
 		translator.write2(body.toString());

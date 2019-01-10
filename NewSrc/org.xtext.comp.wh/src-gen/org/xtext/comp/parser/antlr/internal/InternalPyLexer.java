@@ -466,10 +466,11 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:30:7: ( '(' )
-            // InternalPy.g:30:9: '('
+            // InternalPy.g:30:7: ( 'and' )
+            // InternalPy.g:30:9: 'and'
             {
-            match('('); 
+            match("and"); 
+
 
             }
 
@@ -486,10 +487,11 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:31:7: ( ')' )
-            // InternalPy.g:31:9: ')'
+            // InternalPy.g:31:7: ( 'or' )
+            // InternalPy.g:31:9: 'or'
             {
-            match(')'); 
+            match("or"); 
+
 
             }
 
@@ -506,11 +508,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:32:7: ( 'and' )
-            // InternalPy.g:32:9: 'and'
+            // InternalPy.g:32:7: ( '(' )
+            // InternalPy.g:32:9: '('
             {
-            match("and"); 
-
+            match('('); 
 
             }
 
@@ -527,10 +528,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:33:7: ( 'or' )
-            // InternalPy.g:33:9: 'or'
+            // InternalPy.g:33:7: ( 'cons' )
+            // InternalPy.g:33:9: 'cons'
             {
-            match("or"); 
+            match("cons"); 
 
 
             }
@@ -548,11 +549,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:34:7: ( 'cons' )
-            // InternalPy.g:34:9: 'cons'
+            // InternalPy.g:34:7: ( ')' )
+            // InternalPy.g:34:9: ')'
             {
-            match("cons"); 
-
+            match(')'); 
 
             }
 
@@ -674,10 +674,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_NIL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1927:10: ( ( 'Nil' | 'nil' ) )
-            // InternalPy.g:1927:12: ( 'Nil' | 'nil' )
+            // InternalPy.g:1879:10: ( ( 'Nil' | 'nil' ) )
+            // InternalPy.g:1879:12: ( 'Nil' | 'nil' )
             {
-            // InternalPy.g:1927:12: ( 'Nil' | 'nil' )
+            // InternalPy.g:1879:12: ( 'Nil' | 'nil' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -695,7 +695,7 @@ public class InternalPyLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalPy.g:1927:13: 'Nil'
+                    // InternalPy.g:1879:13: 'Nil'
                     {
                     match("Nil"); 
 
@@ -703,7 +703,7 @@ public class InternalPyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalPy.g:1927:19: 'nil'
+                    // InternalPy.g:1879:19: 'nil'
                     {
                     match("nil"); 
 
@@ -729,11 +729,11 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_VARIABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1929:15: ( 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )* )
-            // InternalPy.g:1929:17: 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
+            // InternalPy.g:1881:15: ( 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )* )
+            // InternalPy.g:1881:17: 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
             {
             matchRange('A','Z'); 
-            // InternalPy.g:1929:26: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
+            // InternalPy.g:1881:26: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -782,11 +782,11 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_SYMBOLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1931:14: ( 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )* )
-            // InternalPy.g:1931:16: 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
+            // InternalPy.g:1883:14: ( 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )* )
+            // InternalPy.g:1883:16: 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
             {
             matchRange('a','z'); 
-            // InternalPy.g:1931:25: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
+            // InternalPy.g:1883:25: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -835,10 +835,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1933:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalPy.g:1933:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalPy.g:1885:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalPy.g:1885:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalPy.g:1933:11: ( '^' )?
+            // InternalPy.g:1885:11: ( '^' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -847,7 +847,7 @@ public class InternalPyLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // InternalPy.g:1933:11: '^'
+                    // InternalPy.g:1885:11: '^'
                     {
                     match('^'); 
 
@@ -865,7 +865,7 @@ public class InternalPyLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalPy.g:1933:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalPy.g:1885:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop5:
             do {
                 int alt5=2;
@@ -914,10 +914,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1935:10: ( ( '0' .. '9' )+ )
-            // InternalPy.g:1935:12: ( '0' .. '9' )+
+            // InternalPy.g:1887:10: ( ( '0' .. '9' )+ )
+            // InternalPy.g:1887:12: ( '0' .. '9' )+
             {
-            // InternalPy.g:1935:12: ( '0' .. '9' )+
+            // InternalPy.g:1887:12: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -931,7 +931,7 @@ public class InternalPyLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalPy.g:1935:13: '0' .. '9'
+            	    // InternalPy.g:1887:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -963,10 +963,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1937:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalPy.g:1937:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalPy.g:1889:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalPy.g:1889:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalPy.g:1937:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalPy.g:1889:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -984,10 +984,10 @@ public class InternalPyLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // InternalPy.g:1937:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalPy.g:1889:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalPy.g:1937:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalPy.g:1889:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop7:
                     do {
                         int alt7=3;
@@ -1003,7 +1003,7 @@ public class InternalPyLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // InternalPy.g:1937:21: '\\\\' .
+                    	    // InternalPy.g:1889:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1011,7 +1011,7 @@ public class InternalPyLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalPy.g:1937:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalPy.g:1889:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1036,10 +1036,10 @@ public class InternalPyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalPy.g:1937:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalPy.g:1889:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalPy.g:1937:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalPy.g:1889:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1055,7 +1055,7 @@ public class InternalPyLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // InternalPy.g:1937:54: '\\\\' .
+                    	    // InternalPy.g:1889:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1063,7 +1063,7 @@ public class InternalPyLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalPy.g:1937:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalPy.g:1889:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1106,12 +1106,12 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1939:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalPy.g:1939:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalPy.g:1891:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalPy.g:1891:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalPy.g:1939:24: ( options {greedy=false; } : . )*
+            // InternalPy.g:1891:24: ( options {greedy=false; } : . )*
             loop10:
             do {
                 int alt10=2;
@@ -1136,7 +1136,7 @@ public class InternalPyLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalPy.g:1939:52: .
+            	    // InternalPy.g:1891:52: .
             	    {
             	    matchAny(); 
 
@@ -1166,12 +1166,12 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1941:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalPy.g:1941:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalPy.g:1893:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalPy.g:1893:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalPy.g:1941:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalPy.g:1893:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1184,7 +1184,7 @@ public class InternalPyLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // InternalPy.g:1941:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalPy.g:1893:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1204,7 +1204,7 @@ public class InternalPyLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalPy.g:1941:40: ( ( '\\r' )? '\\n' )?
+            // InternalPy.g:1893:40: ( ( '\\r' )? '\\n' )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1213,9 +1213,9 @@ public class InternalPyLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // InternalPy.g:1941:41: ( '\\r' )? '\\n'
+                    // InternalPy.g:1893:41: ( '\\r' )? '\\n'
                     {
-                    // InternalPy.g:1941:41: ( '\\r' )?
+                    // InternalPy.g:1893:41: ( '\\r' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1224,7 +1224,7 @@ public class InternalPyLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // InternalPy.g:1941:41: '\\r'
+                            // InternalPy.g:1893:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1256,10 +1256,10 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1943:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalPy.g:1943:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalPy.g:1895:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalPy.g:1895:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalPy.g:1943:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalPy.g:1895:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt14=0;
             loop14:
             do {
@@ -1313,8 +1313,8 @@ public class InternalPyLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPy.g:1945:16: ( . )
-            // InternalPy.g:1945:18: .
+            // InternalPy.g:1897:16: ( . )
+            // InternalPy.g:1897:18: .
             {
             matchAny(); 
 
@@ -1614,19 +1614,19 @@ public class InternalPyLexer extends Lexer {
 
     protected DFA15 dfa15 = new DFA15(this);
     static final String DFA15_eotS =
-        "\1\uffff\1\43\1\47\1\43\1\uffff\1\43\2\uffff\6\43\2\uffff\4\43\1\37\2\100\1\43\1\37\2\uffff\3\37\2\uffff\1\43\1\110\1\43\1\uffff\1\43\3\uffff\1\43\1\uffff\2\43\2\uffff\1\115\1\116\1\43\1\120\3\43\1\125\1\126\1\127\2\uffff\3\43\1\133\1\uffff\1\100\1\uffff\1\100\5\uffff\1\43\1\uffff\1\137\3\43\2\uffff\1\43\1\uffff\1\43\1\145\1\146\1\147\3\uffff\1\150\2\43\1\uffff\1\147\2\43\1\uffff\1\155\2\43\1\160\1\161\4\uffff\1\162\1\163\2\43\1\uffff\1\166\1\167\4\uffff\2\43\2\uffff\1\43\1\173\1\174\2\uffff";
+        "\1\uffff\1\43\1\47\1\43\1\uffff\1\43\2\uffff\7\43\1\uffff\1\43\1\uffff\2\43\1\37\2\100\1\43\1\37\2\uffff\3\37\2\uffff\1\43\1\110\1\43\1\uffff\1\43\3\uffff\1\43\1\uffff\2\43\2\uffff\1\115\1\116\1\43\1\120\3\43\1\125\1\126\1\127\1\43\1\uffff\1\43\1\uffff\1\43\1\133\1\uffff\1\100\1\uffff\1\100\5\uffff\1\43\1\uffff\1\137\3\43\2\uffff\1\43\1\uffff\1\43\1\145\1\146\1\147\3\uffff\1\150\2\43\1\uffff\1\147\2\43\1\uffff\1\155\2\43\1\160\1\161\4\uffff\1\162\1\163\2\43\1\uffff\1\166\1\167\4\uffff\2\43\2\uffff\1\43\1\173\1\174\2\uffff";
     static final String DFA15_eofS =
         "\175\uffff";
     static final String DFA15_minS =
-        "\1\0\1\60\1\75\1\60\1\uffff\1\60\2\uffff\6\60\2\uffff\4\60\1\77\3\60\1\101\2\uffff\2\0\1\52\2\uffff\3\60\1\uffff\1\60\3\uffff\1\60\1\uffff\2\60\2\uffff\12\60\2\uffff\4\60\1\uffff\1\60\1\uffff\1\60\5\uffff\1\60\1\uffff\4\60\2\uffff\1\60\1\uffff\4\60\3\uffff\3\60\1\uffff\3\60\1\uffff\5\60\4\uffff\4\60\1\uffff\2\60\4\uffff\2\60\2\uffff\3\60\2\uffff";
+        "\1\0\1\60\1\75\1\60\1\uffff\1\60\2\uffff\7\60\1\uffff\1\60\1\uffff\2\60\1\77\3\60\1\101\2\uffff\2\0\1\52\2\uffff\3\60\1\uffff\1\60\3\uffff\1\60\1\uffff\2\60\2\uffff\13\60\1\uffff\1\60\1\uffff\2\60\1\uffff\1\60\1\uffff\1\60\5\uffff\1\60\1\uffff\4\60\2\uffff\1\60\1\uffff\4\60\3\uffff\3\60\1\uffff\3\60\1\uffff\5\60\4\uffff\4\60\1\uffff\2\60\4\uffff\2\60\2\uffff\3\60\2\uffff";
     static final String DFA15_maxS =
-        "\1\uffff\1\172\1\75\1\172\1\uffff\1\172\2\uffff\6\172\2\uffff\4\172\1\77\4\172\2\uffff\2\uffff\1\57\2\uffff\3\172\1\uffff\1\172\3\uffff\1\172\1\uffff\2\172\2\uffff\12\172\2\uffff\4\172\1\uffff\1\172\1\uffff\1\172\5\uffff\1\172\1\uffff\4\172\2\uffff\1\172\1\uffff\4\172\3\uffff\3\172\1\uffff\3\172\1\uffff\5\172\4\uffff\4\172\1\uffff\2\172\4\uffff\2\172\2\uffff\3\172\2\uffff";
+        "\1\uffff\1\172\1\75\1\172\1\uffff\1\172\2\uffff\7\172\1\uffff\1\172\1\uffff\2\172\1\77\4\172\2\uffff\2\uffff\1\57\2\uffff\3\172\1\uffff\1\172\3\uffff\1\172\1\uffff\2\172\2\uffff\13\172\1\uffff\1\172\1\uffff\2\172\1\uffff\1\172\1\uffff\1\172\5\uffff\1\172\1\uffff\4\172\2\uffff\1\172\1\uffff\4\172\3\uffff\3\172\1\uffff\3\172\1\uffff\5\172\4\uffff\4\172\1\uffff\2\172\4\uffff\2\172\2\uffff\3\172\2\uffff";
     static final String DFA15_acceptS =
-        "\4\uffff\1\4\1\uffff\1\6\1\7\6\uffff\1\24\1\25\11\uffff\1\41\1\42\3\uffff\1\46\1\47\3\uffff\1\40\1\uffff\1\41\1\15\1\2\1\uffff\1\4\2\uffff\1\6\1\7\12\uffff\1\24\1\25\4\uffff\1\35\1\uffff\1\37\1\uffff\1\42\1\43\1\44\1\45\1\46\1\uffff\1\13\4\uffff\1\10\1\22\1\uffff\1\33\4\uffff\1\17\1\20\1\27\3\uffff\1\32\3\uffff\1\16\5\uffff\1\14\1\34\1\36\1\26\4\uffff\1\3\2\uffff\1\11\1\12\1\30\1\31\2\uffff\1\5\1\23\3\uffff\1\21\1\1";
+        "\4\uffff\1\4\1\uffff\1\6\1\7\7\uffff\1\26\1\uffff\1\30\7\uffff\1\41\1\42\3\uffff\1\46\1\47\3\uffff\1\40\1\uffff\1\41\1\15\1\2\1\uffff\1\4\2\uffff\1\6\1\7\13\uffff\1\26\1\uffff\1\30\2\uffff\1\35\1\uffff\1\37\1\uffff\1\42\1\43\1\44\1\45\1\46\1\uffff\1\13\4\uffff\1\10\1\22\1\uffff\1\33\4\uffff\1\17\1\20\1\25\3\uffff\1\32\3\uffff\1\16\5\uffff\1\14\1\34\1\36\1\24\4\uffff\1\3\2\uffff\1\11\1\12\1\27\1\31\2\uffff\1\5\1\23\3\uffff\1\21\1\1";
     static final String DFA15_specialS =
         "\1\1\32\uffff\1\0\1\2\140\uffff}>";
     static final String[] DFA15_transitionS = {
-            "\11\37\2\36\2\37\1\36\22\37\1\36\1\37\1\33\2\37\1\4\1\37\1\34\1\16\1\17\2\37\1\6\2\37\1\35\12\32\1\2\1\7\1\37\1\24\3\37\15\26\1\25\14\26\3\37\1\30\1\31\1\37\1\20\1\27\1\21\1\14\1\12\1\1\1\27\1\23\1\10\2\27\1\22\1\27\1\13\1\15\2\27\1\3\1\27\1\11\2\27\1\5\3\27\uff85\37",
+            "\11\37\2\36\2\37\1\36\22\37\1\36\1\37\1\33\2\37\1\4\1\37\1\34\1\17\1\21\2\37\1\6\2\37\1\35\12\32\1\2\1\7\1\37\1\24\3\37\15\26\1\25\14\26\3\37\1\30\1\31\1\37\1\16\1\27\1\20\1\14\1\12\1\1\1\27\1\23\1\10\2\27\1\22\1\27\1\13\1\15\2\27\1\3\1\27\1\11\2\27\1\5\3\27\uff85\37",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\10\44\1\41\5\44\1\42\5\44\1\40\5\44",
             "\1\46",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\4\44\1\50\25\44",
@@ -1640,10 +1640,10 @@ public class InternalPyLexer extends Lexer {
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\10\44\1\64\5\44\1\63\13\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\16\44\1\65\13\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\3\44\1\66\15\44\1\67\10\44",
+            "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\15\44\1\70\14\44",
             "",
+            "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\16\44\1\72\13\44",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\15\44\1\72\14\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\16\44\1\73\13\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\10\44\1\74\21\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\3\44\1\75\26\44",
             "\1\76",
@@ -1682,10 +1682,10 @@ public class InternalPyLexer extends Lexer {
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\32\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\32\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\32\44",
-            "",
-            "",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\3\44\1\130\26\44",
+            "",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\15\44\1\131\14\44",
+            "",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\22\44\1\132\7\44",
             "\12\44\7\uffff\32\44\4\uffff\1\45\1\uffff\32\44",
             "",
@@ -1829,13 +1829,13 @@ public class InternalPyLexer extends Lexer {
 
                         else if ( (LA15_0=='o') ) {s = 13;}
 
-                        else if ( (LA15_0=='(') ) {s = 14;}
+                        else if ( (LA15_0=='a') ) {s = 14;}
 
-                        else if ( (LA15_0==')') ) {s = 15;}
+                        else if ( (LA15_0=='(') ) {s = 15;}
 
-                        else if ( (LA15_0=='a') ) {s = 16;}
+                        else if ( (LA15_0=='c') ) {s = 16;}
 
-                        else if ( (LA15_0=='c') ) {s = 17;}
+                        else if ( (LA15_0==')') ) {s = 17;}
 
                         else if ( (LA15_0=='l') ) {s = 18;}
 

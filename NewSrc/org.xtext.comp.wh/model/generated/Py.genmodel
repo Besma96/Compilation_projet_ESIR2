@@ -65,8 +65,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Py.ecore#//ExprSimple/str"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Py.ecore#//ExprSimple/varSimple"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Py.ecore#//ExprSimple/sym"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Py.ecore#//ExprSimple/nameFunction"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Py.ecore#//ExprSimple/vars"/>
     </genClasses>
     <genClasses ecoreClass="Py.ecore#//ExprAnd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Py.ecore#//ExprAnd/arg1"/>

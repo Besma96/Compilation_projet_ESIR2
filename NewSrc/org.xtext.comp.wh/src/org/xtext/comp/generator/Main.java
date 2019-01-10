@@ -7,13 +7,13 @@ package org.xtext.comp.generator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -53,7 +53,6 @@ import org.xtext.comp.py.Nop;
 import org.xtext.comp.py.Output;
 import org.xtext.comp.py.Program;
 import org.xtext.comp.py.While;
-import org.xtext.comp.py.impl.ExprHdImpl;
 import org.xtext.comp.py.impl.ExprImpl;
 
 import com.google.inject.Inject;
@@ -67,12 +66,14 @@ public class Main {
 	//Map pour conserver l'étiquettage des fonctions et leurs noms en while
 	private static Map<String, String> etiquettesFunction = new HashMap<String, String>();
 
-	private static final String VAR_PREFIXE = "Var";
 	private Map<String, FunctionDef> listFunction = new HashMap<String, FunctionDef>();
 	private Map<String, String> symboles = new HashMap<String, String>();
 	private CodeIntermediaire codeI = new CodeIntermediaire();
 	private static Main instance;
 	private static int count = 0;
+	private static Queue<String> tempVarsCall = new LinkedList<String>();
+	private static int NombreSortiesCall = 0;
+	private static int nombreCallsAffect = 0;
 	private static int nbF = 0; //numerotaion des fonctions
 
 	/**
@@ -88,7 +89,11 @@ public class Main {
 		}
 	}
 
-	public static void main(String[] args) {
+	public boolean isFunction(String symbole) {
+		return this.listFunction.containsKey(symbole);
+	}
+
+	public static void main(String[] args) throws WhileExceptions {
 		Main main = Main.getInstance();
 		main.runGenerator(args);
 	}
@@ -105,7 +110,7 @@ public class Main {
 	@Inject 
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String[] args) {
+	protected void runGenerator(String[] args) throws WhileExceptions {
 		if(args.length == 1) {
 			createSymTable(args[0], outputFileName);
 		}
@@ -115,8 +120,7 @@ public class Main {
 		else {
 			createSymTable(inputFileName, outputFileName);
 		}
-		//		this.Translator.translate();
-		//		System.out.println("Le resultat :\n"+Translator.toString());
+
 		System.out.println("Table de correspondance de l'étiquattage des fonction");
 		System.out.println(etiquettesFunction.toString());
 		System.out.println("Code generation finished.");
@@ -139,7 +143,14 @@ public class Main {
 				defFun.setInputCount(def.getInput().getVars().size());
 				defFun.setOutputCount(def.getOutput().getVars().size());
 				this.listFunction.put(namef, defFun);
-				System.out.println("contenue " + listFunction.toString());
+				//				System.out.println("contenue " + listFunction.toString());
+				String etiquetteF = "F"+nbF++;
+				if(!etiquettesFunction.containsValue(namef)) {
+					etiquettesFunction.put(etiquetteF, namef);
+				}
+				else {
+					System.err.println("Les fonctions doivent avoir des noms différents !");
+				}
 
 			}
 
@@ -147,7 +158,7 @@ public class Main {
 	}
 
 
-	public void createSymTable(String inputFilePath, String outputFilePath)
+	public void createSymTable(String inputFilePath, String outputFilePath) throws WhileExceptions
 	{
 		// Load the resource
 		ResourceSet set = resourceSetProvider.get();
@@ -166,8 +177,6 @@ public class Main {
 		fileAccess.setOutputPath("./");
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
-		//		PyGenerator whil = new PyGenerator();
-		//		whil.doGenerate(resource, fileAccess, context);
 
 
 		TreeIterator<EObject> tree = resource.getAllContents();
@@ -187,17 +196,7 @@ public class Main {
 
 		displaySymTable(); 		// Print the symbols table
 		System.out.println(translator.toString()); //print code python
-		//Ecriture du code python dans un fichier
-		//		File file = new File(outputFilePath);
-		//		System.out.println("chemin :"+ file.getParentFile());
-		//		try (PrintWriter out = new PrintWriter(file.getAbsolutePath())) {
-		//			out.println(translator.toString());
-		//			out.close();
-		//		} catch (FileNotFoundException e) {
-		//			e.printStackTrace();
-		//		}
 
-		//Autre approche
 		File fil = new File(outputFilePath);
 		FileWriter fr = null;
 
@@ -218,32 +217,36 @@ public class Main {
 	}
 
 
-	private void compile(Program prog) {
+	private void compile(Program prog) throws WhileExceptions {
 		for(FunctionP f : prog.getFunctions()) {
 			compile(f);
 		}
 	}
 
-	private void compile(FunctionP f) {
+	private void compile(FunctionP f) throws WhileExceptions {
 		String namef = f.getName();
 		codeI.nouvelleEtiquette();
-		String etiquetteF = "F"+nbF++;
-		if(!etiquettesFunction.containsValue(namef)) {
-			codeI.fun(etiquetteF);
+		//		String etiquetteF = "F"+nbF++;
+		String labeel = findLabelFunction(namef);
+		//		if(!etiquettesFunction.containsValue(namef)) {
+		//			codeI.fun(etiquetteF);
+		codeI.fun(labeel);
 
-			etiquettesFunction.put(etiquetteF, namef);
-			compile(f.getDefinition(), listFunction.get(namef));
-			codeI.finEtiquette();
-		}
-		else {
-			System.err.println("Les fonctions doivent avoir des noms differents ");
-			return;
-		}
+
+		//			etiquettesFunction.put(etiquetteF, namef);
+		compile(f.getDefinition(), listFunction.get(namef));
+		codeI.finEtiquette();
+		//		}
+		//		else {
+		//			//System.err.println("Les fonctions doivent avoir des noms differents ");
+		//			throw new WhileExceptions("Les fonctions doivent avoir des noms differents ");
+		//			//			return;
+		//		}
 
 	}
 
 
-	private void compile(Definition d, FunctionDef f) {
+	private void compile(Definition d, FunctionDef f) throws WhileExceptions {
 		//Inputs
 		compile(d.getInput(), f);
 		compile(d.getCommands(), f);
@@ -265,42 +268,67 @@ public class Main {
 		}
 	}
 
-	private void  compile(Commands com, FunctionDef f) {
+	private void  compile(Commands com, FunctionDef f) throws WhileExceptions {
 		EList<Command> comm = com.getCommands();
 		for(Command c : comm) {
 			compile(c , f);
 		}
 	}
-	private void compile(Command com, FunctionDef f) {
+	private void compile(Command com, FunctionDef f) throws WhileExceptions {
 		EObject obj = com.getCmd();
 		if(obj instanceof Affect) {
-			compile((Affect) obj, f);
+			try {
+				compile((Affect) obj, f);
+			}catch(WhileExceptions e) {
+				System.err.println(e);
+			}
 		}
 		else if(obj instanceof Nop) {
 			codeI.nop();
 		}
 		else if(obj instanceof For) {
-			compile((For) obj, f);
+			try {
+				compile((For) obj, f);
+			} catch (WhileExceptions e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(obj instanceof While) {
-			compile((While) obj, f);
+			try {
+				compile((While) obj, f);
+			} catch (WhileExceptions e) {
+				// TODO Auto-generated catch block
+				System.err.println("ERROR");
+				//				e.printStackTrace();
+			}
 		}
 		else if(obj instanceof Foreach) {
-			compile((Foreach) obj, f);
+			try {
+				compile((Foreach) obj, f);
+			} catch (WhileExceptions e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(obj instanceof If) {
-			compile((If) obj, f);
+			try {
+				compile((If) obj, f);
+			} catch (WhileExceptions e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 
 
-	private boolean isSymbole(String str) {
-		if (str == null || str.equals("nil")){ return false; }
-		String firstChar = str.substring(0, 1);
-		return firstChar.equals(firstChar.toLowerCase()); // Is lowercase ->
-		// Symbole
-	}
+	//	private boolean isSymbole(String str) {
+	//		if (str == null || str.equals("nil")){ return false; }
+	//		String firstChar = str.substring(0, 1);
+	//		return firstChar.equals(firstChar.toLowerCase()); // Is lowercase ->
+	//		// Symbole
+	//	}
 
 	private boolean isVariable(String str) {
 		if (str == null){ return false;	}
@@ -323,9 +351,48 @@ public class Main {
 		}
 	}
 
-	private void compile(Affect aff, FunctionDef f) {
-		assert aff.getVars().size() == aff.getExprs().size() : " Le nombre de variables à gauche doit être le même que celui des expressions à droite de l'affectation";
+	private boolean isCallInAffect(EList<Expr> exprs) {
+		boolean bool = false;
+		Iterator<Expr> ite = exprs.iterator();
+		while(ite.hasNext()) {
+			Expr exp = ite.next();
+			EObject obj = exp.getExpr();
+			if(obj instanceof ExprSym) {
+				if(isFunction(((ExprSym) obj).getArg1())) {
+					NombreSortiesCall += listFunction.get(((ExprSym) obj).getArg1()).getOutputCount();
+					nombreCallsAffect++;
+					bool = true;
+				}
+			}
+		}
+		return bool;
+	}
+	/**
+	 * 
+	 * @param expr
+	 * @return true s'il y a un appel dans l'expression, false sinon
+	 */
+	private boolean isCallInExpr(Expr expr) {
+		boolean bool = false;
+		EObject obj = expr.getExpr();
+		if(obj instanceof ExprSym) {
+			if(isFunction(((ExprSym) obj).getArg1())) {
+				//				NombreSortiesCall += listFunction.get(((ExprSym) obj).getArg1()).getOutputCount();
+				//				nombreCallsAffect++;
+				bool = true;
+			}
+		}
+		return bool;
+	}
+	private void compile(Affect aff, FunctionDef f) throws WhileExceptions {
 
+		if(isCallInAffect(aff.getExprs())) { //s'il y a un appel dans l'affectation
+			if(aff.getVars().size() != (aff.getExprs().size() + NombreSortiesCall - nombreCallsAffect))
+				throw new WhileExceptions(" Le nombre de variables à gauche doit être le même que celui des expressions à droite de l'affectation");
+		}
+		else if(aff.getVars().size() != aff.getExprs().size()) {
+			throw new WhileExceptions(" Le nombre de variables à gauche doit être le même que celui des expressions à droite de l'affectation");
+		}
 		Queue<String> tempVars = new LinkedList<String>(); //Pour stocker les variables temporaires
 
 		EList<String> vars = aff.getVars(); //cote gauche
@@ -340,11 +407,9 @@ public class Main {
 		//Evaluation du coté droit d'abord
 		while(itExprs.hasNext()) {
 			Expr e = itExprs.next();
-			//compile(e, f); // compile de l'expression	
 			EObject x = e.getExpr();
 			if(x instanceof ExprSimple) {
 				expr = compile((ExprSimple)x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -352,7 +417,6 @@ public class Main {
 			}
 			else if(x instanceof ExprCons) {
 				expr = compile((ExprCons) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -360,7 +424,6 @@ public class Main {
 			}
 			else if(x instanceof ExprAnd) {
 				expr = compile((ExprAnd) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -368,7 +431,6 @@ public class Main {
 			}
 			else if(x instanceof ExprOr) {
 				expr = compile((ExprOr) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -376,7 +438,6 @@ public class Main {
 			}
 			else if(x instanceof ExprList) {
 				expr = compile((ExprList) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -384,7 +445,6 @@ public class Main {
 			}
 			else if(x instanceof ExprHd) {
 				expr = compile((ExprHd) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -392,7 +452,6 @@ public class Main {
 			}
 			else if(x instanceof ExprTl) {
 				expr = compile((ExprTl) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -400,15 +459,21 @@ public class Main {
 			}
 			else if(x instanceof ExprSym) {
 				expr = compile((ExprSym) x, f);
-//				var = VAR_PREFIXE + count++;
-				var = f.getNewVar();
-				tempVars.offer(var);
-				varDeclaration3Addr(f, var);
-				codeI.aff(var, expr);
+				if(tempVarsCall.size() > 0) {
+					while(tempVarsCall.size() > 0) {
+						tempVars.offer(tempVarsCall.poll());
+					}
+				}
+				else {
+					var = f.getNewVar();
+					tempVars.offer(var);
+					varDeclaration3Addr(f, var);
+					codeI.aff(var, expr);
+				}
+
 			}
 			else if(x instanceof ExprNot) {
 				expr = compile((ExprNot) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
@@ -416,28 +481,26 @@ public class Main {
 			}
 			else if(x instanceof ExprEq) {
 				expr = compile((ExprEq) x, f);
-//				var = VAR_PREFIXE + count++;
 				var = f.getNewVar();
 				tempVars.offer(var);
 				varDeclaration3Addr(f, var);
 				codeI.aff(var, expr);
 			}
 			else {
-				System.err.println("Erreur d'affectation");
+				//				System.err.println("Erreur d'affectation");
+				throw new WhileExceptions("Erreur d'affectation");
 			}
 
 		}
 		//gestion du coté gauche de l'affectation
 		while(itVars.hasNext()) {
 			var = itVars.next();
-			//			var = VAR_PREFIXE + (i++);
 			expr = tempVars.poll();
 			f.updateWriteVar(var);
 			varDeclaration3Addr(f, expr);
 			codeI.aff(var, expr);
 		}
 	}
-
 
 	private String compile(ExprCons cons, FunctionDef f){
 		EList<Expr> eCons = cons.getLexpr().getLexpr();
@@ -446,13 +509,28 @@ public class Main {
 		Expr temp = eCons.get(nbExpr);
 		String tempVar = "";
 		Queue<String> tempVars = new LinkedList<String>();
+
 		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-//			String var = VAR_PREFIXE + count++;
 			String var = f.getNewVar();
 			if(nbExpr == 0) {
-				varDeclaration3Addr(f, var);
-				codeI.cons(var, tempVar, "");
+				if(isCallInExpr(temp)) {
+					String maavr = "";
+					while(tempVarsCall.size() > 0) {
+						String var1 = f.getNewVar();
+						varDeclaration3Addr(f, var1);
+						codeI.cons(var1, tempVarsCall.poll(), "");
+						maavr = var1;
+					}
+					tempVars.offer(maavr);
+					nbExpr--;
+					if(nbExpr < 0) 
+						return maavr;
+				} 
+				else {
+					varDeclaration3Addr(f, var);
+					codeI.cons(var, tempVar, "");
+				}
 			}
 			tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
@@ -463,15 +541,34 @@ public class Main {
 		while(nbExpr >= 0) {
 			temp = eCons.get(nbExpr);
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-//			String var = VAR_PREFIXE + count++;
 			String var = f.getNewVar();
-			varDeclaration3Addr(f, var);
-			//			codeI.cons(var, tempVars.poll(), tempVar);
-			codeI.cons(var, tempVar, tempVars.poll());
-			tempVars.offer(var);
-			nbExpr--;
-			if(nbExpr < 0) {
-				return var;
+			if(isCallInExpr(temp)) {
+				String maavr = "";
+				while(tempVarsCall.size() > 0) {
+					String var1 = f.getNewVar();
+					varDeclaration3Addr(f, var1);
+					if(tempVars.size() > 0) {
+						codeI.cons(var1,tempVarsCall.poll(), tempVars.poll());
+					}
+					else {
+						codeI.cons(var1,tempVarsCall.poll(),"");
+					}
+					maavr = var1;
+				}
+				tempVars.offer(maavr);
+				nbExpr--;
+				if(nbExpr < 0) {
+					return maavr;
+				}
+			}
+			else {
+				varDeclaration3Addr(f, var);
+				codeI.cons(var, tempVar, tempVars.poll());
+				tempVars.offer(var);
+				nbExpr--;
+				if(nbExpr < 0) {
+					return var;
+				}
 			}
 		}
 		return "nil";
@@ -517,26 +614,102 @@ public class Main {
 		return null;
 	}
 
+	private String findLabelFunction(String symbole) {
+		String label = "";
+		Set<String> labels = etiquettesFunction.keySet();
+		System.out.println("labels " + labels);
+		for(String lab : labels) {
+			String temp = etiquettesFunction.get(lab);
+			if(symbole.equals(temp)) {
+				label = lab;
+				break;
+			}
+		}
+
+		return label;
+	}
+
+
 	private String compile(ExprSym exp, FunctionDef f) {
-		// TODO Auto-generated method stub
-		// Ressemble plutot à l'appel de fonction(cf Py.xtext)
-		String arg1 = exp.getArg1();
+		String symbole = exp.getArg1();
 		EList<Expr> arg2 = exp.getArg2();
-		if(arg1 != null) {
-			this.symboles.put(arg1, "");
-		}
+		if(isFunction(symbole)) {
+			int nbSortie = listFunction.get(symbole).getOutputCount();
+			f.updateCalls(symbole, arg2);
+			int i = 0;
+			String tempVar = "";
+			String label = findLabelFunction(symbole);
+			while(i < arg2.size() ) {
+				Expr temp = arg2.get(i);
+				tempVar = compile(temp, f);
+				codeI.push(tempVar);
+				temp = arg2.get(i);
+				i++;
+				if(i == arg2.size()) {
+					codeI.call(label);
+					int taille = 0;
+					String var = "";
+					while( taille < nbSortie) {
+						var = f.getNewVar();
+						varDeclaration3Addr(f, var);
+						tempVarsCall.offer(var);
+						codeI.pop(var);
+						taille++;
+					}
+					return var;
+				}
+			}
 
-		if(arg2 != null) {
-			//TODO
 		}
+		else {
+			this.symboles.put(symbole, "");
+			int nbExpr = arg2.size()-1;
+			Expr temp = arg2.get(nbExpr);
+			String tempVar = "";
+			Queue<String> tempVars = new LinkedList<String>();
+			System.out.println("nbExpr "+ nbExpr);
 
+			if(nbExpr >= 0) {
+				tempVar = compile(temp, f); //resultat de la compile de l'expression
+				System.out.println("tempVar1 "+ temp);
+
+				String var = f.getNewVar();
+				nbExpr--;
+				if(nbExpr < 0) {
+					varDeclaration3Addr(f, var);
+					codeI.cons(var, symbole, tempVar);
+					return var;
+				}
+				tempVars.offer(tempVar); // on stocke toutes les variables contenant le resultat du compile de chaque expression
+			}
+
+			while(nbExpr >= 0) {
+				temp = arg2.get(nbExpr);
+				tempVar = compile(temp, f); //resultat de la compile de l'expression
+				String var = f.getNewVar();
+				nbExpr--;
+				if(nbExpr < 0) {
+					varDeclaration3Addr(f, var);
+					codeI.cons(var, tempVar, tempVars.poll());
+					String var1 = f.getNewVar();
+					codeI.cons(var1, symbole, var);
+					return var1;
+				}
+				else {
+					varDeclaration3Addr(f, var);
+					codeI.cons(var, tempVar, tempVars.poll());
+					tempVars.offer(var);
+				}
+			}
+
+		}
 		return null;
 	}
 
 	private String compile(ExprNot exp, FunctionDef f) {
 		Expr expr = exp.getArg1();
 		String tempVar = compile(expr, f);
-//		String var = VAR_PREFIXE+count++;
+		//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.not(var, tempVar);
@@ -551,7 +724,6 @@ public class Main {
 
 		String tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.eq(var, tempVar1, tempVar2);
@@ -564,6 +736,9 @@ public class Main {
 
 		//Doit être transformer en plusieurs instructions cons: list  A B C D --> cons(nil D) 
 		EList<Expr> eCons = exp.getArg();
+		Expr Nil = new ExprImpl();
+		eCons.add(Nil);
+
 		int nbExpr = eCons.size();
 		nbExpr--;
 		Expr temp = eCons.get(nbExpr);
@@ -571,10 +746,12 @@ public class Main {
 		Queue<String> tempVars = new LinkedList<String>();
 		if(nbExpr >= 0) {
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-//			String var = VAR_PREFIXE + count++;
 			String var = f.getNewVar();
 			varDeclaration3Addr(f, var);
-			codeI.cons(var, tempVar, "nil");
+			if(nbExpr == 0) {
+				varDeclaration3Addr(f, var);
+				codeI.cons(var, tempVar, "");
+			}			
 			tempVars.offer(var); // on stocke toutes les variables contenant le resultat du compile de chaque expression
 			nbExpr--;
 			if(nbExpr < 0) {
@@ -585,10 +762,9 @@ public class Main {
 		while(nbExpr >= 0) {
 			temp = eCons.get(nbExpr);
 			tempVar = compile(temp, f); //resultat de la compile de l'expression
-//			String var = VAR_PREFIXE + count++;
 			String var = f.getNewVar();
 			varDeclaration3Addr(f, var);
-			codeI.cons(var, tempVars.poll(), tempVar);
+			codeI.cons(var, tempVar, tempVars.poll());
 			tempVars.offer(var);
 			nbExpr--;
 			if(nbExpr < 0) {
@@ -606,7 +782,7 @@ public class Main {
 		String tempVar1 = "";
 		tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-//		String var = VAR_PREFIXE+count++;
+		//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.or(var, tempVar1, tempVar2);
@@ -621,7 +797,7 @@ public class Main {
 		String tempVar1 = "";
 		tempVar1 = compile(arg1, f); 
 		String tempVar2 = compile(arg2, f);
-//		String var = VAR_PREFIXE+count++;
+		//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.and(var, tempVar1, tempVar2);
@@ -632,7 +808,7 @@ public class Main {
 	private String compile(ExprTl exp, FunctionDef f) {
 		Expr arg = exp.getArg();
 		String temp = compile(arg ,f);
-//		String var = VAR_PREFIXE+count++;
+		//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.tl(var, temp);
@@ -645,7 +821,7 @@ public class Main {
 
 		Expr arg = exp.getArg();
 		String temp = compile(arg ,f);
-//		String var = VAR_PREFIXE+count++;
+		//		String var = VAR_PREFIXE+count++;
 		String var = f.getNewVar();
 		varDeclaration3Addr(f, var);
 		codeI.hd(var, temp);
@@ -657,7 +833,6 @@ public class Main {
 	private String compile(ExprSimple expr, FunctionDef f) {
 		String val = expr.getVarSimple(); // variable simple
 		String sym = expr.getSym();
-		Input call = expr.getVars();  //appel de fonction
 		String nil = expr.getStr(); //nil
 		String result = "";
 		if(val != null) {
@@ -670,6 +845,7 @@ public class Main {
 		if(sym != null) {
 			symboles.put(sym, ""); //ajout dans la table des symboles
 			result = sym;
+			//			System.out.println("Suis dans sym !!!!");
 		}
 		if(nil != null) {
 			symboles.put(nil, "");
@@ -689,10 +865,11 @@ public class Main {
 	//		}
 	//	}
 
-	/**************************** Structures de contrôles ***************/
+	/**************************** Structures de contrôles 
+	 * @throws WhileExceptions ***************/
 
 	//while
-	private void compile(While wh, FunctionDef f) {
+	private void compile(While wh, FunctionDef f) throws WhileExceptions {
 		String label = codeI.getEtiquette();
 		codeI.nouvelleEtiquette();
 		String cond = compile(wh.getExpr(), f); // condition
@@ -709,7 +886,7 @@ public class Main {
 	}
 
 	//For
-	private void compile(For fr, FunctionDef f) {
+	private void compile(For fr, FunctionDef f) throws WhileExceptions {
 		Object expr = fr.getExpr().getExpr();
 		assert !((expr instanceof ExprAnd) || (expr instanceof ExprOr) || (expr instanceof ExprEq) || (expr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le For";
 		Expr exp = fr.getExpr();
@@ -732,10 +909,10 @@ public class Main {
 	}
 
 	//Foreach
-	private void compile(Foreach freach, FunctionDef f) {
+	private void compile(Foreach freach, FunctionDef f) throws WhileExceptions {
 		Object exprr = freach.getExpr2().getExpr();
 		assert !((exprr instanceof ExprAnd) || (exprr instanceof ExprOr) || (exprr instanceof ExprEq) || (exprr instanceof ExprNot) ): "Pas d'expression booléenne comme condition pour le Foreach";
-		
+
 		String var = freach.getVar();
 		Expr expression = freach.getExpr2();
 
@@ -756,7 +933,7 @@ public class Main {
 	}
 
 	//If
-	private void compile(If ifcmd, FunctionDef f) {
+	private void compile(If ifcmd, FunctionDef f) throws WhileExceptions {
 		String label = codeI.getEtiquette();
 		codeI.nouvelleEtiquette();
 		String cond = compile(ifcmd.getExpr(), f);

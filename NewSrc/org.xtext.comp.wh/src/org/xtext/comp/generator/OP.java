@@ -17,5 +17,7 @@ public enum OP {
 	//Expression booleennes
 	AND, OR, EQ, NOT,
 	//Appel de fonction
-	CALL
+	CALL,
+	PUSH,
+	POP
 }

@@ -646,20 +646,12 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVarSimpleVARIABLETerminalRuleCall_1_0 = (RuleCall)cVarSimpleAssignment_1.eContents().get(0);
 		private final Assignment cSymAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cSymSYMBOLETerminalRuleCall_2_0 = (RuleCall)cSymAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cNameFunctionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cNameFunctionSYMBOLETerminalRuleCall_3_1_0 = (RuleCall)cNameFunctionAssignment_3_1.eContents().get(0);
-		private final Assignment cVarsAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
-		private final RuleCall cVarsInputParserRuleCall_3_2_0 = (RuleCall)cVarsAssignment_3_2.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		
 		//ExprSimple:
-		//	=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE | '(' nameFunction=SYMBOLE vars=Input ')' //pas de fonction dans les param
-		//;
+		//	=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE | '(' nameFunction=SYMBOLE vars=Input ')'
+		//=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//=> str=NIL
@@ -679,27 +671,6 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SYMBOLE
 		public RuleCall getSymSYMBOLETerminalRuleCall_2_0() { return cSymSYMBOLETerminalRuleCall_2_0; }
-		
-		//'(' nameFunction=SYMBOLE vars=Input ')'
-		public Group getGroup_3() { return cGroup_3; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
-		
-		//nameFunction=SYMBOLE
-		public Assignment getNameFunctionAssignment_3_1() { return cNameFunctionAssignment_3_1; }
-		
-		//SYMBOLE
-		public RuleCall getNameFunctionSYMBOLETerminalRuleCall_3_1_0() { return cNameFunctionSYMBOLETerminalRuleCall_3_1_0; }
-		
-		//vars=Input
-		public Assignment getVarsAssignment_3_2() { return cVarsAssignment_3_2; }
-		
-		//Input
-		public RuleCall getVarsInputParserRuleCall_3_2_0() { return cVarsInputParserRuleCall_3_2_0; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_3_3() { return cRightParenthesisKeyword_3_3; }
 	}
 	public class ExprAndElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Py.ExprAnd");
@@ -915,10 +886,10 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ExprSym:
-		//	'(' arg1=SYMBOLE arg2+=Expr ')';
+		//	'(' arg1=SYMBOLE arg2+=Expr+ ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'(' arg1=SYMBOLE arg2+=Expr ')'
+		//'(' arg1=SYMBOLE arg2+=Expr+ ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'('
@@ -930,7 +901,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 		//SYMBOLE
 		public RuleCall getArg1SYMBOLETerminalRuleCall_1_0() { return cArg1SYMBOLETerminalRuleCall_1_0; }
 		
-		//arg2+=Expr
+		//arg2+=Expr+
 		public Assignment getArg2Assignment_2() { return cArg2Assignment_2; }
 		
 		//Expr
@@ -1244,8 +1215,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprSimple:
-	//	=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE | '(' nameFunction=SYMBOLE vars=Input ')' //pas de fonction dans les param
-	//;
+	//	=> str=NIL | varSimple=VARIABLE | sym=SYMBOLE;
 	public ExprSimpleElements getExprSimpleAccess() {
 		return pExprSimple;
 	}
@@ -1325,7 +1295,7 @@ public class PyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprSym:
-	//	'(' arg1=SYMBOLE arg2+=Expr ')';
+	//	'(' arg1=SYMBOLE arg2+=Expr+ ')';
 	public ExprSymElements getExprSymAccess() {
 		return pExprSym;
 	}

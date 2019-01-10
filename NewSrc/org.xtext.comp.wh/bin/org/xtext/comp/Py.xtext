@@ -65,7 +65,7 @@ Expr:
 ;
 
 ExprSimple:
-    =>str=NIL | varSimple=VARIABLE | sym=SYMBOLE  | '(' nameFunction=SYMBOLE vars=Input ')'//pas de fonction dans les param
+    =>str=NIL | varSimple=VARIABLE | sym=SYMBOLE  
 ;
 
 ExprAnd:
@@ -98,7 +98,7 @@ ExprTl:
 ;
 
 ExprSym:
-    '(' arg1=SYMBOLE arg2+=Expr ')'
+    '(' arg1=SYMBOLE arg2+=Expr+ ')'
 ;
 
 ExprNot:

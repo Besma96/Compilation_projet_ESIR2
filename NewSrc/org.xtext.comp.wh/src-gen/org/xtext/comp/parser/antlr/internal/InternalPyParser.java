@@ -22,7 +22,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalPyParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SYMBOLE", "RULE_VARIABLE", "RULE_NIL", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'function'", "':'", "'read'", "'%'", "'write'", "','", "';'", "'if'", "'then'", "'else'", "'fi'", "'nop'", "':='", "'for'", "'do'", "'od'", "'foreach'", "'in'", "'while'", "'('", "')'", "'and'", "'or'", "'cons'", "'list'", "'hd'", "'tl'", "'not'", "'=?'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SYMBOLE", "RULE_VARIABLE", "RULE_NIL", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'function'", "':'", "'read'", "'%'", "'write'", "','", "';'", "'if'", "'then'", "'else'", "'fi'", "'nop'", "':='", "'for'", "'do'", "'od'", "'foreach'", "'in'", "'while'", "'and'", "'or'", "'('", "'cons'", "')'", "'list'", "'hd'", "'tl'", "'not'", "'=?'"
     };
     public static final int RULE_STRING=9;
     public static final int RULE_SL_COMMENT=11;
@@ -3316,28 +3316,23 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprSimple"
-    // InternalPy.g:1283:1: ruleExprSimple returns [EObject current=null] : ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) | (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' ) ) ;
+    // InternalPy.g:1283:1: ruleExprSimple returns [EObject current=null] : ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) ) ;
     public final EObject ruleExprSimple() throws RecognitionException {
         EObject current = null;
 
         Token lv_str_0_0=null;
         Token lv_varSimple_1_0=null;
         Token lv_sym_2_0=null;
-        Token otherlv_3=null;
-        Token lv_nameFunction_4_0=null;
-        Token otherlv_6=null;
-        EObject lv_vars_5_0 = null;
-
 
 
         	enterRule();
 
         try {
-            // InternalPy.g:1289:2: ( ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) | (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' ) ) )
-            // InternalPy.g:1290:2: ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) | (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' ) )
+            // InternalPy.g:1289:2: ( ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) ) )
+            // InternalPy.g:1290:2: ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) )
             {
-            // InternalPy.g:1290:2: ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) | (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' ) )
-            int alt10=4;
+            // InternalPy.g:1290:2: ( ( ( ( RULE_NIL ) )=> (lv_str_0_0= RULE_NIL ) ) | ( (lv_varSimple_1_0= RULE_VARIABLE ) ) | ( (lv_sym_2_0= RULE_SYMBOLE ) ) )
+            int alt10=3;
             int LA10_0 = input.LA(1);
 
             if ( (LA10_0==RULE_NIL) && (synpred1_InternalPy())) {
@@ -3348,9 +3343,6 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
             }
             else if ( (LA10_0==RULE_SYMBOLE) ) {
                 alt10=3;
-            }
-            else if ( (LA10_0==33) ) {
-                alt10=4;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
@@ -3468,95 +3460,6 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
-                case 4 :
-                    // InternalPy.g:1352:3: (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' )
-                    {
-                    // InternalPy.g:1352:3: (otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')' )
-                    // InternalPy.g:1353:4: otherlv_3= '(' ( (lv_nameFunction_4_0= RULE_SYMBOLE ) ) ( (lv_vars_5_0= ruleInput ) ) otherlv_6= ')'
-                    {
-                    otherlv_3=(Token)match(input,33,FOLLOW_4); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_3, grammarAccess.getExprSimpleAccess().getLeftParenthesisKeyword_3_0());
-                      			
-                    }
-                    // InternalPy.g:1357:4: ( (lv_nameFunction_4_0= RULE_SYMBOLE ) )
-                    // InternalPy.g:1358:5: (lv_nameFunction_4_0= RULE_SYMBOLE )
-                    {
-                    // InternalPy.g:1358:5: (lv_nameFunction_4_0= RULE_SYMBOLE )
-                    // InternalPy.g:1359:6: lv_nameFunction_4_0= RULE_SYMBOLE
-                    {
-                    lv_nameFunction_4_0=(Token)match(input,RULE_SYMBOLE,FOLLOW_7); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						newLeafNode(lv_nameFunction_4_0, grammarAccess.getExprSimpleAccess().getNameFunctionSYMBOLETerminalRuleCall_3_1_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getExprSimpleRule());
-                      						}
-                      						setWithLastConsumed(
-                      							current,
-                      							"nameFunction",
-                      							lv_nameFunction_4_0,
-                      							"org.xtext.comp.Py.SYMBOLE");
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-                    // InternalPy.g:1375:4: ( (lv_vars_5_0= ruleInput ) )
-                    // InternalPy.g:1376:5: (lv_vars_5_0= ruleInput )
-                    {
-                    // InternalPy.g:1376:5: (lv_vars_5_0= ruleInput )
-                    // InternalPy.g:1377:6: lv_vars_5_0= ruleInput
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      						newCompositeNode(grammarAccess.getExprSimpleAccess().getVarsInputParserRuleCall_3_2_0());
-                      					
-                    }
-                    pushFollow(FOLLOW_21);
-                    lv_vars_5_0=ruleInput();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getExprSimpleRule());
-                      						}
-                      						set(
-                      							current,
-                      							"vars",
-                      							lv_vars_5_0,
-                      							"org.xtext.comp.Py.Input");
-                      						afterParserOrEnumRuleCall();
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-                    otherlv_6=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_6, grammarAccess.getExprSimpleAccess().getRightParenthesisKeyword_3_3());
-                      			
-                    }
-
-                    }
-
-
-                    }
-                    break;
 
             }
 
@@ -3582,7 +3485,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprAnd"
-    // InternalPy.g:1403:1: entryRuleExprAnd returns [EObject current=null] : iv_ruleExprAnd= ruleExprAnd EOF ;
+    // InternalPy.g:1355:1: entryRuleExprAnd returns [EObject current=null] : iv_ruleExprAnd= ruleExprAnd EOF ;
     public final EObject entryRuleExprAnd() throws RecognitionException {
         EObject current = null;
 
@@ -3590,8 +3493,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1403:48: (iv_ruleExprAnd= ruleExprAnd EOF )
-            // InternalPy.g:1404:2: iv_ruleExprAnd= ruleExprAnd EOF
+            // InternalPy.g:1355:48: (iv_ruleExprAnd= ruleExprAnd EOF )
+            // InternalPy.g:1356:2: iv_ruleExprAnd= ruleExprAnd EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprAndRule()); 
@@ -3622,7 +3525,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprAnd"
-    // InternalPy.g:1410:1: ruleExprAnd returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
+    // InternalPy.g:1362:1: ruleExprAnd returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
     public final EObject ruleExprAnd() throws RecognitionException {
         EObject current = null;
 
@@ -3636,24 +3539,24 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1416:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) ) )
-            // InternalPy.g:1417:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1368:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) ) )
+            // InternalPy.g:1369:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1417:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) )
-            // InternalPy.g:1418:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1369:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1370:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'and' ( (lv_arg2_2_0= ruleExpr ) )
             {
-            // InternalPy.g:1418:3: ( (lv_arg1_0_0= ruleExprSimple ) )
-            // InternalPy.g:1419:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1370:3: ( (lv_arg1_0_0= ruleExprSimple ) )
+            // InternalPy.g:1371:4: (lv_arg1_0_0= ruleExprSimple )
             {
-            // InternalPy.g:1419:4: (lv_arg1_0_0= ruleExprSimple )
-            // InternalPy.g:1420:5: lv_arg1_0_0= ruleExprSimple
+            // InternalPy.g:1371:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1372:5: lv_arg1_0_0= ruleExprSimple
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getExprAndAccess().getArg1ExprSimpleParserRuleCall_0_0());
               				
             }
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_21);
             lv_arg1_0_0=ruleExprSimple();
 
             state._fsp--;
@@ -3677,17 +3580,17 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,35,FOLLOW_13); if (state.failed) return current;
+            otherlv_1=(Token)match(input,33,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getExprAndAccess().getAndKeyword_1());
               		
             }
-            // InternalPy.g:1441:3: ( (lv_arg2_2_0= ruleExpr ) )
-            // InternalPy.g:1442:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1393:3: ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1394:4: (lv_arg2_2_0= ruleExpr )
             {
-            // InternalPy.g:1442:4: (lv_arg2_2_0= ruleExpr )
-            // InternalPy.g:1443:5: lv_arg2_2_0= ruleExpr
+            // InternalPy.g:1394:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1395:5: lv_arg2_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
@@ -3743,7 +3646,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprOr"
-    // InternalPy.g:1464:1: entryRuleExprOr returns [EObject current=null] : iv_ruleExprOr= ruleExprOr EOF ;
+    // InternalPy.g:1416:1: entryRuleExprOr returns [EObject current=null] : iv_ruleExprOr= ruleExprOr EOF ;
     public final EObject entryRuleExprOr() throws RecognitionException {
         EObject current = null;
 
@@ -3751,8 +3654,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1464:47: (iv_ruleExprOr= ruleExprOr EOF )
-            // InternalPy.g:1465:2: iv_ruleExprOr= ruleExprOr EOF
+            // InternalPy.g:1416:47: (iv_ruleExprOr= ruleExprOr EOF )
+            // InternalPy.g:1417:2: iv_ruleExprOr= ruleExprOr EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprOrRule()); 
@@ -3783,7 +3686,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprOr"
-    // InternalPy.g:1471:1: ruleExprOr returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
+    // InternalPy.g:1423:1: ruleExprOr returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
     public final EObject ruleExprOr() throws RecognitionException {
         EObject current = null;
 
@@ -3797,24 +3700,24 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1477:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) ) )
-            // InternalPy.g:1478:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1429:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) ) )
+            // InternalPy.g:1430:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1478:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) )
-            // InternalPy.g:1479:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1430:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1431:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= 'or' ( (lv_arg2_2_0= ruleExpr ) )
             {
-            // InternalPy.g:1479:3: ( (lv_arg1_0_0= ruleExprSimple ) )
-            // InternalPy.g:1480:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1431:3: ( (lv_arg1_0_0= ruleExprSimple ) )
+            // InternalPy.g:1432:4: (lv_arg1_0_0= ruleExprSimple )
             {
-            // InternalPy.g:1480:4: (lv_arg1_0_0= ruleExprSimple )
-            // InternalPy.g:1481:5: lv_arg1_0_0= ruleExprSimple
+            // InternalPy.g:1432:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1433:5: lv_arg1_0_0= ruleExprSimple
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getExprOrAccess().getArg1ExprSimpleParserRuleCall_0_0());
               				
             }
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_22);
             lv_arg1_0_0=ruleExprSimple();
 
             state._fsp--;
@@ -3838,17 +3741,17 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,36,FOLLOW_13); if (state.failed) return current;
+            otherlv_1=(Token)match(input,34,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getExprOrAccess().getOrKeyword_1());
               		
             }
-            // InternalPy.g:1502:3: ( (lv_arg2_2_0= ruleExpr ) )
-            // InternalPy.g:1503:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1454:3: ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1455:4: (lv_arg2_2_0= ruleExpr )
             {
-            // InternalPy.g:1503:4: (lv_arg2_2_0= ruleExpr )
-            // InternalPy.g:1504:5: lv_arg2_2_0= ruleExpr
+            // InternalPy.g:1455:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1456:5: lv_arg2_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
@@ -3904,7 +3807,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprCons"
-    // InternalPy.g:1525:1: entryRuleExprCons returns [EObject current=null] : iv_ruleExprCons= ruleExprCons EOF ;
+    // InternalPy.g:1477:1: entryRuleExprCons returns [EObject current=null] : iv_ruleExprCons= ruleExprCons EOF ;
     public final EObject entryRuleExprCons() throws RecognitionException {
         EObject current = null;
 
@@ -3912,8 +3815,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1525:49: (iv_ruleExprCons= ruleExprCons EOF )
-            // InternalPy.g:1526:2: iv_ruleExprCons= ruleExprCons EOF
+            // InternalPy.g:1477:49: (iv_ruleExprCons= ruleExprCons EOF )
+            // InternalPy.g:1478:2: iv_ruleExprCons= ruleExprCons EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprConsRule()); 
@@ -3944,7 +3847,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprCons"
-    // InternalPy.g:1532:1: ruleExprCons returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' ) ;
+    // InternalPy.g:1484:1: ruleExprCons returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' ) ;
     public final EObject ruleExprCons() throws RecognitionException {
         EObject current = null;
 
@@ -3958,36 +3861,36 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1538:2: ( (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' ) )
-            // InternalPy.g:1539:2: (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1490:2: ( (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' ) )
+            // InternalPy.g:1491:2: (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' )
             {
-            // InternalPy.g:1539:2: (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' )
-            // InternalPy.g:1540:3: otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')'
+            // InternalPy.g:1491:2: (otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1492:3: otherlv_0= '(' otherlv_1= 'cons' ( (lv_lexpr_2_0= ruleLExpr ) ) otherlv_3= ')'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_24); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_23); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getExprConsAccess().getLeftParenthesisKeyword_0());
               		
             }
-            otherlv_1=(Token)match(input,37,FOLLOW_13); if (state.failed) return current;
+            otherlv_1=(Token)match(input,36,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getExprConsAccess().getConsKeyword_1());
               		
             }
-            // InternalPy.g:1548:3: ( (lv_lexpr_2_0= ruleLExpr ) )
-            // InternalPy.g:1549:4: (lv_lexpr_2_0= ruleLExpr )
+            // InternalPy.g:1500:3: ( (lv_lexpr_2_0= ruleLExpr ) )
+            // InternalPy.g:1501:4: (lv_lexpr_2_0= ruleLExpr )
             {
-            // InternalPy.g:1549:4: (lv_lexpr_2_0= ruleLExpr )
-            // InternalPy.g:1550:5: lv_lexpr_2_0= ruleLExpr
+            // InternalPy.g:1501:4: (lv_lexpr_2_0= ruleLExpr )
+            // InternalPy.g:1502:5: lv_lexpr_2_0= ruleLExpr
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getExprConsAccess().getLexprLExprParserRuleCall_2_0());
               				
             }
-            pushFollow(FOLLOW_21);
+            pushFollow(FOLLOW_24);
             lv_lexpr_2_0=ruleLExpr();
 
             state._fsp--;
@@ -4011,7 +3914,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+            otherlv_3=(Token)match(input,37,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getExprConsAccess().getRightParenthesisKeyword_3());
@@ -4042,7 +3945,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLExpr"
-    // InternalPy.g:1575:1: entryRuleLExpr returns [EObject current=null] : iv_ruleLExpr= ruleLExpr EOF ;
+    // InternalPy.g:1527:1: entryRuleLExpr returns [EObject current=null] : iv_ruleLExpr= ruleLExpr EOF ;
     public final EObject entryRuleLExpr() throws RecognitionException {
         EObject current = null;
 
@@ -4050,8 +3953,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1575:46: (iv_ruleLExpr= ruleLExpr EOF )
-            // InternalPy.g:1576:2: iv_ruleLExpr= ruleLExpr EOF
+            // InternalPy.g:1527:46: (iv_ruleLExpr= ruleLExpr EOF )
+            // InternalPy.g:1528:2: iv_ruleLExpr= ruleLExpr EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLExprRule()); 
@@ -4082,7 +3985,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLExpr"
-    // InternalPy.g:1582:1: ruleLExpr returns [EObject current=null] : ( (lv_lexpr_0_0= ruleExpr ) )+ ;
+    // InternalPy.g:1534:1: ruleLExpr returns [EObject current=null] : ( (lv_lexpr_0_0= ruleExpr ) )+ ;
     public final EObject ruleLExpr() throws RecognitionException {
         EObject current = null;
 
@@ -4093,27 +3996,27 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1588:2: ( ( (lv_lexpr_0_0= ruleExpr ) )+ )
-            // InternalPy.g:1589:2: ( (lv_lexpr_0_0= ruleExpr ) )+
+            // InternalPy.g:1540:2: ( ( (lv_lexpr_0_0= ruleExpr ) )+ )
+            // InternalPy.g:1541:2: ( (lv_lexpr_0_0= ruleExpr ) )+
             {
-            // InternalPy.g:1589:2: ( (lv_lexpr_0_0= ruleExpr ) )+
+            // InternalPy.g:1541:2: ( (lv_lexpr_0_0= ruleExpr ) )+
             int cnt11=0;
             loop11:
             do {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( ((LA11_0>=RULE_SYMBOLE && LA11_0<=RULE_NIL)||LA11_0==33||LA11_0==41) ) {
+                if ( ((LA11_0>=RULE_SYMBOLE && LA11_0<=RULE_NIL)||LA11_0==35||LA11_0==41) ) {
                     alt11=1;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // InternalPy.g:1590:3: (lv_lexpr_0_0= ruleExpr )
+            	    // InternalPy.g:1542:3: (lv_lexpr_0_0= ruleExpr )
             	    {
-            	    // InternalPy.g:1590:3: (lv_lexpr_0_0= ruleExpr )
-            	    // InternalPy.g:1591:4: lv_lexpr_0_0= ruleExpr
+            	    // InternalPy.g:1542:3: (lv_lexpr_0_0= ruleExpr )
+            	    // InternalPy.g:1543:4: lv_lexpr_0_0= ruleExpr
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -4177,7 +4080,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprList"
-    // InternalPy.g:1611:1: entryRuleExprList returns [EObject current=null] : iv_ruleExprList= ruleExprList EOF ;
+    // InternalPy.g:1563:1: entryRuleExprList returns [EObject current=null] : iv_ruleExprList= ruleExprList EOF ;
     public final EObject entryRuleExprList() throws RecognitionException {
         EObject current = null;
 
@@ -4185,8 +4088,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1611:49: (iv_ruleExprList= ruleExprList EOF )
-            // InternalPy.g:1612:2: iv_ruleExprList= ruleExprList EOF
+            // InternalPy.g:1563:49: (iv_ruleExprList= ruleExprList EOF )
+            // InternalPy.g:1564:2: iv_ruleExprList= ruleExprList EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprListRule()); 
@@ -4217,7 +4120,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprList"
-    // InternalPy.g:1618:1: ruleExprList returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' ) ;
+    // InternalPy.g:1570:1: ruleExprList returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' ) ;
     public final EObject ruleExprList() throws RecognitionException {
         EObject current = null;
 
@@ -4231,13 +4134,13 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1624:2: ( (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' ) )
-            // InternalPy.g:1625:2: (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' )
+            // InternalPy.g:1576:2: ( (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' ) )
+            // InternalPy.g:1577:2: (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' )
             {
-            // InternalPy.g:1625:2: (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' )
-            // InternalPy.g:1626:3: otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')'
+            // InternalPy.g:1577:2: (otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')' )
+            // InternalPy.g:1578:3: otherlv_0= '(' otherlv_1= 'list' ( (lv_arg_2_0= ruleExpr ) )+ otherlv_3= ')'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_26); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_26); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getExprListAccess().getLeftParenthesisKeyword_0());
@@ -4249,24 +4152,24 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getExprListAccess().getListKeyword_1());
               		
             }
-            // InternalPy.g:1634:3: ( (lv_arg_2_0= ruleExpr ) )+
+            // InternalPy.g:1586:3: ( (lv_arg_2_0= ruleExpr ) )+
             int cnt12=0;
             loop12:
             do {
                 int alt12=2;
                 int LA12_0 = input.LA(1);
 
-                if ( ((LA12_0>=RULE_SYMBOLE && LA12_0<=RULE_NIL)||LA12_0==33||LA12_0==41) ) {
+                if ( ((LA12_0>=RULE_SYMBOLE && LA12_0<=RULE_NIL)||LA12_0==35||LA12_0==41) ) {
                     alt12=1;
                 }
 
 
                 switch (alt12) {
             	case 1 :
-            	    // InternalPy.g:1635:4: (lv_arg_2_0= ruleExpr )
+            	    // InternalPy.g:1587:4: (lv_arg_2_0= ruleExpr )
             	    {
-            	    // InternalPy.g:1635:4: (lv_arg_2_0= ruleExpr )
-            	    // InternalPy.g:1636:5: lv_arg_2_0= ruleExpr
+            	    // InternalPy.g:1587:4: (lv_arg_2_0= ruleExpr )
+            	    // InternalPy.g:1588:5: lv_arg_2_0= ruleExpr
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -4308,7 +4211,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
                 cnt12++;
             } while (true);
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+            otherlv_3=(Token)match(input,37,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getExprListAccess().getRightParenthesisKeyword_3());
@@ -4339,7 +4242,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprHd"
-    // InternalPy.g:1661:1: entryRuleExprHd returns [EObject current=null] : iv_ruleExprHd= ruleExprHd EOF ;
+    // InternalPy.g:1613:1: entryRuleExprHd returns [EObject current=null] : iv_ruleExprHd= ruleExprHd EOF ;
     public final EObject entryRuleExprHd() throws RecognitionException {
         EObject current = null;
 
@@ -4347,8 +4250,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1661:47: (iv_ruleExprHd= ruleExprHd EOF )
-            // InternalPy.g:1662:2: iv_ruleExprHd= ruleExprHd EOF
+            // InternalPy.g:1613:47: (iv_ruleExprHd= ruleExprHd EOF )
+            // InternalPy.g:1614:2: iv_ruleExprHd= ruleExprHd EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprHdRule()); 
@@ -4379,7 +4282,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprHd"
-    // InternalPy.g:1668:1: ruleExprHd returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) ;
+    // InternalPy.g:1620:1: ruleExprHd returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) ;
     public final EObject ruleExprHd() throws RecognitionException {
         EObject current = null;
 
@@ -4393,13 +4296,13 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1674:2: ( (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) )
-            // InternalPy.g:1675:2: (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1626:2: ( (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) )
+            // InternalPy.g:1627:2: (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
             {
-            // InternalPy.g:1675:2: (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
-            // InternalPy.g:1676:3: otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')'
+            // InternalPy.g:1627:2: (otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1628:3: otherlv_0= '(' otherlv_1= 'hd' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_28); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_28); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getExprHdAccess().getLeftParenthesisKeyword_0());
@@ -4411,18 +4314,18 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getExprHdAccess().getHdKeyword_1());
               		
             }
-            // InternalPy.g:1684:3: ( (lv_arg_2_0= ruleExpr ) )
-            // InternalPy.g:1685:4: (lv_arg_2_0= ruleExpr )
+            // InternalPy.g:1636:3: ( (lv_arg_2_0= ruleExpr ) )
+            // InternalPy.g:1637:4: (lv_arg_2_0= ruleExpr )
             {
-            // InternalPy.g:1685:4: (lv_arg_2_0= ruleExpr )
-            // InternalPy.g:1686:5: lv_arg_2_0= ruleExpr
+            // InternalPy.g:1637:4: (lv_arg_2_0= ruleExpr )
+            // InternalPy.g:1638:5: lv_arg_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getExprHdAccess().getArgExprParserRuleCall_2_0());
               				
             }
-            pushFollow(FOLLOW_21);
+            pushFollow(FOLLOW_24);
             lv_arg_2_0=ruleExpr();
 
             state._fsp--;
@@ -4446,7 +4349,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+            otherlv_3=(Token)match(input,37,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getExprHdAccess().getRightParenthesisKeyword_3());
@@ -4477,7 +4380,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprTl"
-    // InternalPy.g:1711:1: entryRuleExprTl returns [EObject current=null] : iv_ruleExprTl= ruleExprTl EOF ;
+    // InternalPy.g:1663:1: entryRuleExprTl returns [EObject current=null] : iv_ruleExprTl= ruleExprTl EOF ;
     public final EObject entryRuleExprTl() throws RecognitionException {
         EObject current = null;
 
@@ -4485,8 +4388,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1711:47: (iv_ruleExprTl= ruleExprTl EOF )
-            // InternalPy.g:1712:2: iv_ruleExprTl= ruleExprTl EOF
+            // InternalPy.g:1663:47: (iv_ruleExprTl= ruleExprTl EOF )
+            // InternalPy.g:1664:2: iv_ruleExprTl= ruleExprTl EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprTlRule()); 
@@ -4517,7 +4420,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprTl"
-    // InternalPy.g:1718:1: ruleExprTl returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) ;
+    // InternalPy.g:1670:1: ruleExprTl returns [EObject current=null] : (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) ;
     public final EObject ruleExprTl() throws RecognitionException {
         EObject current = null;
 
@@ -4531,13 +4434,13 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1724:2: ( (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) )
-            // InternalPy.g:1725:2: (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1676:2: ( (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' ) )
+            // InternalPy.g:1677:2: (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
             {
-            // InternalPy.g:1725:2: (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
-            // InternalPy.g:1726:3: otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')'
+            // InternalPy.g:1677:2: (otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1678:3: otherlv_0= '(' otherlv_1= 'tl' ( (lv_arg_2_0= ruleExpr ) ) otherlv_3= ')'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_29); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_29); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getExprTlAccess().getLeftParenthesisKeyword_0());
@@ -4549,18 +4452,18 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getExprTlAccess().getTlKeyword_1());
               		
             }
-            // InternalPy.g:1734:3: ( (lv_arg_2_0= ruleExpr ) )
-            // InternalPy.g:1735:4: (lv_arg_2_0= ruleExpr )
+            // InternalPy.g:1686:3: ( (lv_arg_2_0= ruleExpr ) )
+            // InternalPy.g:1687:4: (lv_arg_2_0= ruleExpr )
             {
-            // InternalPy.g:1735:4: (lv_arg_2_0= ruleExpr )
-            // InternalPy.g:1736:5: lv_arg_2_0= ruleExpr
+            // InternalPy.g:1687:4: (lv_arg_2_0= ruleExpr )
+            // InternalPy.g:1688:5: lv_arg_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getExprTlAccess().getArgExprParserRuleCall_2_0());
               				
             }
-            pushFollow(FOLLOW_21);
+            pushFollow(FOLLOW_24);
             lv_arg_2_0=ruleExpr();
 
             state._fsp--;
@@ -4584,7 +4487,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+            otherlv_3=(Token)match(input,37,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getExprTlAccess().getRightParenthesisKeyword_3());
@@ -4615,7 +4518,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprSym"
-    // InternalPy.g:1761:1: entryRuleExprSym returns [EObject current=null] : iv_ruleExprSym= ruleExprSym EOF ;
+    // InternalPy.g:1713:1: entryRuleExprSym returns [EObject current=null] : iv_ruleExprSym= ruleExprSym EOF ;
     public final EObject entryRuleExprSym() throws RecognitionException {
         EObject current = null;
 
@@ -4623,8 +4526,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1761:48: (iv_ruleExprSym= ruleExprSym EOF )
-            // InternalPy.g:1762:2: iv_ruleExprSym= ruleExprSym EOF
+            // InternalPy.g:1713:48: (iv_ruleExprSym= ruleExprSym EOF )
+            // InternalPy.g:1714:2: iv_ruleExprSym= ruleExprSym EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprSymRule()); 
@@ -4655,7 +4558,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprSym"
-    // InternalPy.g:1768:1: ruleExprSym returns [EObject current=null] : (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) ) otherlv_3= ')' ) ;
+    // InternalPy.g:1720:1: ruleExprSym returns [EObject current=null] : (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) )+ otherlv_3= ')' ) ;
     public final EObject ruleExprSym() throws RecognitionException {
         EObject current = null;
 
@@ -4669,23 +4572,23 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1774:2: ( (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) ) otherlv_3= ')' ) )
-            // InternalPy.g:1775:2: (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) ) otherlv_3= ')' )
+            // InternalPy.g:1726:2: ( (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) )+ otherlv_3= ')' ) )
+            // InternalPy.g:1727:2: (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) )+ otherlv_3= ')' )
             {
-            // InternalPy.g:1775:2: (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) ) otherlv_3= ')' )
-            // InternalPy.g:1776:3: otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) ) otherlv_3= ')'
+            // InternalPy.g:1727:2: (otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) )+ otherlv_3= ')' )
+            // InternalPy.g:1728:3: otherlv_0= '(' ( (lv_arg1_1_0= RULE_SYMBOLE ) ) ( (lv_arg2_2_0= ruleExpr ) )+ otherlv_3= ')'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_4); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getExprSymAccess().getLeftParenthesisKeyword_0());
               		
             }
-            // InternalPy.g:1780:3: ( (lv_arg1_1_0= RULE_SYMBOLE ) )
-            // InternalPy.g:1781:4: (lv_arg1_1_0= RULE_SYMBOLE )
+            // InternalPy.g:1732:3: ( (lv_arg1_1_0= RULE_SYMBOLE ) )
+            // InternalPy.g:1733:4: (lv_arg1_1_0= RULE_SYMBOLE )
             {
-            // InternalPy.g:1781:4: (lv_arg1_1_0= RULE_SYMBOLE )
-            // InternalPy.g:1782:5: lv_arg1_1_0= RULE_SYMBOLE
+            // InternalPy.g:1733:4: (lv_arg1_1_0= RULE_SYMBOLE )
+            // InternalPy.g:1734:5: lv_arg1_1_0= RULE_SYMBOLE
             {
             lv_arg1_1_0=(Token)match(input,RULE_SYMBOLE,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4711,42 +4614,66 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalPy.g:1798:3: ( (lv_arg2_2_0= ruleExpr ) )
-            // InternalPy.g:1799:4: (lv_arg2_2_0= ruleExpr )
-            {
-            // InternalPy.g:1799:4: (lv_arg2_2_0= ruleExpr )
-            // InternalPy.g:1800:5: lv_arg2_2_0= ruleExpr
-            {
-            if ( state.backtracking==0 ) {
+            // InternalPy.g:1750:3: ( (lv_arg2_2_0= ruleExpr ) )+
+            int cnt13=0;
+            loop13:
+            do {
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-              					newCompositeNode(grammarAccess.getExprSymAccess().getArg2ExprParserRuleCall_2_0());
-              				
-            }
-            pushFollow(FOLLOW_21);
-            lv_arg2_2_0=ruleExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElementForParent(grammarAccess.getExprSymRule());
-              					}
-              					add(
-              						current,
-              						"arg2",
-              						lv_arg2_2_0,
-              						"org.xtext.comp.Py.Expr");
-              					afterParserOrEnumRuleCall();
-              				
-            }
-
-            }
+                if ( ((LA13_0>=RULE_SYMBOLE && LA13_0<=RULE_NIL)||LA13_0==35||LA13_0==41) ) {
+                    alt13=1;
+                }
 
 
-            }
+                switch (alt13) {
+            	case 1 :
+            	    // InternalPy.g:1751:4: (lv_arg2_2_0= ruleExpr )
+            	    {
+            	    // InternalPy.g:1751:4: (lv_arg2_2_0= ruleExpr )
+            	    // InternalPy.g:1752:5: lv_arg2_2_0= ruleExpr
+            	    {
+            	    if ( state.backtracking==0 ) {
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+            	      					newCompositeNode(grammarAccess.getExprSymAccess().getArg2ExprParserRuleCall_2_0());
+            	      				
+            	    }
+            	    pushFollow(FOLLOW_27);
+            	    lv_arg2_2_0=ruleExpr();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getExprSymRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"arg2",
+            	      						lv_arg2_2_0,
+            	      						"org.xtext.comp.Py.Expr");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt13 >= 1 ) break loop13;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(13, input);
+                        throw eee;
+                }
+                cnt13++;
+            } while (true);
+
+            otherlv_3=(Token)match(input,37,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getExprSymAccess().getRightParenthesisKeyword_3());
@@ -4777,7 +4704,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprNot"
-    // InternalPy.g:1825:1: entryRuleExprNot returns [EObject current=null] : iv_ruleExprNot= ruleExprNot EOF ;
+    // InternalPy.g:1777:1: entryRuleExprNot returns [EObject current=null] : iv_ruleExprNot= ruleExprNot EOF ;
     public final EObject entryRuleExprNot() throws RecognitionException {
         EObject current = null;
 
@@ -4785,8 +4712,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1825:48: (iv_ruleExprNot= ruleExprNot EOF )
-            // InternalPy.g:1826:2: iv_ruleExprNot= ruleExprNot EOF
+            // InternalPy.g:1777:48: (iv_ruleExprNot= ruleExprNot EOF )
+            // InternalPy.g:1778:2: iv_ruleExprNot= ruleExprNot EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprNotRule()); 
@@ -4817,7 +4744,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprNot"
-    // InternalPy.g:1832:1: ruleExprNot returns [EObject current=null] : (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) ;
+    // InternalPy.g:1784:1: ruleExprNot returns [EObject current=null] : (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) ;
     public final EObject ruleExprNot() throws RecognitionException {
         EObject current = null;
 
@@ -4829,11 +4756,11 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1838:2: ( (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) )
-            // InternalPy.g:1839:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
+            // InternalPy.g:1790:2: ( (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) ) )
+            // InternalPy.g:1791:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1839:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
-            // InternalPy.g:1840:3: otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) )
+            // InternalPy.g:1791:2: (otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) ) )
+            // InternalPy.g:1792:3: otherlv_0= 'not' ( (lv_arg1_1_0= ruleExpr ) )
             {
             otherlv_0=(Token)match(input,41,FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4841,11 +4768,11 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_0, grammarAccess.getExprNotAccess().getNotKeyword_0());
               		
             }
-            // InternalPy.g:1844:3: ( (lv_arg1_1_0= ruleExpr ) )
-            // InternalPy.g:1845:4: (lv_arg1_1_0= ruleExpr )
+            // InternalPy.g:1796:3: ( (lv_arg1_1_0= ruleExpr ) )
+            // InternalPy.g:1797:4: (lv_arg1_1_0= ruleExpr )
             {
-            // InternalPy.g:1845:4: (lv_arg1_1_0= ruleExpr )
-            // InternalPy.g:1846:5: lv_arg1_1_0= ruleExpr
+            // InternalPy.g:1797:4: (lv_arg1_1_0= ruleExpr )
+            // InternalPy.g:1798:5: lv_arg1_1_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
@@ -4901,7 +4828,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExprEq"
-    // InternalPy.g:1867:1: entryRuleExprEq returns [EObject current=null] : iv_ruleExprEq= ruleExprEq EOF ;
+    // InternalPy.g:1819:1: entryRuleExprEq returns [EObject current=null] : iv_ruleExprEq= ruleExprEq EOF ;
     public final EObject entryRuleExprEq() throws RecognitionException {
         EObject current = null;
 
@@ -4909,8 +4836,8 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalPy.g:1867:47: (iv_ruleExprEq= ruleExprEq EOF )
-            // InternalPy.g:1868:2: iv_ruleExprEq= ruleExprEq EOF
+            // InternalPy.g:1819:47: (iv_ruleExprEq= ruleExprEq EOF )
+            // InternalPy.g:1820:2: iv_ruleExprEq= ruleExprEq EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExprEqRule()); 
@@ -4941,7 +4868,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExprEq"
-    // InternalPy.g:1874:1: ruleExprEq returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
+    // InternalPy.g:1826:1: ruleExprEq returns [EObject current=null] : ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) ;
     public final EObject ruleExprEq() throws RecognitionException {
         EObject current = null;
 
@@ -4955,17 +4882,17 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalPy.g:1880:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) )
-            // InternalPy.g:1881:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1832:2: ( ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) ) )
+            // InternalPy.g:1833:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
             {
-            // InternalPy.g:1881:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
-            // InternalPy.g:1882:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1833:2: ( ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) ) )
+            // InternalPy.g:1834:3: ( (lv_arg1_0_0= ruleExprSimple ) ) otherlv_1= '=?' ( (lv_arg2_2_0= ruleExpr ) )
             {
-            // InternalPy.g:1882:3: ( (lv_arg1_0_0= ruleExprSimple ) )
-            // InternalPy.g:1883:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1834:3: ( (lv_arg1_0_0= ruleExprSimple ) )
+            // InternalPy.g:1835:4: (lv_arg1_0_0= ruleExprSimple )
             {
-            // InternalPy.g:1883:4: (lv_arg1_0_0= ruleExprSimple )
-            // InternalPy.g:1884:5: lv_arg1_0_0= ruleExprSimple
+            // InternalPy.g:1835:4: (lv_arg1_0_0= ruleExprSimple )
+            // InternalPy.g:1836:5: lv_arg1_0_0= ruleExprSimple
             {
             if ( state.backtracking==0 ) {
 
@@ -5002,11 +4929,11 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getExprEqAccess().getEqualsSignQuestionMarkKeyword_1());
               		
             }
-            // InternalPy.g:1905:3: ( (lv_arg2_2_0= ruleExpr ) )
-            // InternalPy.g:1906:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1857:3: ( (lv_arg2_2_0= ruleExpr ) )
+            // InternalPy.g:1858:4: (lv_arg2_2_0= ruleExpr )
             {
-            // InternalPy.g:1906:4: (lv_arg2_2_0= ruleExpr )
-            // InternalPy.g:1907:5: lv_arg2_2_0= ruleExpr
+            // InternalPy.g:1858:4: (lv_arg2_2_0= ruleExpr )
+            // InternalPy.g:1859:5: lv_arg2_2_0= ruleExpr
             {
             if ( state.backtracking==0 ) {
 
@@ -5096,34 +5023,28 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
 
 
     protected DFA9 dfa9 = new DFA9(this);
-    static final String dfa_1s = "\25\uffff";
-    static final String dfa_2s = "\1\uffff\3\11\16\uffff\1\11\1\uffff\1\11";
-    static final String dfa_3s = "\5\4\6\uffff\1\4\3\uffff\1\23\1\uffff\1\5\1\4\1\23\1\4";
-    static final String dfa_4s = "\1\51\3\52\1\50\6\uffff\1\51\3\uffff\1\52\1\uffff\1\5\1\52\1\42\1\52";
-    static final String dfa_5s = "\5\uffff\1\11\1\2\1\12\1\1\1\3\1\7\1\uffff\1\6\1\5\1\4\1\uffff\1\10\4\uffff";
-    static final String dfa_6s = "\25\uffff}>";
+    static final String dfa_1s = "\17\uffff";
+    static final String dfa_2s = "\1\uffff\3\11\13\uffff";
+    static final String dfa_3s = "\5\4\12\uffff";
+    static final String dfa_4s = "\1\51\3\52\1\50\12\uffff";
+    static final String dfa_5s = "\5\uffff\1\11\1\2\1\1\1\12\1\3\1\5\1\10\1\4\1\7\1\6";
+    static final String dfa_6s = "\17\uffff}>";
     static final String[] dfa_7s = {
-            "\1\3\1\2\1\1\32\uffff\1\4\7\uffff\1\5",
-            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\2\11\1\10\1\6\4\uffff\1\11\1\7",
-            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\2\11\1\10\1\6\4\uffff\1\11\1\7",
-            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\2\11\1\10\1\6\4\uffff\1\11\1\7",
-            "\1\13\40\uffff\1\16\1\15\1\14\1\12",
+            "\1\3\1\2\1\1\34\uffff\1\4\5\uffff\1\5",
+            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\1\7\1\6\1\11\1\uffff\1\11\3\uffff\1\11\1\10",
+            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\1\7\1\6\1\11\1\uffff\1\11\3\uffff\1\11\1\10",
+            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\1\7\1\6\1\11\1\uffff\1\11\3\uffff\1\11\1\10",
+            "\1\13\37\uffff\1\14\1\uffff\1\12\1\16\1\15",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\1\20\1\17\1\20\32\uffff\1\20\7\uffff\1\20",
             "",
             "",
             "",
-            "\1\21\16\uffff\1\22\2\20\5\uffff\1\20",
-            "",
-            "\1\23",
-            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\2\11\1\10\1\6\4\uffff\1\11\1\7",
-            "\1\21\16\uffff\1\24",
-            "\3\11\12\uffff\1\11\1\uffff\2\11\1\uffff\3\11\3\uffff\2\11\3\uffff\2\11\1\10\1\6\4\uffff\1\11\1\7"
+            ""
     };
 
     static final short[] dfa_1 = DFA.unpackEncodedString(dfa_1s);
@@ -5165,7 +5086,7 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000080002L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000020200000070L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000020800000070L});
     public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000001800000L});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000001000000L});
@@ -5173,13 +5094,13 @@ public class InternalPyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000010000000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000020000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000400000000L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000001000000000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000020200000072L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000020800000072L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000020600000070L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000022800000070L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000010000000000L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000040000000000L});

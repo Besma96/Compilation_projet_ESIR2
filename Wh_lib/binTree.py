@@ -7,8 +7,8 @@ class binTree:
     # #Utilisation : appeler le constructeur de la class ebibTRee consiste seulement à initialier reserver la place pour l'arbre qu dsera crée après
     def __init__(self):
         self.node = "nil"
-        self.left = "nil"
-        self.right = "nil"
+        self.left = None
+        self.right =None
 
         
     #getteur
