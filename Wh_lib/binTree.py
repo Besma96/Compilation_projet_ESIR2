@@ -4,16 +4,16 @@ import WhLib as wh
 class binTree:
     #constructeur
     # #Le constructeur est vide car on construira l'arbre grace aux methode list, cons, etc...
-    # #Utilisation : appeler le constructeur de la class ebibTRee consiste seulement Ã  initialier reserver la place pour l'arbre qu dsera crÃ©e aprÃ¨s
+    # #Utilisation : appeler le constructeur de la class ebibTRee consiste seulement à initialier reserver la place pour l'arbre qu dsera crée après
     def __init__(self):
-        self.node = "nil"
+        self.node = None
         self.left = None
         self.right =None
 
         
     #getteur
     def getNode(self):
-        return self.node
+		return self.node
     
     def getLeft(self):
         return self.left
@@ -58,7 +58,7 @@ class binTree:
             return False
 
 
-    ## construction d'un binTree Ã  partir de deux paramÃ¨tres fils droit et fils gauche
+    ## construction d'un binTree à partir de deux paramètres fils droit et fils gauche
     def cons(self, l, r):
         tree = binTree()
         if((l is None) & (r is None)):
@@ -71,7 +71,7 @@ class binTree:
             tree.right = r
         return tree
 
-    ## construction d'un binTree Ã  partir d'un binTree passÃ© en paramÃ¨tre
+    ## construction d'un binTree à partir d'un binTree passé en paramètre
     def cons_solo(self, X):
         self.node = X.node
         self.left = X.left
@@ -89,4 +89,4 @@ class binTree:
                     liste_nodes.append(node)
                     nodes.put(node.head())
                     nodes.put(node.tail())
-        return liste_nodes
+return liste_nodes

@@ -80,7 +80,7 @@ class WhLib:
         if (not isinstance(X,bt.binTree)):
             return str(X)
         else:
-            return "(  " +WhLib.toString(self,X.getLeft())+" cons " + WhLib.toString(self,X.getRight()) + ")"
+            return "(cons " +WhLib.toString(self,X.getLeft())+" " + WhLib.toString(self,X.getRight()) + ")"
     
     def and_wh(self,X,Y):
         return (WhLib.isTrue(self,X) and WhLib.isTrue(self,Y))
@@ -96,4 +96,3 @@ class WhLib:
     def all_nodes(self, tree):
         if tree is not None:
             return tree.all_nodes() 
-        
