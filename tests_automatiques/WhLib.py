@@ -26,7 +26,7 @@ class WhLib:
         else:
             if tree==False or tree==None:
                 return False
-        if tree.node=="nil":
+        if tree=="nil":
             return False
         return True
         
