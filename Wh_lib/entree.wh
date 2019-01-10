@@ -1,9 +1,8 @@
 function main:
 read X, Y, Z
 %
-	foreach C in (cons nil nil nil) do
-		S:=(cons nil  C)
-	od;
+	foreach C in (cons nil nil) do
 	L:=(cons X Y Z)
+	od
 %
-write X, Y, Z, L, S 
+write X, Y, L 
