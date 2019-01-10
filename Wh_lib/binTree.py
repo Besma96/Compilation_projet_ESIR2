@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*
 import queue as qu
 import WhLib as wh
 
@@ -6,14 +7,14 @@ class binTree:
     # #Le constructeur est vide car on construira l'arbre grace aux methode list, cons, etc...
     # #Utilisation : appeler le constructeur de la class ebibTRee consiste seulement à initialier reserver la place pour l'arbre qu dsera crée après
     def __init__(self):
-        self.node = "nil"
+        self.node = None
         self.left = None
         self.right =None
 
         
     #getteur
     def getNode(self):
-        return self.node
+	    return self.node
     
     def getLeft(self):
         return self.left
@@ -60,12 +61,11 @@ class binTree:
 
     ## construction d'un binTree à partir de deux paramètres fils droit et fils gauche
     def cons(self, l, r):
-        tree = binTree()
+        
         if((l is None) & (r is None)):
-            tree.node = "nil"
-            tree.left = None
-            tree.right = None
+          tree="nil"
         else :
+            tree = binTree()
             tree.node = "cons"
             tree.left = l
             tree.right = r

@@ -1,0 +1,7 @@
+
+function  main:	
+	read  V,Z	
+	%		
+		X,Y:= V,Z	
+	%	
+	write  X,Y

@@ -1,9 +1,10 @@
+#-*- coding:utf-8 -*
 import binTree as bt
 import copy
 import queue as qu
 
 class WhLib:
-    # se reporter à la table de traduction pour les équivalents while
+    # se reporter Ã  la table de traduction pour les Ã©quivalents while
 
     def nop(self):
         pass
@@ -12,7 +13,10 @@ class WhLib:
         return bt.binTree().cons(None, None)
 
     def hd(self, tree):
-        return tree.head()
+
+        if( isinstance(tree, bt.binTree)):
+            return tree.head()
+        return None
 
     def tail(self, tree):
         #print(type(tree.tail()))
@@ -26,7 +30,7 @@ class WhLib:
         else:
             if tree==False or tree==None:
                 return False
-        if tree.node=="nil":
+        if tree=="nil":
             return False
         return True
         
@@ -70,7 +74,7 @@ class WhLib:
         res = 0
         tree=X
         while isinstance(tree,bt.binTree) :
-            if(tree.node=="cons"):
+            if tree.node=="cons":
                 res+=1
             tree=tree.getRight()
             
@@ -79,8 +83,9 @@ class WhLib:
     def toString(self,X) -> str:
         if (not isinstance(X,bt.binTree)):
             return str(X)
+        
         else:
-            return "(  " +WhLib.toString(self,X.getLeft())+" cons " + WhLib.toString(self,X.getRight()) + ")"
+            return "(cons " +WhLib.toString(self,X.getLeft())+" " + WhLib.toString(self,X.getRight()) + ")"
     
     def and_wh(self,X,Y):
         return (WhLib.isTrue(self,X) and WhLib.isTrue(self,Y))
@@ -96,4 +101,3 @@ class WhLib:
     def all_nodes(self, tree):
         if tree is not None:
             return tree.all_nodes() 
-        
