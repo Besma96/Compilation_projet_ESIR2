@@ -1,0 +1,8 @@
+function testfor:
+read X
+%
+    for X do 
+	Var:=(cons nil X)
+    od
+%
+write Var,X

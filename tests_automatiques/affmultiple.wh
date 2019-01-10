@@ -1,0 +1,7 @@
+
+function  affmultiple:	
+read  V,Z	
+%		
+   X,Y:= V,Z	
+%	
+write  X,Y

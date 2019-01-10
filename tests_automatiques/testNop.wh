@@ -1,0 +1,7 @@
+
+function testNop:
+read X	
+%
+	nop
+%
+write X

@@ -1,0 +1,8 @@
+function testif:
+read X,Y
+%
+  if X =? Y then
+     X:= nil
+  if
+%
+write X,Y
