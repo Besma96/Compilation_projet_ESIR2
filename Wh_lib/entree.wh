@@ -1,8 +1,6 @@
 function main:
-read X, Y, Z
+read B, C
 %
-	foreach C in (cons nil nil) do
-	L:=(cons X Y Z)
-	od
+	A := B =? C	
 %
-write X, Y, L 
+write X,  
