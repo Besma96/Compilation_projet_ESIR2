@@ -1,6 +1,14 @@
 function main:
 read B, C
 %
-	A := B =? C	
+	L:=(list nil (autre B C));
+	K:=(cons (autre B C))	
 %
-write X,  
+write B, C, L, K
+
+function autre :
+read B, C
+%
+	nop
+%
+write B, C
