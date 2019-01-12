@@ -1,0 +1,32 @@
+function main:
+	read A, B
+	%
+        R := A;
+        C := (cons nil nil);
+        for B do
+            S := (cons nil S);
+            if S =? R then
+                C := nil
+            fi
+        od;
+        if R =? B then
+            R := nil;
+            Q := (cons nil nil)
+        fi;
+        while C do
+            Q := (cons nil Q);
+            for B do
+                R := (tl R)
+            od;
+            C := (cons nil nil);
+            S := nil;
+            for B do
+                S := (cons nil S);
+                if S =? R then
+                    C := nil
+                fi
+            od  
+		od
+
+	%
+	write R, Q 

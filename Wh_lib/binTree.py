@@ -14,7 +14,7 @@ class binTree:
         
     #getteur
     def getNode(self):
-	    return self.node
+        return self.node
     
     def getLeft(self):
         return self.left

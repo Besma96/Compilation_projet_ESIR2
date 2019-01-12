@@ -1,0 +1,22 @@
+function main:
+	read A
+	%
+		R := (cons nil nil);
+		S := nil;
+		for A do
+			S := (cons nil S);
+			R := (mult S R)
+		od
+    %
+	write  R
+
+function mult:
+	read A, B
+	%
+		for A do
+            for B do
+                C:= (cons nil C)
+            od
+        od 
+	%
+	write C

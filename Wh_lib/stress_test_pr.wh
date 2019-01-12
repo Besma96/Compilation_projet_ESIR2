@@ -1,0 +1,14 @@
+function main:
+    read A
+    %
+        for A do
+            for A do
+                for A do
+                    for A do
+                        C := (cons nil C)
+                    od
+                od
+            od
+        od 
+    %
+    write C

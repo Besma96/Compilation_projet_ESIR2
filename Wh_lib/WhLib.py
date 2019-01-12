@@ -4,7 +4,7 @@ import copy
 import queue as qu
 
 class WhLib:
-    # se reporter Ã  la table de traduction pour les Ã©quivalents while
+    # se reporter à la table de traduction pour les équivalents while
 
     def nop(self):
         pass
@@ -39,6 +39,8 @@ class WhLib:
         equal=True
         tree1=X
         tree2=Y
+        if(isinstance(X, str) and isinstance(Y, str)):
+            return (X == Y)
         while(isinstance(tree1,bt.binTree) and isinstance(tree2,bt.binTree)):
             #if(tree1.getLeft() not None and tree2.getLeft() not None):
             equal=(tree1.getLeft()==tree2.getLeft())
@@ -100,4 +102,4 @@ class WhLib:
 
     def all_nodes(self, tree):
         if tree is not None:
-            return tree.all_nodes() 
+            return tree.all_nodes()
