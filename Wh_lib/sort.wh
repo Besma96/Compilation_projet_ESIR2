@@ -1,12 +1,7 @@
 function main:
 	read G, H, I, J, K
 	%
-        L := (cons K nil);
-        L := (cons J L);
-        L := (cons I L);
-        L := (cons H L);
-        L := (cons G L);
-
+        L := (list G H I J K );
         R := (sort L);
         for L do
             R := (sort R)
