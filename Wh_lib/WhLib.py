@@ -82,6 +82,48 @@ class WhLib:
             
         return res
 
+    def clean(self,val):
+        list_val=val.split(" ")
+        #nb=list_val[len(list_val)-1].count(')')
+        #for i in range(0,nb):
+         #   list_val[len(list_val)-1].replace(")","")
+        for i in range(0,len(list_val)-1):
+                list_val[i].replace(")","")
+        if ("cons" in list_val[0]):       
+            del list_val[0] 
+        if len(list_val)>=1:
+            list_val[len(list_val)-1]="nil"
+        else:
+            list_val="nil"
+        return list_val
+
+
+    def stringToBinTree(self,val):
+        if val.isdigit():
+            return WhLib().intToBinTree(int(val))
+        if val=="nil":
+            return WhLib().cons()
+        else:
+            if not val=="":
+                sentence=WhLib().clean(val)
+                for i in range(0,len(sentence)):
+                    if("cons" not in sentence[i]) :
+                        tmp=sentence
+                        del tmp[i]
+                        s=""
+                        for i in range(0,len(tmp)-1):
+                            s+=tmp[i]+" "
+                        return WhLib().cons(sentence[i],WhLib().stringToBinTree(s))
+                    else:
+                        tmp=sentence[i+1]+" "+sentence[i+2]
+                        i=i+3
+                        return WhLib().stringToBinTree(tmp)
+            else:
+                return "nil"
+    
+
+
+            
     def toString(self,X) -> str:
         if (not isinstance(X,bt.binTree)):
             return str(X)

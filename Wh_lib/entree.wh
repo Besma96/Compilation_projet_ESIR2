@@ -1,14 +1,6 @@
 function main:
-read B, C, D
+read A
 %
-	L:=(list nil (autre B C D));
-	K:=(cons nil (autre B C D))	
+nop
 %
-write B, C, L, K
-
-function autre :
-read B, C, D
-%
-	nop
-%
-write B, C, D
+write A

@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*
 import queue as qu
 import WhLib as wh
 
@@ -8,7 +9,7 @@ class binTree:
     def __init__(self):
         self.node = None
         self.left = None
-        self.right = None
+        self.right =None
 
         
     #getteur
@@ -60,12 +61,11 @@ class binTree:
 
     ## construction d'un binTree à partir de deux paramètres fils droit et fils gauche
     def cons(self, l, r):
-        tree = binTree()
+        
         if((l is None) & (r is None)):
-            tree.node = "nil"
-            tree.left = None
-            tree.right = None
+          tree="nil"
         else :
+            tree = binTree()
             tree.node = "cons"
             tree.left = l
             tree.right = r
@@ -90,4 +90,3 @@ class binTree:
                     nodes.put(node.head())
                     nodes.put(node.tail())
         return liste_nodes
-
