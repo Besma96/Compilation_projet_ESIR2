@@ -1,0 +1,17 @@
+function main :
+read X, Y
+%
+		L:=(cons (autre Y Z));
+
+	
+	nop
+%
+write X, Y, L
+
+
+function autre :
+read A, B
+%
+	nop
+%
+write A, B

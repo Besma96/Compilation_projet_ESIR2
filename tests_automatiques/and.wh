@@ -1,0 +1,10 @@
+function main :
+read A, B
+%
+	Z:=nil;
+	C:=not A=?B;
+	if C and not A=?nil then 
+		Z:=(cons A B)
+	fi
+%
+write Z
