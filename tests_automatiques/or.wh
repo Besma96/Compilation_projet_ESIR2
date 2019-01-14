@@ -1,0 +1,11 @@
+function main :
+read A, B
+%
+	C := A =? B;
+	Z:= nil;
+	Y:=(cons nil nil);
+	if C or B=?Y then
+		Z:=(cons A B)
+	fi
+%
+write Z, Y, B
