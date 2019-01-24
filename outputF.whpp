@@ -1,9 +1,0 @@
-function p:
-read X,Y
-%
-	nop;
-	nop;
-	nop
-%
-write Y
-

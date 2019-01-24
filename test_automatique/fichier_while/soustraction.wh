@@ -1,8 +1,0 @@
-function main:
-	read A, B
-	%
-        for B do
-            A := (tl A)
-		od 
-	%
-	write A 

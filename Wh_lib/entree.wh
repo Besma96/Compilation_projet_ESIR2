@@ -1,6 +1,0 @@
-function main:
-read A
-%
-nop
-%
-write A

@@ -1,8 +1,0 @@
-function main : 
-read A
-%
-	for A do
-		C:= (cons nil C)
-	od
-%
-write C

@@ -1,8 +1,0 @@
-function main:
-	read A, B
-	%
-		for A do 
-			B := (cons nil B)
-		od 
-	%
-	write B 
