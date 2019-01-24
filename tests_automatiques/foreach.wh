@@ -1,0 +1,8 @@
+function main:
+read A, B
+%
+	foreach A in (cons A B) do
+		Z:=(cons (hd B) A)
+	od
+%
+write Z
