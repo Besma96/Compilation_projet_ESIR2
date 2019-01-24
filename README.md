@@ -20,3 +20,14 @@ WHILE en un exécutable PYTHON. Pour le lancer il faut utiliser le script **whc_
 ` whc_Python fichierEntree.wh fichierSortie.py `, cette commande va traduire le fichier WHILE en python
 qu'on pourra par la suite exécuter comme suit : ` python3 fichierSortie.py 1 2 par exemple `.
 # Organisation du repository
+La dépôt est organisé comme suit 
+* Documents : contient les documents de spécification du langage WHILE, de sa sémantique ainsi que de son typage
+* fichiersSourcesCompilateur : contient les fichiers sources pour le développement du compilateur
+* fichiersSourcesPP : contient les fichiers sources pour le développement du pretty-printer
+* TestsPP : contient les tests ainsi que les resultats de ces derniers concernant le pretty-printer
+* TestsCompilateur : contient les tests pour la validation du compilateur
+* Wh_lib : contient la librairie python qui permet l'exécution du code python généré.
+* whc_Python : script de lancement du compilateur
+* whpp : script de lancement du pretty-printer
+* while_v_final.jar : l'exécutable jar qui permet de faire fonctionner le script **whpp**
+* whc_python.jar : l'exécutable jar qui permet de faire fonctionner le script **whc_Python**
